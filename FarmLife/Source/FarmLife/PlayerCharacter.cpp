@@ -3,6 +3,7 @@
 
 #include "PlayerCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 // Sets default values
 APlayerCharacter::APlayerCharacter()
 {
@@ -11,13 +12,13 @@ APlayerCharacter::APlayerCharacter()
 	
 	//ÉJÉÅÉâ
 	FirstPersonCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FPSCamera"));
-	FirstPersonCamera->SetupAttachment(RootComponent);
-	FirstPersonCamera->SetRelativeLocation(FVector(0,0,64));
-	FirstPersonCamera->bUsePawnControlRotation = true;
+	FirstPersonCamera-> SetupAttachment(RootComponent);
+	FirstPersonCamera-> SetRelativeLocation(FVector(0,0,64));
+	FirstPersonCamera-> bUsePawnControlRotation = true;
 	
-	bUseControllerRotationYaw = true;
-	bUseControllerRotationPitch = true;
-	bUseControllerRotationRoll = false;
+	bUseControllerRotationYaw    = true;
+	bUseControllerRotationPitch  = true;
+	bUseControllerRotationRoll   = false;
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 }
@@ -27,14 +28,14 @@ void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	if (APlayerController* PC = Cast<APlayerController>(GetController()))
+	if (APlayerController* player_controller = Cast<APlayerController>(GetController()))
 	{
-		if (ULocalPlayer* LP = PC->GetLocalPlayer())
+		if (ULocalPlayer*  local_player = player_controller->GetLocalPlayer())
 		{
-			if (UEnhancedInputLocalPlayerSubsystem* Subsystem =
-				LP->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>())
+			if (UEnhancedInputLocalPlayerSubsystem* subsystem =
+				local_player->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>())
 			{
-				Subsystem->AddMappingContext(InputMapingContext,0);
+				subsystem->AddMappingContext(InputMapingContext,0);
 			}
 		}
 	}
@@ -51,36 +52,75 @@ void APlayerCharacter::Tick(float DeltaTime)
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	if (UEnhancedInputComponent* EnhancedInput =
-		Cast<UEnhancedInputComponent>(PlayerInputComponent))
+
+	if (UEnhancedInputComponent* enhanced_input = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
-		EnhancedInput->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Move);
-		EnhancedInput->BindAction(LookAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
+		enhanced_input->BindAction(MoveAction,   ETriggerEvent::Triggered, this, &APlayerCharacter::Move);
+		enhanced_input->BindAction(LookAction,   ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
+		enhanced_input->BindAction(AttackAction, ETriggerEvent::Started,   this, &APlayerCharacter::Attack);
 	}
 }
 
 //à⁄ìÆä÷êî
 void APlayerCharacter::Move(const FInputActionValue& Value)
 {
-	FVector2D InputVector = Value.Get<FVector2D>();
+	FVector2D input_vector = Value.Get<FVector2D>();
 
 	if (Controller != nullptr)
 	{
-		const FRotator Rotation = Controller->GetControlRotation();
-		const FRotator YawRotation(0,Rotation.Yaw,0);
-		const FVector  Forward = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-		const FVector  Right = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+		const FRotator rotation  = Controller->GetControlRotation();
+		const FRotator yaw_rotation(0,rotation.Yaw,0);
+		const FVector  forward   = FRotationMatrix(yaw_rotation).GetUnitAxis(EAxis::X);
+		const FVector  right     = FRotationMatrix(yaw_rotation).GetUnitAxis(EAxis::Y);
 
-		AddMovementInput(Forward, InputVector.Y);
-		AddMovementInput(Right, InputVector.X);
+		AddMovementInput(forward, input_vector.Y);
+		AddMovementInput(right,   input_vector.X);
 	}
 }
 
 //éãì_à⁄ìÆä÷êî
 void APlayerCharacter::Look(const FInputActionValue& Value)
 {
-	FVector2D LookVector = Value.Get<FVector2D>();
+	FVector2D lookVector = Value.Get<FVector2D>();
 
-	AddControllerYawInput(LookVector.Y);
-	AddControllerPitchInput(LookVector.X);
+	AddControllerYawInput  (lookVector.Y);
+	AddControllerPitchInput(lookVector.X);
+}
+
+//çUåÇä÷êî
+void APlayerCharacter::Attack()
+{
+	FVector start   = FirstPersonCamera->GetComponentLocation();
+	FVector forward = FirstPersonCamera->GetForwardVector();
+	FVector end     = start + (forward * 200.0f);
+
+	float radius    = 50.0f;//çUåÇÇÃîÕàÕ
+
+	FHitResult hit;
+	FCollisionQueryParams params;
+	params.AddIgnoredActor(this);
+
+	bool flag_hit = GetWorld()->SweepSingleByChannel(
+		hit, 
+		start, 
+		end, 
+		FQuat::Identity, 
+		ECC_Visibility, 
+		FCollisionShape::MakeSphere(radius)
+	);
+
+	if (flag_hit)
+	{
+		UGameplayStatics::ApplyDamage(
+		hit.GetActor(),
+		1.0f,
+		GetController(),
+		this,
+		nullptr);
+	}
+}
+
+void APlayerCharacter::AddMoney(int32 amount)
+{
+	money += amount;
 }

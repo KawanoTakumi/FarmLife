@@ -34,6 +34,10 @@ public:
 
 	void Look(const FInputActionValue& Value);
 
+	void Attack();
+
+	void AddMoney(int32 amount);
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
 	UInputMappingContext* InputMapingContext;
 
@@ -43,6 +47,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
 	UInputAction* LookAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
+	UInputAction* AttackAction;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "camera")
 	UCameraComponent* FirstPersonCamera;
+
+	int32 money = 0;
 };
