@@ -40,6 +40,16 @@ void APlayerCharacter::BeginPlay()
 			}
 		}
 	}
+
+	//UIê∂ê¨
+	if (GameMainUserWidgetClass)
+	{
+		GameMainUserWidget = CreateWidget<UGameMainUserWidget>(GetWorld(), GameMainUserWidgetClass);
+		if (GameMainUserWidget)
+		{
+			GameMainUserWidget->AddToViewport();
+		}
+	}
 }
 
 // Called every frame
@@ -124,6 +134,13 @@ void APlayerCharacter::Attack()
 void APlayerCharacter::AddMoney(int32 amount)
 {
 	money += amount;
+
+	//UIçXêV
+	if (GameMainUserWidget)
+	{
+		GameMainUserWidget->UpdateMeoney(money);
+	}
+
 	UE_LOG(LogTemp, Warning, TEXT("money : %d"),money);
 }
 

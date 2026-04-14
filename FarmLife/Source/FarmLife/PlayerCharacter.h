@@ -9,6 +9,7 @@
 #include "InputActionValue.h"
 #include "Camera/CameraComponent.h"
 #include "Blueprint/UserWidget.h"
+#include "GameMainUserWidget.h"
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -54,8 +55,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "camera")
 	UCameraComponent* FirstPersonCamera;
 
+	UPROPERTY(EditAnywhere, Category = "UI")
+	TSubclassOf<UGameMainUserWidget> GameMainUserWidgetClass;
 
-	
+	UPROPERTY()
+	UGameMainUserWidget* GameMainUserWidget;
 
 	UFUNCTION(BlueprintCallable)
 	int32 GetMoney()const;
