@@ -28,6 +28,7 @@ void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	//コントローラー取得
 	if (APlayerController* player_controller = Cast<APlayerController>(GetController()))
 	{
 		if (ULocalPlayer*  local_player = player_controller->GetLocalPlayer())
@@ -123,4 +124,10 @@ void APlayerCharacter::Attack()
 void APlayerCharacter::AddMoney(int32 amount)
 {
 	money += amount;
+	UE_LOG(LogTemp, Warning, TEXT("money : %d"),money);
+}
+
+int32 APlayerCharacter::GetMoney()const
+{
+	return money;
 }

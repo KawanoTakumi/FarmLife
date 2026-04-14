@@ -8,6 +8,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "Camera/CameraComponent.h"
+#include "Blueprint/UserWidget.h"
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -52,6 +53,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "camera")
 	UCameraComponent* FirstPersonCamera;
+
+
+	
+
+	UFUNCTION(BlueprintCallable)
+	int32 GetMoney()const;
 
 	int32 money = 0;
 };
