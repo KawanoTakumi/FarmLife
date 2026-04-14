@@ -95,7 +95,7 @@ void APlayerCharacter::Attack()
 	FVector forward = FirstPersonCamera->GetForwardVector();
 	FVector end     = start + (forward * 200.0f);
 
-	float radius    = 50.0f;//UŒ‚‚Ì”ÍˆÍ
+	float radius    = 90.0f;//UŒ‚‚Ì”ÍˆÍ
 
 	FHitResult hit;
 	FCollisionQueryParams params;
