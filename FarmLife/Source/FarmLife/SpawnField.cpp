@@ -20,14 +20,13 @@ ASpawnField::ASpawnField()
 void ASpawnField::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	SpawnCrops(25);
 }
 
 // Called every frame
 void ASpawnField::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 FVector ASpawnField::GetRandomPointInField() const

@@ -36,6 +36,6 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	UBoxComponent* SpawnArea;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Crops")
 	TArray<TSubclassOf<ABaseCrop>> CropClass;
 };
