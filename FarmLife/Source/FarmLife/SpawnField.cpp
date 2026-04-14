@@ -3,6 +3,7 @@
 
 #include "SpawnField.h"
 #include "BaseCrop.h"
+#include "PlayerCharacter.h"
 // Sets default values
 ASpawnField::ASpawnField()
 {
@@ -14,13 +15,16 @@ ASpawnField::ASpawnField()
 
 	SpawnArea = CreateDefaultSubobject<UBoxComponent>(TEXT("SpawnArea"));
 	SpawnArea->SetupAttachment(FieldMesh);
+	SpawnArea->SetGenerateOverlapEvents(true);
+	SpawnArea->SetCollisionProfileName(TEXT("Trigger"));
 }
 
 // Called when the game starts or when spawned
 void ASpawnField::BeginPlay()
 {
 	Super::BeginPlay();
-	SpawnCrops(25);
+	SpawnArea->OnComponentBeginOverlap.AddDynamic(this, &ASpawnField::OnOverlapBegin);
+	SpawnArea->OnComponentEndOverlap.AddDynamic(this, &ASpawnField::OnOverlapEnd);
 }
 
 // Called every frame
@@ -49,10 +53,58 @@ void ASpawnField::SpawnCrops(int32 count)
 		int32 index = FMath::RandRange(0, CropClass.Num() - 1);
 		TSubclassOf<ABaseCrop> select = CropClass[index];
 
-		GetWorld()->SpawnActor<ABaseCrop>(
+		ABaseCrop* thisCrop = GetWorld()->SpawnActor<ABaseCrop>(
 		select,
 		Location,
 		FRotator::ZeroRotator
 		);
+
+		//îzóÒÇ…äiî[ÇµÇƒÇ®Ç≠
+		if (thisCrop)
+			SpawnedCrops.Add(thisCrop);
+	}
+}
+
+void ASpawnField::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent,AActor* OtherActor,
+	UPrimitiveComponent* OtherComp,int32 OtherBodyIndex,bool bFromSweep,const FHitResult& SweepResult)
+{
+	if (!OtherActor)return;
+	APlayerCharacter* Player = Cast<APlayerCharacter>(OtherActor);
+	if (Player)
+	{
+		GetWorldTimerManager().ClearTimer(EndOverlapTimer);
+
+		if (!IsInvidePlayer)
+		{
+			IsInvidePlayer = true;
+			SpawnCrops(25);//âºÇ≈25ê∂ê¨
+		}
+	}
+}
+
+void ASpawnField::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent,AActor* OtherActor,
+	UPrimitiveComponent* OtherComp,int32 OtherBodyIndex)
+{
+	if (APlayerCharacter* Player = Cast<APlayerCharacter>(OtherActor))
+	{
+		GetWorldTimerManager().SetTimer(EndOverlapTimer, this, &ASpawnField::OnDerayEnd, 0.4f, false);
+	}
+}
+
+void ASpawnField::OnDerayEnd()
+{
+	if (IsInvidePlayer)
+	{
+		for (ABaseCrop* Crop : SpawnedCrops)
+		{
+			//íÜêgÇ™Ç†ÇÈèÍçáÇÃÇ›çÌèú
+			if (IsValid(Crop))
+			{
+				Crop->Destroy();
+			}
+		}
+		//èâä˙âª
+		SpawnedCrops.Empty();
+		IsInvidePlayer = false;
 	}
 }
