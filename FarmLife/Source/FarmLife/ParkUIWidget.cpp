@@ -3,12 +3,12 @@
 
 #include "ParkUIWidget.h"
 
-void UParkUIWidget::SetUo(TArray<UParkData*> data)
+void UParkUIWidget::SetUo(const TArray<UParkData*> data)
 {
 	ParkListView->ClearListItems();
 
 	for (auto* Park : data)
 	{
-
+		ParkListView->AddItem(Park);
 	}
 }

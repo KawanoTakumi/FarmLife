@@ -17,10 +17,9 @@ class FARMLIFE_API UParkUIWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
-	UParkData* ParkData;
-
+	UFUNCTION(BlueprintCallable)
 	void SetUo(TArray<UParkData*> park);
 
-protected:
+	UPROPERTY(meta = (BindWidget))
 	UListView* ParkListView;
 };
