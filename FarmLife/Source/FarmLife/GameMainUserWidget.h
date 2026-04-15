@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/TextBlock.h"
+#include "SpawnField.h"
 #include "GameMainUserWidget.generated.h"
 
 /**
@@ -18,6 +19,14 @@ class FARMLIFE_API UGameMainUserWidget : public UUserWidget
 protected:
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* MoneyText;
+
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* TimerText;
+
+	UPROPERTY(EditAnywhere)
+	ASpawnField* SpawnField;
+
+	virtual void NativeConstruct() override;
 
 public:
 	UFUNCTION(BlueprintCallable)

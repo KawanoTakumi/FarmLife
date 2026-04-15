@@ -1,0 +1,26 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Blueprint/UserWidget.h"
+#include "ParkData.h"
+#include "Components/ListView.h"
+#include "ParkUIWidget.generated.h"
+
+/**
+ * 
+ */
+UCLASS()
+class FARMLIFE_API UParkUIWidget : public UUserWidget
+{
+	GENERATED_BODY()
+	
+public:
+	UParkData* ParkData;
+
+	void SetUo(TArray<UParkData*> park);
+
+protected:
+	UListView* ParkListView;
+};

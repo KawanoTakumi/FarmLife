@@ -3,6 +3,12 @@
 
 #include "GameMainUserWidget.h"
 
+//StartŠÖ”
+void UGameMainUserWidget::NativeConstruct()
+{
+	Super::NativeConstruct();
+}
+
 //‚¨‹à•\¦XV
 void UGameMainUserWidget::UpdateMeoney(int32 money)
 {

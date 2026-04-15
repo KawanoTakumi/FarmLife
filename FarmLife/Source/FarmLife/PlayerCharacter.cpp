@@ -50,6 +50,7 @@ void APlayerCharacter::BeginPlay()
 			GameMainUserWidget->AddToViewport();
 		}
 	}
+
 }
 
 // Called every frame
@@ -105,7 +106,7 @@ void APlayerCharacter::Attack()
 	FVector forward = FirstPersonCamera->GetForwardVector();
 	FVector end     = start + (forward * 200.0f);
 
-	float radius    = 90.0f;//UŒ‚‚Ì”ÍˆÍ
+	float radius    = atk_radius;//UŒ‚‚Ì”ÍˆÍ
 
 	FHitResult hit;
 	FCollisionQueryParams params;
@@ -124,7 +125,7 @@ void APlayerCharacter::Attack()
 	{
 		UGameplayStatics::ApplyDamage(
 		hit.GetActor(),
-		1.0f,
+		atk_power,
 		GetController(),
 		this,
 		nullptr);
@@ -142,9 +143,4 @@ void APlayerCharacter::AddMoney(int32 amount)
 	}
 
 	UE_LOG(LogTemp, Warning, TEXT("money : %d"),money);
-}
-
-int32 APlayerCharacter::GetMoney()const
-{
-	return money;
 }

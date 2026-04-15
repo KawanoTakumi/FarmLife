@@ -10,6 +10,7 @@
 #include "Camera/CameraComponent.h"
 #include "Blueprint/UserWidget.h"
 #include "GameMainUserWidget.h"
+#include "SpawnField.h"
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -40,6 +41,7 @@ public:
 
 	void AddMoney(int32 amount);
 
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
 	UInputMappingContext* InputMapingContext;
 
@@ -61,8 +63,7 @@ public:
 	UPROPERTY()
 	UGameMainUserWidget* GameMainUserWidget;
 
-	UFUNCTION(BlueprintCallable)
-	int32 GetMoney()const;
-
-	int32 money = 0;
+	int32 money = 0;//Š‹à
+	int32 atk_power = 1;//UŒ‚—Í
+	int32 atk_radius = 90;//UŒ‚”ÍˆÍ
 };

@@ -62,7 +62,10 @@ public:
 
 	void OnDerayEnd();
 
+	void AddCrop(TSubclassOf<ABaseCrop> crop_class);
+
 private:
 	FTimerHandle EndOverlapTimer;//非接触時のタイマー
-	bool IsInvidePlayer = false;
+	bool IsInvidePlayer = false;//プレイヤーが畑内にいるかどうか
+
 };

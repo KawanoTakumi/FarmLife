@@ -65,6 +65,7 @@ void ASpawnField::SpawnCrops(int32 count)
 	}
 }
 
+//ÚG
 void ASpawnField::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent,AActor* OtherActor,
 	UPrimitiveComponent* OtherComp,int32 OtherBodyIndex,bool bFromSweep,const FHitResult& SweepResult)
 {
@@ -73,7 +74,6 @@ void ASpawnField::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent,AActor
 	if (Player)
 	{
 		GetWorldTimerManager().ClearTimer(EndOverlapTimer);
-
 		if (!IsInvidePlayer)
 		{
 			IsInvidePlayer = true;
@@ -82,15 +82,17 @@ void ASpawnField::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent,AActor
 	}
 }
 
+//”ñÚG
 void ASpawnField::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent,AActor* OtherActor,
 	UPrimitiveComponent* OtherComp,int32 OtherBodyIndex)
 {
 	if (APlayerCharacter* Player = Cast<APlayerCharacter>(OtherActor))
 	{
-		GetWorldTimerManager().SetTimer(EndOverlapTimer, this, &ASpawnField::OnDerayEnd, 0.4f, false);
+		GetWorldTimerManager().SetTimer(EndOverlapTimer, this, &ASpawnField::OnDerayEnd, 0.3f, false);
 	}
 }
 
+//”ñÚG’x‰„ˆ—
 void ASpawnField::OnDerayEnd()
 {
 	if (IsInvidePlayer)
@@ -107,4 +109,9 @@ void ASpawnField::OnDerayEnd()
 		SpawnedCrops.Empty();
 		IsInvidePlayer = false;
 	}
+}
+
+void ASpawnField::AddCrop(TSubclassOf<ABaseCrop> crop_class)
+{
+	CropClass.Add(crop_class);
 }
