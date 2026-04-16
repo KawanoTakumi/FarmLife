@@ -22,10 +22,12 @@ private:
 
 public:
 	UFUNCTION(BlueprintCallable)
-	void SetUo(TArray<UParkData*> park);
+	void SetUp(TArray<UParkData*> park);
 
+	//リストビュー、今回は使わない
 	UPROPERTY(meta = (BindWidget))
 	UListView* ParkListView;
 
+	
 
 };

@@ -10,7 +10,7 @@ void UParkUIWidget::NativeConstruct()
 
 }
 
-void UParkUIWidget::SetUo(const TArray<UParkData*> data)
+void UParkUIWidget::SetUp(const TArray<UParkData*> data)
 {
 	ParkListView->ClearListItems();
 
