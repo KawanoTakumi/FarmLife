@@ -9,10 +9,11 @@
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "PerkSelectWidget.generated.h"
-
 /**
  * 
  */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnParkClick, UParkData*, Park);
+
 UCLASS()
 class FARMLIFE_API UPerkSelectWidget : public UUserWidget,public IUserObjectListEntry
 {
@@ -24,6 +25,9 @@ public:
 
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* NameText;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnParkClick OnPerkClick;
 
 	UParkData* PerkData;
 

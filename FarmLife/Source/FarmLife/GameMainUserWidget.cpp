@@ -17,3 +17,12 @@ void UGameMainUserWidget::UpdateMeoney(int32 money)
 		MoneyText->SetText(FText::AsNumber(money));
 	}
 }
+
+//ŽžŠÔ•\Ž¦XV
+void UGameMainUserWidget::UpdateTimer(int32 timer)
+{
+	if (TimerText)
+	{
+		TimerText->SetText(FText::AsNumber(timer));
+	}
+}

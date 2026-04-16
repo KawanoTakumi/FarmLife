@@ -141,6 +141,12 @@ void APlayerCharacter::AddMoney(int32 amount)
 	{
 		GameMainUserWidget->UpdateMeoney(money);
 	}
+}
 
-	UE_LOG(LogTemp, Warning, TEXT("money : %d"),money);
+void APlayerCharacter::UpdateTimer(int32 timer)
+{
+	if (GameMainUserWidget)
+	{
+		GameMainUserWidget->UpdateTimer(timer);
+	}
 }

@@ -22,6 +22,9 @@ void UPerkSelectWidget::NativeOnListItemObjectSet(UObject* ListItemObject)
 void UPerkSelectWidget::OnClicked()
 {
 	if (!PerkData) return;
-
-
+	else
+	{
+		//ƒCƒxƒ“ƒg”­‰Î
+		OnPerkClick.Broadcast(PerkData);
+	}
 }

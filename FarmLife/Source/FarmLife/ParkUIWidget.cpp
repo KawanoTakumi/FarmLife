@@ -3,6 +3,13 @@
 
 #include "ParkUIWidget.h"
 
+void UParkUIWidget::NativeConstruct()
+{
+	Super::NativeConstruct();
+
+
+}
+
 void UParkUIWidget::SetUo(const TArray<UParkData*> data)
 {
 	ParkListView->ClearListItems();
@@ -12,3 +19,4 @@ void UParkUIWidget::SetUo(const TArray<UParkData*> data)
 		ParkListView->AddItem(Park);
 	}
 }
+

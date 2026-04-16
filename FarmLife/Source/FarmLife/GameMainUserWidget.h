@@ -23,13 +23,15 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* TimerText;
 
-	UPROPERTY(EditAnywhere)
-	ASpawnField* SpawnField;
-
 	virtual void NativeConstruct() override;
 
 public:
+	//お金更新関数
 	UFUNCTION(BlueprintCallable)
 	void UpdateMeoney(int32 money);
+
+	//残り時間更新関数
+	UFUNCTION(BlueprintCallable)
+	void UpdateTimer(int32 timer);
 
 };

@@ -4,6 +4,9 @@
 #include "SpawnField.h"
 #include "BaseCrop.h"
 #include "PlayerCharacter.h"
+#include "GameMainUserWidget.h"
+#include "Kismet/GameplayStatics.h"
+
 // Sets default values
 ASpawnField::ASpawnField()
 {
@@ -25,6 +28,12 @@ void ASpawnField::BeginPlay()
 	Super::BeginPlay();
 	SpawnArea->OnComponentBeginOverlap.AddDynamic(this, &ASpawnField::OnOverlapBegin);
 	SpawnArea->OnComponentEndOverlap.AddDynamic(this, &ASpawnField::OnOverlapEnd);
+
+	//プレイヤー取得
+	if (ACharacter* character = UGameplayStatics::GetPlayerCharacter(this, 0))
+	{
+		player = Cast<APlayerCharacter>(character);
+	}
 }
 
 // Called every frame
@@ -74,10 +83,16 @@ void ASpawnField::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent,AActor
 	if (Player)
 	{
 		GetWorldTimerManager().ClearTimer(EndOverlapTimer);
+		GetWorldTimerManager().SetTimer(OnFieldTimer,this,&ASpawnField::OnDerayEnd,MaxTimer,false);
+
+		RemainingTimer = MaxTimer;
+		player->UpdateTimer(RemainingTimer);
+		GetWorldTimerManager().SetTimer(OnCountSecond, this, &ASpawnField::OnCountToSecound, 1.0f, true);
+
 		if (!IsInvidePlayer)
 		{
 			IsInvidePlayer = true;
-			SpawnCrops(25);//仮で25生成
+			SpawnCrops(MaxSpwanCount);
 		}
 	}
 }
@@ -88,7 +103,7 @@ void ASpawnField::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent,AActor* 
 {
 	if (APlayerCharacter* Player = Cast<APlayerCharacter>(OtherActor))
 	{
-		GetWorldTimerManager().SetTimer(EndOverlapTimer, this, &ASpawnField::OnDerayEnd, 0.3f, false);
+		GetWorldTimerManager().SetTimer(EndOverlapTimer, this, &ASpawnField::OnDerayEnd, DerayTimer, false);
 	}
 }
 
@@ -107,10 +122,31 @@ void ASpawnField::OnDerayEnd()
 		}
 		//初期化
 		SpawnedCrops.Empty();
+		RemainingTimer = 0;
+		player->UpdateTimer(RemainingTimer);
 		IsInvidePlayer = false;
 	}
 }
 
+//時間計測
+void ASpawnField::OnCountToSecound()
+{
+	RemainingTimer -= 1.0f;//一秒減らす
+
+	if (player)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("count to timer"));
+		player->UpdateTimer(RemainingTimer);
+	}
+
+	if (RemainingTimer <= 1)
+	{
+		RemainingTimer = 0;
+		GetWorldTimerManager().ClearTimer(OnCountSecond);
+	}
+}
+
+//新規作物追加
 void ASpawnField::AddCrop(TSubclassOf<ABaseCrop> crop_class)
 {
 	CropClass.Add(crop_class);

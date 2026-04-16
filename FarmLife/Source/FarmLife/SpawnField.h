@@ -42,6 +42,9 @@ public:
 	UPROPERTY()
 	TArray<ABaseCrop*> SpawnedCrops;
 
+	UPROPERTY(EditAnywhere, Category = "UI")
+	class UGameMainUserWidget* GameMainWidgetRef;
+
 	//接触時
 	UFUNCTION()
 	void OnOverlapBegin(
@@ -62,10 +65,18 @@ public:
 
 	void OnDerayEnd();
 
+	void OnCountToSecound();//時間計測
+
 	void AddCrop(TSubclassOf<ABaseCrop> crop_class);
 
 private:
 	FTimerHandle EndOverlapTimer;//非接触時のタイマー
+	FTimerHandle OnFieldTimer;//畑内にいる場合のタイマー
+	FTimerHandle OnCountSecond;//一秒を計測する用のタイマー
 	bool IsInvidePlayer = false;//プレイヤーが畑内にいるかどうか
-
+	float RemainingTimer = 0.0f;//残り時間
+	float MaxTimer = 5.0f;//最大出現時間
+	float DerayTimer = 0.3f;//場外にいた場合の消失時間
+	int   MaxSpwanCount = 10;//最大出現数
+	class APlayerCharacter* player;
 };

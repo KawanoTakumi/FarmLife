@@ -40,7 +40,7 @@ public:
 	void Attack();
 
 	void AddMoney(int32 amount);
-
+	void UpdateTimer(int32 timer);
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
 	UInputMappingContext* InputMapingContext;
