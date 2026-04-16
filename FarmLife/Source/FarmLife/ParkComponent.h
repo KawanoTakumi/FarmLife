@@ -8,7 +8,7 @@
 #include "SpawnField.h"
 #include "ParkComponent.generated.h"
 
-
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnParkUpdated);
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class FARMLIFE_API UParkComponent : public UActorComponent
 {
@@ -29,6 +29,7 @@ public:
 	//パークの配列
 	TArray<UParkData*> OwnedParks;
 
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "data")
 	ASpawnField* spawnfield;
 
@@ -40,4 +41,13 @@ public:
 	void ApplyPark(UParkData* park);
 
 	void Recalcurate();
+
+	UFUNCTION()
+	bool IsParkOwned(UParkData* Data) const;
+
+	UFUNCTION()
+	bool CanAcquirePark(UParkData* Data) const;
+
+	UPROPERTY(BlueprintAssignable, Category = "Park")
+	FOnParkUpdated OnParkUpdated;
 };

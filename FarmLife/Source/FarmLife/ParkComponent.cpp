@@ -37,6 +37,7 @@ void UParkComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 void UParkComponent::ApplyPark(UParkData* data)
 {
 	if (!data)return;
+	if (!CanAcquirePark(data)) return;
 	if (data->ParkType == ParkType::AddCrop)
 	{
 		if (spawnfield)
@@ -49,6 +50,8 @@ void UParkComponent::ApplyPark(UParkData* data)
 
 
 	Recalcurate();//再計算を行う
+
+	OnParkUpdated.Broadcast();
 }
 
 //再計算(攻撃力などの場合)
@@ -58,6 +61,7 @@ void UParkComponent::Recalcurate()
 	attack_bonus = 0.0f;
 	multi_bonus = 1.0f;
 	timer_bonus = 0.0f;
+	max_size_bonus = 0.0f;
 
 	for (auto parks : OwnedParks)
 	{
@@ -81,4 +85,28 @@ void UParkComponent::Recalcurate()
 
 		}
 	}
+}
+
+bool UParkComponent::IsParkOwned(UParkData* Data) const
+{
+	return OwnedParks.Contains(Data);
+}
+
+bool UParkComponent::CanAcquirePark(UParkData* Data) const
+{
+	if (!Data) return false;
+
+	// すでに取得済みなら不可
+	if (IsParkOwned(Data)) return false;
+
+	// 前提パークチェック
+	for (auto Req : Data->RequiredPerk)
+	{
+		if (!IsParkOwned(Req))
+		{
+			return false;
+		}
+	}
+
+	return true;
 }

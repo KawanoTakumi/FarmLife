@@ -25,18 +25,32 @@ class FARMLIFE_API UParkData : public UPrimaryDataAsset
 	GENERATED_BODY()
 	
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "name")
-	FName ParkName;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value")
+	FName ParkID;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "name")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value")
+	FText DisplayName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value")
+	FText Description;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value")
 	ParkType ParkType;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value")
-	float Value;
+	int32 Value;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "crop")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value")
+	int32 Cost;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value")
 	TSubclassOf<ABaseCrop> CropClass;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "tree")
-	TArray<UParkData*> NextParkData;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value")
+	TArray<UParkData*> ConnectedPerk;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value")
+	TArray<UParkData*> RequiredPerk;
+
+
 };
