@@ -131,6 +131,7 @@ void ASpawnField::OnDerayEnd()
 //ŽžŠÔŒv‘ª
 void ASpawnField::OnCountToSecound()
 {
+	if(RemainingTimer > 0)
 	RemainingTimer -= 1.0f;//ˆê•bŒ¸‚ç‚·
 
 	if (player)
