@@ -33,33 +33,40 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	void Move(const FInputActionValue& Value);
+	void Move(const FInputActionValue& Value);//移動関数
 
-	void Look(const FInputActionValue& Value);
+	void Look(const FInputActionValue& Value);//視点移動関数
 
-	void Attack();
+	void Attack();//攻撃関数
 
-	void AddMoney(int32 amount);
-	void UpdateTimer(int32 timer);
+	void AddMoney(int32 amount);//お金追加
+	void UpdateTimer(int32 timer);//タイマー更新
 
+	//インプットマッピングコンテキスト
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
 	UInputMappingContext* InputMapingContext;
 
+	//移動IA
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
 	UInputAction* MoveAction;
 
+	//視点移動IA
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
 	UInputAction* LookAction;
 
+	//攻撃IA
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
 	UInputAction* AttackAction;
 
+	//カメラ
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "camera")
 	UCameraComponent* FirstPersonCamera;
 
+	//ゲームのメインUIウィジェットクラス
 	UPROPERTY(EditAnywhere, Category = "UI")
 	TSubclassOf<UGameMainUserWidget> GameMainUserWidgetClass;
 
+	//ゲームのメインUI
 	UPROPERTY()
 	UGameMainUserWidget* GameMainUserWidget;
 

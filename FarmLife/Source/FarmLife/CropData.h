@@ -6,6 +6,14 @@
 #include "Engine/DataAsset.h"
 #include "CropData.generated.h"
 
+UENUM(BluePrintType)
+enum class CropType : uint8
+{
+	Normal,
+	Corrupted,
+	Explosive
+};
+
 /**
  * 
  */
@@ -27,5 +35,9 @@ public:
 	//メッシュ
 	UPROPERTY(EditAnywhere)
 	UStaticMesh* mesh;
+
+	//作物のタイプ
+	UPROPERTY(EditAnywhere)
+	CropType crop_type;
 
 };

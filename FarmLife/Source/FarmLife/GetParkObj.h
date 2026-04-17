@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
+#include "SkillTreeWidget.h"
 #include "Components/BoxComponent.h"
 #include "GetParkObj.generated.h"
 
@@ -31,14 +32,18 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "mesh")
 	UBoxComponent* CollisionBox;
 
+	//パークツリーUI
+	UPROPERTY(EditAnywhere, Category = "UI")
+	USkillTreeWidget* SkillTreeWidget;
+
 	//接触時
 	UFUNCTION()
 	void OnOverlapBegin(
-		UPrimitiveComponent* OverlappedComponent,
-		AActor* OtherActor,
-		UPrimitiveComponent* OtherComp,
-		int32 OtherBodyIndex,
-		bool bFromSweep,
-		const FHitResult& SweepResult);
+		UPrimitiveComponent* OverlappedComponent,AActor* OtherActor,UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex,bool bFromSweep,const FHitResult& SweepResult);
 
+	//非接触時
+	UFUNCTION()
+	void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 };
