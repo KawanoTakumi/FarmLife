@@ -10,7 +10,7 @@
 #include "ParkComponent.h"
 #include "ParkData.h"
 #include "SkillTreeWidget.generated.h"
-
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnClosed);
 /**
  * 
  */
@@ -22,8 +22,15 @@ class FARMLIFE_API USkillTreeWidget : public UUserWidget
 public:
     void Init(UParkComponent* InComp);
 
+    UPROPERTY(BlueprintAssignable)
+    FOnClosed OnClosed;
+
 protected:
     virtual void NativeConstruct() override;
+
+    //戻るボタン
+    UPROPERTY(meta = (BindWidget))
+    UButton* ExitButton;
 
     // Canvas（配置用）
     UPROPERTY(meta = (BindWidget))
@@ -49,4 +56,7 @@ protected:
     UFUNCTION()
     void RefreshAll();
 
+    //UIからゲームに戻る
+    UFUNCTION()
+    void ExitUI();
 };

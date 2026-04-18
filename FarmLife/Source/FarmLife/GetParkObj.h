@@ -25,15 +25,20 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
+	bool IsUI = false;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "mesh")
 	UStaticMeshComponent* ParkHatMesh;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "mesh")
 	UBoxComponent* CollisionBox;
 
+	UPROPERTY()
+	bool bPlayerInRAnge = false;
+
 	//パークツリーUI
 	UPROPERTY(EditAnywhere, Category = "UI")
+	TSubclassOf<USkillTreeWidget> SkillTreeWidgetClass;
+
 	USkillTreeWidget* SkillTreeWidget;
 
 	//接触時
@@ -46,4 +51,9 @@ public:
 	UFUNCTION()
 	void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+	UFUNCTION()
+	void OnWidgetClosed()
+	{
+		SkillTreeWidget = nullptr;
+	}
 };

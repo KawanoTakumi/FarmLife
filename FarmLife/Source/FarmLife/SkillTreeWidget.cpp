@@ -6,6 +6,11 @@
 void USkillTreeWidget::NativeConstruct()
 {
     Super::NativeConstruct();
+
+    if (ExitButton)
+    {
+        ExitButton->OnClicked.AddDynamic(this, &USkillTreeWidget::ExitUI);
+    }
 }
 
 void USkillTreeWidget::Init(UParkComponent* InComp)
@@ -52,4 +57,20 @@ void USkillTreeWidget::RefreshAll()
             Node->UpdateState();
         }
     }
+}
+
+void USkillTreeWidget::ExitUI()
+{
+    APlayerController* PC = GetWorld()->GetFirstPlayerController();
+    if (!PC) return;
+
+    // UIíœ
+    RemoveFromParent();
+    // “ü—Í‚ðƒQ[ƒ€‚É–ß‚·
+    PC->bShowMouseCursor = false;
+
+    FInputModeGameOnly Mode;
+    PC->SetInputMode(Mode);
+    OnClosed.Broadcast();
+
 }
