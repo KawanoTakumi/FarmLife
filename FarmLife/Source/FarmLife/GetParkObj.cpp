@@ -52,6 +52,7 @@ void AGetParkObj::OpenUIWidget(AActor* OtherActor)
 			{
 				IsUI = true;
 				SkillTreeWidget->AddToViewport();
+				
 				PlayerController->bShowMouseCursor = true;
 				FInputModeUIOnly InputMode;
 				InputMode.SetWidgetToFocus(SkillTreeWidget->TakeWidget());

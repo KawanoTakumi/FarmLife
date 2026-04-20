@@ -141,7 +141,6 @@ void APlayerCharacter::Interact()
 	{
 		
 		GetPerkObject->OpenUIWidget(this);
-		UE_LOG(LogTemp, Warning, TEXT("Interact To UIs"));
 	}
 }
 

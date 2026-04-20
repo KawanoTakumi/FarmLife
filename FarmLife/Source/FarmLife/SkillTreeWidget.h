@@ -45,7 +45,7 @@ protected:
     TArray<UParkData*> AllParks;
 
     // コンポーネント
-    UPROPERTY()
+    UPROPERTY(EditAnywhere)
     UParkComponent* ParkComp;
 
     // 生成したノード
