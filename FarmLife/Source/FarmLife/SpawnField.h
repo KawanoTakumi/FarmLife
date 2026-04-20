@@ -36,7 +36,7 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	UBoxComponent* SpawnArea;
 
-	UPROPERTY(EditAnywhere, Category = "Crops")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite,Category = "Crops")
 	TArray<TSubclassOf<ABaseCrop>> CropClass;
 
 	UPROPERTY()

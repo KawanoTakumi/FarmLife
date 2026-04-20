@@ -67,9 +67,10 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 	if (UEnhancedInputComponent* enhanced_input = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
-		enhanced_input->BindAction(MoveAction,   ETriggerEvent::Triggered, this, &APlayerCharacter::Move);
-		enhanced_input->BindAction(LookAction,   ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
-		enhanced_input->BindAction(AttackAction, ETriggerEvent::Started,   this, &APlayerCharacter::Attack);
+		enhanced_input->BindAction(MoveAction,    ETriggerEvent::Triggered, this, &APlayerCharacter::Move);
+		enhanced_input->BindAction(LookAction,    ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
+		enhanced_input->BindAction(AttackAction,  ETriggerEvent::Started,   this, &APlayerCharacter::Attack);
+		enhanced_input->BindAction(IntractAction, ETriggerEvent::Started,   this, &APlayerCharacter::Interact);
 	}
 }
 
@@ -132,9 +133,22 @@ void APlayerCharacter::Attack()
 	}
 }
 
+//ÚGŠÖ”
+void APlayerCharacter::Interact()
+{
+
+	if (GetPerkObject && GetPerkObject->IsPlayerInside)
+	{
+		
+		GetPerkObject->OpenUIWidget(this);
+		UE_LOG(LogTemp, Warning, TEXT("Interact To UIs"));
+	}
+}
+
 void APlayerCharacter::AddMoney(int32 amount)
 {
 	money += amount;
+	if (money < 0)money = 0;
 
 	//UIXV
 	if (GameMainUserWidget)

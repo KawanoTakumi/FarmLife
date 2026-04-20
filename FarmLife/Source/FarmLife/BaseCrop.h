@@ -30,7 +30,7 @@ public:
 	
 	void Harvest();
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
 	UCropData* crop_data;
 
 	UPROPERTY(VisibleAnywhere)

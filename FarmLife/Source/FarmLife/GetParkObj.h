@@ -26,6 +26,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	bool IsUI = false;
+	bool IsPlayerInside = false;//プレイヤーが中に入っているか
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "mesh")
 	UStaticMeshComponent* ParkHatMesh;
 
@@ -33,7 +34,7 @@ public:
 	UBoxComponent* CollisionBox;
 
 	UPROPERTY()
-	bool bPlayerInRAnge = false;
+	bool bPlayerInRange = false;
 
 	//パークツリーUI
 	UPROPERTY(EditAnywhere, Category = "UI")
@@ -51,6 +52,11 @@ public:
 	UFUNCTION()
 	void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+	//ウィジェット展開関数
+	UFUNCTION()
+	void OpenUIWidget(AActor* actor);
+
 	UFUNCTION()
 	void OnWidgetClosed()
 	{

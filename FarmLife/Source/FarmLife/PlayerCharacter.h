@@ -11,6 +11,7 @@
 #include "Blueprint/UserWidget.h"
 #include "GameMainUserWidget.h"
 #include "SpawnField.h"
+#include "GetParkObj.h"
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -39,6 +40,8 @@ public:
 
 	void Attack();//攻撃関数
 
+	void Interact();//接触関数
+
 	void AddMoney(int32 amount);//お金追加
 	void UpdateTimer(int32 timer);//タイマー更新
 
@@ -58,6 +61,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
 	UInputAction* AttackAction;
 
+	//インタラクトIA
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
+	UInputAction* IntractAction;
+
 	//カメラ
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "camera")
 	UCameraComponent* FirstPersonCamera;
@@ -69,6 +76,11 @@ public:
 	//ゲームのメインUI
 	UPROPERTY()
 	UGameMainUserWidget* GameMainUserWidget;
+
+	//パーク用インタラクトオブジェクト
+	UPROPERTY()
+	AGetParkObj* GetPerkObject;
+
 
 	int32 money = 0;//所持金
 	int32 atk_power = 1;//攻撃力

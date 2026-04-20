@@ -52,6 +52,7 @@ protected:
     UPROPERTY()
     TArray<USkillNodeWidget*> Nodes;
 
+
     // çXêV
     UFUNCTION()
     void RefreshAll();
@@ -59,4 +60,10 @@ protected:
     //UIÇ©ÇÁÉQÅ[ÉÄÇ…ñﬂÇÈ
     UFUNCTION()
     void ExitUI();
+
+public:
+    //UIçÏê¨
+    UFUNCTION()
+    void CreateWidgetData();
+
 };

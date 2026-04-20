@@ -13,6 +13,12 @@ void USkillTreeWidget::NativeConstruct()
     }
 }
 
+void USkillTreeWidget::CreateWidgetData()
+{
+    if (ParkComp)
+        Init(ParkComp);
+}
+
 void USkillTreeWidget::Init(UParkComponent* InComp)
 {
     ParkComp = InComp;
@@ -71,6 +77,7 @@ void USkillTreeWidget::ExitUI()
 
     FInputModeGameOnly Mode;
     PC->SetInputMode(Mode);
+    PC->SetIgnoreMoveInput(false);
     OnClosed.Broadcast();
 
 }

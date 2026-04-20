@@ -23,7 +23,6 @@ AGetParkObj::AGetParkObj()
 void AGetParkObj::BeginPlay()
 {
 	Super::BeginPlay();
-	SkillTreeWidget = CreateWidget<USkillTreeWidget>(GetWorld(), SkillTreeWidgetClass);
 	CollisionBox->OnComponentBeginOverlap.AddDynamic(this, &AGetParkObj::OnOverlapBegin);
 	CollisionBox->OnComponentEndOverlap.AddDynamic(this, &AGetParkObj::OnOverlapEnd);
 }
@@ -35,9 +34,7 @@ void AGetParkObj::Tick(float DeltaTime)
 
 }
 
-//接触時の挙動
-void AGetParkObj::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent,AActor* OtherActor,UPrimitiveComponent* OtherComp,
-	int32 OtherBodyIndex,bool bFromSweep,const FHitResult& SweepResult)
+void AGetParkObj::OpenUIWidget(AActor* OtherActor)
 {
 	//パーク取得用のUIを表示できるようにする
 	if (OtherActor)
@@ -47,6 +44,10 @@ void AGetParkObj::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent,AActor
 		UE_LOG(LogTemp, Warning, TEXT("UI generated"));
 		if (PC && PlayerController)
 		{
+			//ここでWidgetを作成する
+			if (SkillTreeWidgetClass)
+				SkillTreeWidget = CreateWidget<USkillTreeWidget>(GetWorld(), SkillTreeWidgetClass);
+
 			if (SkillTreeWidget && !IsUI)
 			{
 				IsUI = true;
@@ -56,14 +57,28 @@ void AGetParkObj::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent,AActor
 				InputMode.SetWidgetToFocus(SkillTreeWidget->TakeWidget());
 				PlayerController->SetInputMode(InputMode);
 				SkillTreeWidget->OnClosed.AddDynamic(this, &AGetParkObj::OnWidgetClosed);
+				SkillTreeWidget->CreateWidgetData();
+				PlayerController->SetIgnoreMoveInput(true);
 			}
 
 		}
 	}
+
+}
+
+//接触時の挙動
+void AGetParkObj::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent,AActor* OtherActor,UPrimitiveComponent* OtherComp,
+	int32 OtherBodyIndex,bool bFromSweep,const FHitResult& SweepResult)
+{
+	IsPlayerInside = true;
+	APlayerCharacter* PC = Cast<APlayerCharacter>(OtherActor);
+	PC->GetPerkObject = this;
+
 }
 
 void AGetParkObj::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
+	IsPlayerInside = false;
 	IsUI = false;
 }
