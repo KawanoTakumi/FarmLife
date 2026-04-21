@@ -2,6 +2,7 @@
 
 
 #include "SkillTreeWidget.h"
+#include "PlayerCharacter.h"
 
 void USkillTreeWidget::NativeConstruct()
 {
@@ -15,15 +16,23 @@ void USkillTreeWidget::NativeConstruct()
 
 void USkillTreeWidget::CreateWidgetData()
 {
-    UE_LOG(LogTemp, Warning, TEXT("park aveirable %d"), AllParks.Num());
+    //パークコンポーネントを探す
+    APlayerCharacter* Chara = Cast<APlayerCharacter>(GetOwningPlayerPawn());
+    if (Chara)
+    {
+        ParkComp = Chara->FindComponentByClass<UParkComponent>();
+    }
+
+    //パークコンポーネントを取得できたらInit関数で情報を渡す
     if (ParkComp)
+    {
         Init(ParkComp);
-   
+    }
 }
 
 void USkillTreeWidget::Init(UParkComponent* InComp)
 {
-    UE_LOG(LogTemp, Warning, TEXT("park aveirable %d"), AllParks.Num());
+    ParkComp = InComp;
     if (!RootCanvas || !NodeClass) return;
     if (AllParks.Num() >= 1)
     {
@@ -33,14 +42,15 @@ void USkillTreeWidget::Init(UParkComponent* InComp)
             UParkData* Data = AllParks[i];
             if (!Data) continue;
             auto Node = CreateWidget<USkillNodeWidget>(GetWorld(), NodeClass);
-            Node->Init(Data, InComp);
+            Node->Init(Data, ParkComp);
+            Node->SkillTree = this;
 
             RootCanvas->AddChild(Node);
 
             // とりあえず仮配置（横並び）
             if (auto CanvasSlot = Cast<UCanvasPanelSlot>(Node->Slot))
             {
-                CanvasSlot->SetPosition(FVector2D(i * 150.f, 200.f));
+                CanvasSlot->SetPosition(FVector2D(150.0f+i * 300.f, 350.f));
             }
 
             Nodes.Add(Node);
@@ -49,12 +59,10 @@ void USkillTreeWidget::Init(UParkComponent* InComp)
     }
 
     // パーク更新時にUI更新
-    if (InComp)
+    if (ParkComp)
     {
-        InComp->OnParkUpdated.AddDynamic(this, &USkillTreeWidget::RefreshAll);
+        ParkComp->OnParkUpdated.AddDynamic(this, &USkillTreeWidget::RefreshAll);
     }
-
-    RefreshAll();
 }
 
 void USkillTreeWidget::RefreshAll()

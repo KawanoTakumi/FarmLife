@@ -25,8 +25,17 @@ public:
     UPROPERTY(BlueprintAssignable)
     FOnClosed OnClosed;
 
+    //パークの説明
+    UPROPERTY(meta = (BindWidget))
+    UTextBlock* PerkDesc;
+    
+    //パークの名称
+    UPROPERTY(meta = (BindWidget))
+    UTextBlock* PerkName;
+
 protected:
     virtual void NativeConstruct() override;
+
 
     //戻るボタン
     UPROPERTY(meta = (BindWidget))
@@ -45,7 +54,7 @@ protected:
     TArray<UParkData*> AllParks;
 
     // コンポーネント
-    UPROPERTY(EditAnywhere)
+    UPROPERTY()
     UParkComponent* ParkComp;
 
     // 生成したノード
@@ -65,5 +74,4 @@ public:
     //UI作成
     UFUNCTION()
     void CreateWidgetData();
-
 };

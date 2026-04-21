@@ -24,9 +24,14 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void UpdateState();
-	
+
+    UPROPERTY(EditAnywhere,BluePrintReadWrite)
+    class USkillTreeWidget* SkillTree;
+
 protected:
     virtual void NativeConstruct() override;
+
+    virtual void NativeOnMouseEnter(const FGeometry& MyGeometry, const FPointerEvent& MyEvent) override;
 
     // ボタン
     UPROPERTY(meta = (BindWidget))
@@ -39,6 +44,7 @@ protected:
     // 名前表示（任意）
     UPROPERTY(meta = (BindWidgetOptional))
     UTextBlock* NameText;
+
 
     // データ
     UPROPERTY()

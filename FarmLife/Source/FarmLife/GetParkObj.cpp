@@ -41,7 +41,6 @@ void AGetParkObj::OpenUIWidget(AActor* OtherActor)
 	{
 		APlayerCharacter* PC = Cast<APlayerCharacter>(OtherActor);
 		APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
-		UE_LOG(LogTemp, Warning, TEXT("UI generated"));
 		if (PC && PlayerController)
 		{
 			//ここでWidgetを作成する
@@ -55,11 +54,11 @@ void AGetParkObj::OpenUIWidget(AActor* OtherActor)
 				
 				PlayerController->bShowMouseCursor = true;
 				FInputModeUIOnly InputMode;
-				InputMode.SetWidgetToFocus(SkillTreeWidget->TakeWidget());
 				PlayerController->SetInputMode(InputMode);
 				SkillTreeWidget->OnClosed.AddDynamic(this, &AGetParkObj::OnWidgetClosed);
 				SkillTreeWidget->CreateWidgetData();
 				PlayerController->SetIgnoreMoveInput(true);
+				//InputMode.SetWidgetToFocus(SkillTreeWidget->TakeWidget());//エラーはいているので一時コメント
 			}
 
 		}
@@ -74,7 +73,6 @@ void AGetParkObj::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent,AActor
 	IsPlayerInside = true;
 	APlayerCharacter* PC = Cast<APlayerCharacter>(OtherActor);
 	PC->GetPerkObject = this;
-
 }
 
 void AGetParkObj::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,

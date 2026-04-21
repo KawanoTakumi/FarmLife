@@ -2,7 +2,7 @@
 
 
 #include "SkillNodeWidget.h"
-
+#include "SkillTreeWidget.h"
 void USkillNodeWidget::NativeConstruct()
 {
     Super::NativeConstruct();
@@ -10,6 +10,22 @@ void USkillNodeWidget::NativeConstruct()
     if (NodeButton)
     {
         NodeButton->OnClicked.AddDynamic(this, &USkillNodeWidget::OnClicked);
+    }
+}
+//カーソルが上に乗った時を検知
+void USkillNodeWidget::NativeOnMouseEnter(const FGeometry& MyGeometry, const FPointerEvent& MyPointer)
+{
+    Super::NativeOnMouseEnter(MyGeometry, MyPointer);
+    UE_LOG(LogTemp, Warning, TEXT("Put your mouse cursor"));
+    
+    //親ウィジェットにデータを渡す
+    if (SkillTree)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Get Own To SkillTree"));
+        if (!ParkData)return;
+
+        SkillTree->PerkDesc->SetText(ParkData->Description);
+        SkillTree->PerkName->SetText(ParkData->DisplayName);
     }
 }
 
@@ -46,7 +62,7 @@ void USkillNodeWidget::UpdateState()
     else
     {
         NodeButton->SetIsEnabled(false);
-        SetRenderOpacity(0.3f);
+        SetRenderOpacity(0.1f);
     }
 }
 
