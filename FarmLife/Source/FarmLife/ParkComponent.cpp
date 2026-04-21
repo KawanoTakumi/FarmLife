@@ -82,6 +82,11 @@ void UParkComponent::Recalcurate()
 			multi_bonus *= parks->Value;
 			break;
 		}
+		case ParkType::AddAttck:
+		{
+			attack_bonus += parks->Value;
+			break;
+		}
 
 		}
 	}

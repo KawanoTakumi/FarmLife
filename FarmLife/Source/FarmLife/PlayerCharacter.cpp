@@ -40,7 +40,8 @@ void APlayerCharacter::BeginPlay()
 			}
 		}
 	}
-
+	//パークコンポーネントを探す
+	ParkComponent = FindComponentByClass<UParkComponent>();
 	//UI生成
 	if (GameMainUserWidgetClass)
 	{
@@ -108,7 +109,7 @@ void APlayerCharacter::Attack()
 	FVector end     = start + (forward * 200.0f);
 
 	float radius    = atk_radius;//攻撃の範囲
-
+	int   m_calc_attack = atk_power + ParkComponent->attack_bonus;
 	FHitResult hit;
 	FCollisionQueryParams params;
 	params.AddIgnoredActor(this);
@@ -126,7 +127,7 @@ void APlayerCharacter::Attack()
 	{
 		UGameplayStatics::ApplyDamage(
 		hit.GetActor(),
-		atk_power,
+		m_calc_attack,
 		GetController(),
 		this,
 		nullptr);
@@ -146,7 +147,7 @@ void APlayerCharacter::Interact()
 
 void APlayerCharacter::AddMoney(int32 amount)
 {
-	money += amount;
+	money += amount * ParkComponent->multi_bonus;
 	if (money < 0)money = 0;
 
 	//UI更新

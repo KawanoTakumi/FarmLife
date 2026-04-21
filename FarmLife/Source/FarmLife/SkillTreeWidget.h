@@ -50,7 +50,7 @@ protected:
     TSubclassOf<USkillNodeWidget> NodeClass;
 
     // 全パーク
-    UPROPERTY(EditAnywhere, Category = "SkillTree")
+    UPROPERTY(EditAnywhere, BlueprintReadOnly,Category = "SkillTree")
     TArray<UParkData*> AllParks;
 
     // コンポーネント

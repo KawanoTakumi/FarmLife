@@ -79,4 +79,5 @@ private:
 	float DerayTimer = 0.3f;//êŠO‚É‚¢‚½ê‡‚ÌÁ¸ŠÔ
 	int   MaxSpwanCount = 10;//Å‘åoŒ»”
 	class APlayerCharacter* player;
+	class UParkComponent* PerkComponent;
 };

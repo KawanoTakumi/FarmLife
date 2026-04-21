@@ -4,6 +4,7 @@
 #include "SpawnField.h"
 #include "BaseCrop.h"
 #include "PlayerCharacter.h"
+#include "ParkComponent.h"
 #include "GameMainUserWidget.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -33,6 +34,7 @@ void ASpawnField::BeginPlay()
 	if (ACharacter* character = UGameplayStatics::GetPlayerCharacter(this, 0))
 	{
 		player = Cast<APlayerCharacter>(character);
+		PerkComponent = player->FindComponentByClass<UParkComponent>();
 	}
 }
 
@@ -80,19 +82,22 @@ void ASpawnField::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent,AActor
 {
 	if (!OtherActor)return;
 	APlayerCharacter* Player = Cast<APlayerCharacter>(OtherActor);
-	if (Player)
+	if (Player && PerkComponent)
 	{
-		GetWorldTimerManager().ClearTimer(EndOverlapTimer);
-		GetWorldTimerManager().SetTimer(OnFieldTimer,this,&ASpawnField::OnDerayEnd,MaxTimer,false);
+		float m_Calc_Timer = MaxTimer + PerkComponent->timer_bonus;
+		int32 m_Calc_MaxSpawnCount = MaxSpwanCount + PerkComponent->max_size_bonus;
 
-		RemainingTimer = MaxTimer;
+		GetWorldTimerManager().ClearTimer(EndOverlapTimer);
+		GetWorldTimerManager().SetTimer(OnFieldTimer,this,&ASpawnField::OnDerayEnd, m_Calc_Timer,false);
+
+		RemainingTimer = m_Calc_Timer;
 		player->UpdateTimer(RemainingTimer);
 		GetWorldTimerManager().SetTimer(OnCountSecond, this, &ASpawnField::OnCountToSecound, 1.0f, true);
 
 		if (!IsInvidePlayer)
 		{
 			IsInvidePlayer = true;
-			SpawnCrops(MaxSpwanCount);
+			SpawnCrops(m_Calc_MaxSpawnCount);
 		}
 	}
 }

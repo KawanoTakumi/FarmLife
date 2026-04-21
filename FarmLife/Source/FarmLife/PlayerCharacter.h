@@ -12,6 +12,7 @@
 #include "GameMainUserWidget.h"
 #include "SpawnField.h"
 #include "GetParkObj.h"
+#include "ParkComponent.h"
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -80,9 +81,13 @@ public:
 	//パーク用インタラクトオブジェクト
 	UPROPERTY()
 	AGetParkObj* GetPerkObject;
-
-
+	
+	//パークコンポーネント
+	UPROPERTY()
+	UParkComponent* ParkComponent;
+private:
 	int32 money = 0;//所持金
 	int32 atk_power = 1;//攻撃力
 	int32 atk_radius = 90;//攻撃範囲
+	
 };
