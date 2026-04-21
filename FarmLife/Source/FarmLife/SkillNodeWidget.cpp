@@ -33,6 +33,7 @@ void USkillNodeWidget::Init(UParkData* InData, UParkComponent* InComp)
 {
     ParkData = InData;
     ParkComp = InComp;
+    SetPosition = ParkData->SetPositionValue;
 
     if (NameText && ParkData)
     {

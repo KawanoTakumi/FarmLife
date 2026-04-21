@@ -30,6 +30,10 @@ public:
 	FName ParkID;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value")
+	FVector2D SetPositionValue;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value")
+
 	FText DisplayName;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value")

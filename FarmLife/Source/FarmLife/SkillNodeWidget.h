@@ -25,8 +25,13 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void UpdateState();
 
+    //スキルツリーウィジェット
     UPROPERTY(EditAnywhere,BluePrintReadWrite)
     class USkillTreeWidget* SkillTree;
+
+    //位置
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "position")
+    FVector2D SetPosition;
 
 protected:
     virtual void NativeConstruct() override;
@@ -44,7 +49,6 @@ protected:
     // 名前表示（任意）
     UPROPERTY(meta = (BindWidgetOptional))
     UTextBlock* NameText;
-
 
     // データ
     UPROPERTY()

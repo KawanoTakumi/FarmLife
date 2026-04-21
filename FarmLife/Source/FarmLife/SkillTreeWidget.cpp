@@ -50,7 +50,7 @@ void USkillTreeWidget::Init(UParkComponent* InComp)
             // とりあえず仮配置（横並び）
             if (auto CanvasSlot = Cast<UCanvasPanelSlot>(Node->Slot))
             {
-                CanvasSlot->SetPosition(FVector2D(150.0f+i * 300.f, 350.f));
+                CanvasSlot->SetPosition(FVector2D(Node->SetPosition.X,Node->SetPosition.Y));
             }
 
             Nodes.Add(Node);
