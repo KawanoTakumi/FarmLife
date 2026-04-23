@@ -15,13 +15,10 @@ void USkillNodeWidget::NativeConstruct()
 //カーソルが上に乗った時を検知
 void USkillNodeWidget::NativeOnMouseEnter(const FGeometry& MyGeometry, const FPointerEvent& MyPointer)
 {
-    Super::NativeOnMouseEnter(MyGeometry, MyPointer);
-    UE_LOG(LogTemp, Warning, TEXT("Put your mouse cursor"));
-    
+    Super::NativeOnMouseEnter(MyGeometry, MyPointer);    
     //親ウィジェットにデータを渡す
     if (SkillTree)
     {
-        UE_LOG(LogTemp, Warning, TEXT("Get Own To SkillTree"));
         if (!ParkData)return;
 
         SkillTree->PerkDesc->SetText(ParkData->Description);
@@ -33,12 +30,11 @@ void USkillNodeWidget::Init(UParkData* InData, UParkComponent* InComp)
 {
     ParkData = InData;
     ParkComp = InComp;
-    SetPosition = ParkData->SetPositionValue;
+    SetPosition = ParkData->PositionGrid;
 
-    if (NameText && ParkData)
-    {
-        NameText->SetText(ParkData->DisplayName);
-    }
+    //画像設定
+    if (ParkData)
+        Icon->SetBrushFromTexture(ParkData->NormalIcon);
 
     UpdateState();
 }
@@ -73,6 +69,8 @@ void USkillNodeWidget::OnClicked()
 
     if (ParkComp->CanAcquirePark(ParkData))
     {
+        //画像を変更
+        Icon->SetBrushFromTexture(ParkData->ClickedIcon);
         ParkComp->ApplyPark(ParkData);
     }
 }

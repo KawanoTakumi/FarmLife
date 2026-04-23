@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
 #include "BaseCrop.h"
+#include "Engine/Texture2D.h"
 #include "ParkData.generated.h"
 
 UENUM(BluePrintType)
@@ -30,7 +31,7 @@ public:
 	FName ParkID;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value")
-	FVector2D SetPositionValue;
+	FVector2D PositionGrid;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value")
 
@@ -38,6 +39,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value")
 	FText Description;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value_icon")
+	UTexture2D* NormalIcon;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value_icon")
+	UTexture2D* ClickedIcon;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value")
 	ParkType ParkType;
