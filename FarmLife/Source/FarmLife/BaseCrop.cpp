@@ -45,24 +45,27 @@ float ABaseCrop::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent,
 	m_current_hp -= DamageAmount;
 	if (m_current_hp <= 0)
 	{
-		Harvest();
+		Harvest(false);
 	}
 	return DamageAmount;
 }
 
-void ABaseCrop::Harvest()
+void ABaseCrop::Harvest(bool OnEnemy)
 {
-	if (crop_data)
+	if (!OnEnemy)
 	{
-		//ここでお金を取得し、プレイヤーに渡す
-		if (ACharacter* character = UGameplayStatics::GetPlayerCharacter(this, 0))
+		if (crop_data)
 		{
-			APlayerCharacter* player_character = Cast<APlayerCharacter>(character);
-
-			if (player_character)
+			//ここでお金を取得し、プレイヤーに渡す
+			if (ACharacter* character = UGameplayStatics::GetPlayerCharacter(this, 0))
 			{
-				player_character->AddMoney(crop_data->drop_money);
-				UE_LOG(LogTemp, Warning, TEXT("get money!!! : %d"),crop_data->drop_money);
+				APlayerCharacter* player_character = Cast<APlayerCharacter>(character);
+
+				if (player_character)
+				{
+					player_character->AddMoney(crop_data->drop_money);
+					UE_LOG(LogTemp, Warning, TEXT("get money!!! : %d"), crop_data->drop_money);
+				}
 			}
 		}
 	}

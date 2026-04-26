@@ -55,7 +55,6 @@ void USkillTreeWidget::Init(UParkComponent* InComp)
 
             Nodes.Add(Node);
         }
-
     }
 
     // パーク更新時にUI更新

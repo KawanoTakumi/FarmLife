@@ -3,6 +3,7 @@
 
 #include "SkillNodeWidget.h"
 #include "SkillTreeWidget.h"
+#include "PlayerCharacter.h"
 void USkillNodeWidget::NativeConstruct()
 {
     Super::NativeConstruct();
@@ -49,6 +50,7 @@ void USkillNodeWidget::UpdateState()
     if (bOwned)
     {
         NodeButton->SetIsEnabled(true);
+        Icon->SetBrushFromTexture(ParkData->ClickedIcon);
         SetRenderOpacity(1.0f);
     }
     else if (bCan)
@@ -72,5 +74,6 @@ void USkillNodeWidget::OnClicked()
         //画像を変更
         Icon->SetBrushFromTexture(ParkData->ClickedIcon);
         ParkComp->ApplyPark(ParkData);
+        //SkillTree->PerkDesc->SetText(FText::FromString(TEXT("このパークは取得できません！")));        
     }
 }

@@ -45,7 +45,6 @@ public:
 
 	void AddMoney(int32 amount);//お金追加
 	void UpdateTimer(int32 timer);//タイマー更新
-
 	//インプットマッピングコンテキスト
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
 	UInputMappingContext* InputMapingContext;

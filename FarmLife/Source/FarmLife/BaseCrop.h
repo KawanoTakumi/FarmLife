@@ -28,7 +28,7 @@ public:
 	virtual float TakeDamage(float DamageAmount,FDamageEvent const& DamageEvent,
 		AController* EventInstigator,AActor* DamageCauser) override;
 	
-	void Harvest();
+	void Harvest(bool OnEnemy);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
 	UCropData* crop_data;
