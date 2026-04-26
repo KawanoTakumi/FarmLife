@@ -25,13 +25,23 @@ void AEnemy_Bee::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	//付近の作物を探し目標に設定する
 	if (!TargetCrop)
+	{
+		UE_LOG(LogTemp,Warning,TEXT("Find To Crop"));
 		FindNearCrop();
+	}
 	else
 	{
 		float Distance = FVector::Dist(GetActorLocation(), TargetCrop->GetActorLocation());
 
 		if (Distance <= Attack_Range)
+		{
+
 			Attack();
+		}
+		else
+		{
+			MoveToCrop(DeltaTime);
+		}
 	}
 }
 
@@ -41,7 +51,6 @@ void AEnemy_Bee::FindNearCrop()
 
 	//BaseCropをすべて探す
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABaseCrop::StaticClass(), FoundCrops);
-	if (FoundCrops.Num() < 1)return;
 
 	float NearestDistance = MAX_FLT;
 
@@ -54,17 +63,19 @@ void AEnemy_Bee::FindNearCrop()
 			TargetCrop = Cast<ABaseCrop>(Actor);
 		}
 	}
+	UE_LOG(LogTemp, Warning, TEXT("Find To Crop %d"),FoundCrops.Num());
 }
 
 void AEnemy_Bee::MoveToCrop(float Delta)
 {
 	if (!TargetCrop)return;
 	FVector Direction = (TargetCrop->GetActorLocation() - GetActorLocation());//移動ベクトル作成
-	AddActorWorldOffset(Direction * Move_Speed * Delta);
+	AddActorWorldOffset(Direction * Move_Speed/40 * Delta);
 	SetActorRotation(Direction.Rotation());
 }
 void AEnemy_Bee::Attack()
 {
 	//攻撃されたらその作物は即座に削除される
 	TargetCrop->Harvest(true);
+	TargetCrop = nullptr;//解除した
 }
