@@ -4,6 +4,8 @@
 #include "SkillNodeWidget.h"
 #include "SkillTreeWidget.h"
 #include "PlayerCharacter.h"
+#include "Kismet/GameplayStatics.h"
+
 void USkillNodeWidget::NativeConstruct()
 {
     Super::NativeConstruct();
@@ -11,7 +13,14 @@ void USkillNodeWidget::NativeConstruct()
     if (NodeButton)
     {
         NodeButton->OnClicked.AddDynamic(this, &USkillNodeWidget::OnClicked);
+
     }
+    //プレイヤー取得
+    if (ACharacter* character = UGameplayStatics::GetPlayerCharacter(this, 0))
+        Player = Cast<APlayerCharacter>(character);
+    if (Player)
+        SkillTree->NowMoney->SetText(FText::AsNumber(Player->ReturnMoney()));
+
 }
 //カーソルが上に乗った時を検知
 void USkillNodeWidget::NativeOnMouseEnter(const FGeometry& MyGeometry, const FPointerEvent& MyPointer)
@@ -24,6 +33,7 @@ void USkillNodeWidget::NativeOnMouseEnter(const FGeometry& MyGeometry, const FPo
 
         SkillTree->PerkDesc->SetText(ParkData->Description);
         SkillTree->PerkName->SetText(ParkData->DisplayName);
+        SkillTree->PerkCost->SetText(FText::AsNumber(ParkData->Cost));
     }
 }
 
@@ -32,6 +42,8 @@ void USkillNodeWidget::Init(UParkData* InData, UParkComponent* InComp)
     ParkData = InData;
     ParkComp = InComp;
     SetPosition = ParkData->PositionGrid;
+
+
 
     //画像設定
     if (ParkData)
@@ -67,13 +79,25 @@ void USkillNodeWidget::UpdateState()
 
 void USkillNodeWidget::OnClicked()
 {
-    if (!ParkComp || !ParkData) return;
+    if (!ParkComp || !ParkData || !Player) return;
 
     if (ParkComp->CanAcquirePark(ParkData))
     {
-        //画像を変更
-        Icon->SetBrushFromTexture(ParkData->ClickedIcon);
-        ParkComp->ApplyPark(ParkData);
-        //SkillTree->PerkDesc->SetText(FText::FromString(TEXT("このパークは取得できません！")));        
+        //所持金がコストより大きい場合
+        if (Player->ReturnMoney() >= ParkData->Cost)
+        {
+            //画像を変更
+            Icon->SetBrushFromTexture(ParkData->ClickedIcon);
+            //お金減算
+            Player->AddMoney(-ParkData->Cost);
+            //表示更新
+            SkillTree->NowMoney->SetText(FText::AsNumber(Player->ReturnMoney()));
+            //パーク適用
+            ParkComp->ApplyPark(ParkData);
+        }
+        else
+        {
+            SkillTree->PerkDesc->SetText(FText::FromString(TEXT(" Not To Money Cost")));        
+        }
     }
 }

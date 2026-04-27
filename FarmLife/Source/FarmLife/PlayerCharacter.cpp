@@ -157,10 +157,23 @@ void APlayerCharacter::AddMoney(int32 amount)
 	}
 }
 
+int32 APlayerCharacter::ReturnMoney()
+{
+	return money;
+}
+
 void APlayerCharacter::UpdateTimer(int32 timer)
 {
 	if (GameMainUserWidget)
 	{
 		GameMainUserWidget->UpdateTimer(timer);
+	}
+}
+
+void APlayerCharacter::UpdateWorldTimer(int32 worldtimer)
+{
+	if (GameMainUserWidget)
+	{
+		GameMainUserWidget->UpdateWorldTimer(worldtimer);
 	}
 }

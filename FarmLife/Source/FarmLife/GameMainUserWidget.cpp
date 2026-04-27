@@ -26,3 +26,12 @@ void UGameMainUserWidget::UpdateTimer(int32 timer)
 		TimerText->SetText(FText::AsNumber(timer));
 	}
 }
+
+//¢ŠE‚ÌŽžŠÔ•\Ž¦XV
+void UGameMainUserWidget::UpdateWorldTimer(int32 worldtimer)
+{
+	if (WorldTimerText)
+	{
+		WorldTimerText->SetText(FText::AsNumber(worldtimer));
+	}
+}

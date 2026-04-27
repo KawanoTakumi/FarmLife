@@ -23,6 +23,9 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* TimerText;
 
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* WorldTimerText;
+
 	virtual void NativeConstruct() override;
 
 public:
@@ -33,5 +36,9 @@ public:
 	//残り時間更新関数
 	UFUNCTION(BlueprintCallable)
 	void UpdateTimer(int32 timer);
+
+	//ワールドの残り時間作成
+	UFUNCTION(BlueprintCallable)
+	void UpdateWorldTimer(int32 worldtimer);
 
 };

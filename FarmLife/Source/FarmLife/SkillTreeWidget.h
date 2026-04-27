@@ -33,6 +33,14 @@ public:
     UPROPERTY(meta = (BindWidget))
     UTextBlock* PerkName;
 
+    //パークのコスト
+    UPROPERTY(meta = (BindWidget))
+    UTextBlock* PerkCost;
+
+    //現在の所持金
+    UPROPERTY(meta = (BindWidget))
+    UTextBlock* NowMoney;
+
 protected:
     virtual void NativeConstruct() override;
 
@@ -52,6 +60,9 @@ protected:
     // 全パーク
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "SkillTree")
     TArray<UParkData*> AllParks;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SkillTree")
+    float PerkRange = 0.0f;
 
     // コンポーネント
     UPROPERTY()

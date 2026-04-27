@@ -70,12 +70,12 @@ void AEnemy_Bee::MoveToCrop(float Delta)
 {
 	if (!TargetCrop)return;
 	FVector Direction = (TargetCrop->GetActorLocation() - GetActorLocation());//ˆÚ“®ƒxƒNƒgƒ‹ì¬
-	AddActorWorldOffset(Direction * Move_Speed/40 * Delta);
+	AddActorWorldOffset(Direction * Move_Speed * Delta);
 	SetActorRotation(Direction.Rotation());
 }
 void AEnemy_Bee::Attack()
 {
 	//UŒ‚‚³‚ê‚½‚ç‚»‚Ìì•¨‚Í‘¦À‚Éíœ‚³‚ê‚é
 	TargetCrop->Harvest(true);
-	TargetCrop = nullptr;//‰ğœ‚µ‚½
+	TargetCrop = nullptr;
 }

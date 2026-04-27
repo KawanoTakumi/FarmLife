@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "PlayerCharacter.h"
 #include "WorldTimerActor.generated.h"
 
 UCLASS()
@@ -23,12 +24,19 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	//タイマーの最大時間
 	UPROPERTY(EditAnywhere, BlueprintReadOnly,Category = "timer")
 	float max_timer = 300.0f;
+	
 
 	UFUNCTION()
 	void OnTimerFinished();//タイマー終了時、ゲームオーバー画面にする
 
+	void OnCountToSecound();
+
 private:
-	FTimerHandle worldtimerhandle;
+	FTimerHandle WorldTimerHandle;
+	FTimerHandle OnCountSecond;//一秒を計測する用のタイマー
+	APlayerCharacter* Player;
+	float timer_remain = 0.0f;
 };

@@ -141,7 +141,6 @@ void ASpawnField::OnCountToSecound()
 
 	if (player)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("count to timer"));
 		player->UpdateTimer(RemainingTimer);
 	}
 

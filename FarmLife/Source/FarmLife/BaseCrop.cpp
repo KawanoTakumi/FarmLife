@@ -64,7 +64,6 @@ void ABaseCrop::Harvest(bool OnEnemy)
 				if (player_character)
 				{
 					player_character->AddMoney(crop_data->drop_money);
-					UE_LOG(LogTemp, Warning, TEXT("get money!!! : %d"), crop_data->drop_money);
 				}
 			}
 		}

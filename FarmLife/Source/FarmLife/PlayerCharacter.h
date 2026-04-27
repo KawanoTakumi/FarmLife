@@ -44,7 +44,9 @@ public:
 	void Interact();//接触関数
 
 	void AddMoney(int32 amount);//お金追加
+	int32 ReturnMoney();
 	void UpdateTimer(int32 timer);//タイマー更新
+	void UpdateWorldTimer(int32 world_timer);//ワールドタイム更新
 	//インプットマッピングコンテキスト
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
 	UInputMappingContext* InputMapingContext;

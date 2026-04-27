@@ -60,4 +60,6 @@ protected:
     // ƒNƒŠƒbƒNˆ—
     UFUNCTION()
     void OnClicked();
+
+    class APlayerCharacter* Player;
 };
