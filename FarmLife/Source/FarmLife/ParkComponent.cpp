@@ -43,6 +43,7 @@ void UParkComponent::ApplyPark(UParkData* data)
 		if (spawnfield)
 		{
 			spawnfield->AddCrop(data->CropClass);
+			spawnfield->AddCrop(data->CorruptedCropClass);
 		}
 	}
 	//取得したパークを取得済み配列に入れる
