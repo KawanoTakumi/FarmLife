@@ -35,3 +35,12 @@ void UGameMainUserWidget::UpdateWorldTimer(int32 worldtimer)
 		WorldTimerText->SetText(FText::AsNumber(worldtimer));
 	}
 }
+
+//鍬の使用・最大使用回数更新
+void UGameMainUserWidget::UpdateHoeCount(int32 hoe_count, int32 max_hoe_count)
+{
+	if (UseHoeText)
+		UseHoeText->SetText(FText::AsNumber(hoe_count));
+	if (MaxHoeText)
+		MaxHoeText->SetText(FText::AsNumber(max_hoe_count));
+}

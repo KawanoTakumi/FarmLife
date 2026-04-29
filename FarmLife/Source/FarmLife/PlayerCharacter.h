@@ -47,6 +47,7 @@ public:
 	int32 ReturnMoney();
 	void UpdateTimer(int32 timer);//タイマー更新
 	void UpdateWorldTimer(int32 world_timer);//ワールドタイム更新
+	void CountHoeUse();//鍬の使用回数計算
 	//インプットマッピングコンテキスト
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
 	UInputMappingContext* InputMapingContext;
@@ -85,10 +86,11 @@ public:
 	
 	//パークコンポーネント
 	UPROPERTY()
-	UParkComponent* ParkComponent;
+	UParkComponent* PerkComponent;
 private:
 	int32 money = 0;//所持金
 	int32 atk_power = 1;//攻撃力
 	int32 atk_radius = 90;//攻撃範囲
-	
+	int32 use_hoe_count = 30;//一つの鍬毎の採取可能回数
+	int32 use_max_count = 30;
 };

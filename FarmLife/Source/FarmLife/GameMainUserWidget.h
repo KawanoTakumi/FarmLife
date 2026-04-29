@@ -26,6 +26,12 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* WorldTimerText;
 
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* UseHoeText;
+
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* MaxHoeText;
+
 	virtual void NativeConstruct() override;
 
 public:
@@ -40,5 +46,8 @@ public:
 	//ƒ[ƒ‹ƒh‚Ìc‚èŠÔì¬
 	UFUNCTION(BlueprintCallable)
 	void UpdateWorldTimer(int32 worldtimer);
+
+	UFUNCTION(BlueprintCallable)
+	void UpdateHoeCount(int32 hoe_count, int32 max_hoe_count);
 
 };

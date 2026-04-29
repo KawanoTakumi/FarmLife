@@ -41,7 +41,7 @@ void APlayerCharacter::BeginPlay()
 		}
 	}
 	//パークコンポーネントを探す
-	ParkComponent = FindComponentByClass<UParkComponent>();
+	PerkComponent = FindComponentByClass<UParkComponent>();
 	//UI生成
 	if (GameMainUserWidgetClass)
 	{
@@ -51,6 +51,9 @@ void APlayerCharacter::BeginPlay()
 			GameMainUserWidget->AddToViewport();
 		}
 	}
+
+	if (GameMainUserWidget)
+		GameMainUserWidget->UpdateHoeCount(use_hoe_count, use_max_count + PerkComponent->max_hoe_count);
 
 }
 
@@ -109,7 +112,7 @@ void APlayerCharacter::Attack()
 	FVector end     = start + (forward * 200.0f);
 
 	float radius    = atk_radius;//攻撃の範囲
-	int   m_calc_attack = atk_power + ParkComponent->attack_bonus;
+	int   m_calc_attack = atk_power + PerkComponent->attack_bonus;
 	FHitResult hit;
 	FCollisionQueryParams params;
 	params.AddIgnoredActor(this);
@@ -123,8 +126,11 @@ void APlayerCharacter::Attack()
 		FCollisionShape::MakeSphere(radius)
 	);
 
+	//接触
 	if (flag_hit)
 	{
+		CountHoeUse();
+
 		UGameplayStatics::ApplyDamage(
 		hit.GetActor(),
 		m_calc_attack,
@@ -147,7 +153,7 @@ void APlayerCharacter::Interact()
 
 void APlayerCharacter::AddMoney(int32 amount)
 {
-	money += amount * ParkComponent->multi_bonus;
+	money += amount * PerkComponent->multi_bonus;
 	if (money < 0)money = 0;
 
 	//UI更新
@@ -176,4 +182,33 @@ void APlayerCharacter::UpdateWorldTimer(int32 worldtimer)
 	{
 		GameMainUserWidget->UpdateWorldTimer(worldtimer);
 	}
+}
+
+void APlayerCharacter::CountHoeUse()
+{
+	
+	//使用回数が0以下の場合お金を減らす
+	if (use_hoe_count < 1)
+	{
+		if (money > 4)
+		{
+			use_hoe_count = use_max_count + PerkComponent->max_hoe_count;
+			money -= 4;
+		}
+		else
+		{
+			//gameover
+
+
+		}
+	}
+	else
+	{
+		use_hoe_count--;
+	}
+
+	//表示更新
+	if (GameMainUserWidget)
+		GameMainUserWidget->UpdateHoeCount(use_hoe_count, use_max_count + PerkComponent->max_hoe_count);
+
 }

@@ -63,6 +63,7 @@ void UParkComponent::Recalcurate()
 	multi_bonus = 1.0f;
 	timer_bonus = 0.0f;
 	max_size_bonus = 0.0f;
+	max_hoe_count = 0;
 
 	for (auto parks : OwnedParks)
 	{
@@ -88,7 +89,11 @@ void UParkComponent::Recalcurate()
 			attack_bonus += parks->Value;
 			break;
 		}
-
+		case ParkType::AddHoeCount:
+		{
+			max_hoe_count += parks->Value;
+			break;
+		}
 		}
 	}
 }

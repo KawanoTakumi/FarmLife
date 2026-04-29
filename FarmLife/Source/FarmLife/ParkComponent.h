@@ -37,6 +37,7 @@ public:
 	float multi_bonus = 1.0f;//価格ボーナス
 	float timer_bonus = 0.0f;//時間ボーナス
 	int   max_size_bonus = 0;//最大出現数ボーナス
+	int   max_hoe_count = 0; //鍬の使用可能回数
 
 	void ApplyPark(UParkData* park);
 

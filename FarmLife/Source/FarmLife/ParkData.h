@@ -15,7 +15,8 @@ enum class ParkType : uint8
 	ValueMag,
 	AddCrop,
 	AddAttck,
-	AddMaxSize
+	AddMaxSize,
+	AddHoeCount
 };
 
 /**
