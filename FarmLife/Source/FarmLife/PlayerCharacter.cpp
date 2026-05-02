@@ -27,10 +27,16 @@ APlayerCharacter::APlayerCharacter()
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	//コントローラー取得
 	if (APlayerController* player_controller = Cast<APlayerController>(GetController()))
 	{
+		player_controller->bShowMouseCursor = false;
+
+		FInputModeGameOnly InputMode;
+		player_controller->SetInputMode(InputMode);
+
+
 		if (ULocalPlayer*  local_player = player_controller->GetLocalPlayer())
 		{
 			if (UEnhancedInputLocalPlayerSubsystem* subsystem =
