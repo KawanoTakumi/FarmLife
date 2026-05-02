@@ -26,7 +26,6 @@ void AEnemy_Bee::Tick(float DeltaTime)
 	//•t‹ß‚Ìì•¨‚ğ’T‚µ–Ú•W‚Éİ’è‚·‚é
 	if (!TargetCrop)
 	{
-		UE_LOG(LogTemp,Warning,TEXT("Find To Crop"));
 		FindNearCrop();
 	}
 	else
@@ -63,7 +62,6 @@ void AEnemy_Bee::FindNearCrop()
 			TargetCrop = Cast<ABaseCrop>(Actor);
 		}
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Find To Crop %d"),FoundCrops.Num());
 }
 
 void AEnemy_Bee::MoveToCrop(float Delta)

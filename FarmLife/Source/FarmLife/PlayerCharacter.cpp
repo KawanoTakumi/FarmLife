@@ -13,7 +13,7 @@ APlayerCharacter::APlayerCharacter()
 	//ƒJƒƒ‰
 	FirstPersonCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FPSCamera"));
 	FirstPersonCamera-> SetupAttachment(RootComponent);
-	FirstPersonCamera-> SetRelativeLocation(FVector(0,0,64));
+	FirstPersonCamera-> SetRelativeLocation(FVector(0,0,50));
 	FirstPersonCamera-> bUsePawnControlRotation = true;
 	
 	bUseControllerRotationYaw    = true;
