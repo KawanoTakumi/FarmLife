@@ -62,8 +62,8 @@ void APlayerCharacter::BeginPlay()
 	if (GameMainUserWidget)
 		GameMainUserWidget->UpdateHoeCount(use_hoe_count, use_max_count + PerkComponent->max_hoe_count);
 
-	
-
+	//ゲームインスタンス取得
+	G_GameInstace = GetWorld()->GetGameInstance<UGrobalGameInstance>();
 }
 
 // Called every frame
@@ -198,6 +198,7 @@ void APlayerCharacter::UpdateWorldTimer(int32 worldtimer)
 	if (GameMainUserWidget)
 	{
 		GameMainUserWidget->UpdateWorldTimer(worldtimer);
+		G_GameInstace->g_timer = worldtimer;
 	}
 }
 

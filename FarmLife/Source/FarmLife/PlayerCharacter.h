@@ -14,6 +14,7 @@
 #include "GetParkObj.h"
 #include "ParkComponent.h"
 #include "WorldGoalMoney.h"
+#include "GrobalGameInstance.h"
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -99,6 +100,8 @@ public:
 	UPROPERTY()
 	int32 GoalMoney;
 
+	UPROPERTY()
+	UGrobalGameInstance* G_GameInstace;
 private:
 	int32 money = 0;//Š‹à
 	int32 atk_power = 1;//UŒ‚—Í

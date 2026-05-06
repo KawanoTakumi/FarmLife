@@ -3,6 +3,7 @@
 
 #include "WorldTimerActor.h"
 #include "Kismet/GameplayStatics.h"
+#include "GrobalGameInstance.h"
 // Sets default values
 AWorldTimerActor::AWorldTimerActor()
 {
@@ -25,6 +26,10 @@ void AWorldTimerActor::BeginPlay()
     //プレイヤー取得
     if (ACharacter* character = UGameplayStatics::GetPlayerCharacter(this, 0))
         Player = Cast<APlayerCharacter>(character);
+
+    //最大時間をコピー
+    if (UGrobalGameInstance* g_gameinstance = GetWorld()->GetGameInstance<UGrobalGameInstance>())
+        g_gameinstance->g_max_timer = max_timer;
 }
 
 // Called every frame
@@ -36,8 +41,6 @@ void AWorldTimerActor::Tick(float DeltaTime)
 
 void AWorldTimerActor::OnTimerFinished()
 {
-    UE_LOG(LogTemp, Warning, TEXT("Timer Finished"));
-
     //ゲームオーバーをここで生成
     if (Player)
         Player->GoToResult(false);
