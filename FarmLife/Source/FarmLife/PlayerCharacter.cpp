@@ -58,8 +58,11 @@ void APlayerCharacter::BeginPlay()
 		}
 	}
 
+	//ウィジェット内鍬使用回数更新
 	if (GameMainUserWidget)
 		GameMainUserWidget->UpdateHoeCount(use_hoe_count, use_max_count + PerkComponent->max_hoe_count);
+
+	
 
 }
 
@@ -135,14 +138,16 @@ void APlayerCharacter::Attack()
 	//接触
 	if (flag_hit)
 	{
-		CountHoeUse();
-
-		UGameplayStatics::ApplyDamage(
-		hit.GetActor(),
-		m_calc_attack,
-		GetController(),
-		this,
-		nullptr);
+		if (hit.GetActor()->ActorHasTag("Crop"))
+		{
+			CountHoeUse();
+			UGameplayStatics::ApplyDamage(
+				hit.GetActor(),
+				m_calc_attack,
+				GetController(),
+				this,
+				nullptr);
+		}
 	}
 }
 
@@ -161,6 +166,12 @@ void APlayerCharacter::AddMoney(int32 amount)
 {
 	money += amount * PerkComponent->multi_bonus;
 	if (money < 0)money = 0;
+
+	//お金が目標金額になったらクリアさせる
+	if (money >= GoalMoney)
+	{
+		GoToResult(true);
+	}
 
 	//UI更新
 	if (GameMainUserWidget)
@@ -192,7 +203,6 @@ void APlayerCharacter::UpdateWorldTimer(int32 worldtimer)
 
 void APlayerCharacter::CountHoeUse()
 {
-	
 	//使用回数が0以下の場合お金を減らす
 	if (use_hoe_count < 1)
 	{
@@ -204,8 +214,7 @@ void APlayerCharacter::CountHoeUse()
 		else
 		{
 			//gameover
-
-
+			GoToResult(false);
 		}
 	}
 	else
@@ -216,5 +225,23 @@ void APlayerCharacter::CountHoeUse()
 	//表示更新
 	if (GameMainUserWidget)
 		GameMainUserWidget->UpdateHoeCount(use_hoe_count, use_max_count + PerkComponent->max_hoe_count);
+
+}
+
+//リザルト移行
+void APlayerCharacter::GoToResult(bool Clear)
+{
+	if (Clear)
+	{
+		//ゲームクリア
+		UGameplayStatics::OpenLevel(this, FName("Result_Clear"));
+
+	}
+	else
+	{
+		//ゲームオーバー
+
+
+	}
 
 }

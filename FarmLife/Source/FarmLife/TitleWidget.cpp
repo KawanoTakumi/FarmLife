@@ -17,5 +17,6 @@ void UTitleWidget::NativeConstruct()
 
 void UTitleWidget::OnStartClicked()
 {
-    UGameplayStatics::OpenLevel(this, FName("MainMap"));
+    //ステージ選択へ
+    UGameplayStatics::OpenLevel(this, FName("Stage_1"));
 }

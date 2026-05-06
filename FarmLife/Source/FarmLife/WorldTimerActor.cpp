@@ -39,7 +39,8 @@ void AWorldTimerActor::OnTimerFinished()
     UE_LOG(LogTemp, Warning, TEXT("Timer Finished"));
 
     //ゲームオーバーをここで生成
-
+    if (Player)
+        Player->GoToResult(false);
 
     //タイマー停止
     GetWorld()->GetTimerManager().ClearTimer(WorldTimerHandle);

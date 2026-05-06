@@ -13,6 +13,7 @@
 #include "SpawnField.h"
 #include "GetParkObj.h"
 #include "ParkComponent.h"
+#include "WorldGoalMoney.h"
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -44,10 +45,17 @@ public:
 	void Interact();//接触関数
 
 	void AddMoney(int32 amount);//お金追加
-	int32 ReturnMoney();
+
+	int32 ReturnMoney();//お金の値を返す
+
 	void UpdateTimer(int32 timer);//タイマー更新
+
 	void UpdateWorldTimer(int32 world_timer);//ワールドタイム更新
+
 	void CountHoeUse();//鍬の使用回数計算
+
+	void GoToResult(bool clear);//リザルト画面移行
+
 	//インプットマッピングコンテキスト
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
 	UInputMappingContext* InputMapingContext;
@@ -87,6 +95,10 @@ public:
 	//パークコンポーネント
 	UPROPERTY()
 	UParkComponent* PerkComponent;
+
+	UPROPERTY()
+	int32 GoalMoney;
+
 private:
 	int32 money = 0;//所持金
 	int32 atk_power = 1;//攻撃力
