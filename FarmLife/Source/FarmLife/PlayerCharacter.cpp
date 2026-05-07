@@ -241,8 +241,6 @@ void APlayerCharacter::GoToResult(bool Clear)
 	else
 	{
 		//ゲームオーバー
-
-
+		UGameplayStatics::OpenLevel(this, FName("Result_GameOver"));
 	}
-
 }

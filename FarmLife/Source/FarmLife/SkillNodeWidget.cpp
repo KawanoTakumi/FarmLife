@@ -43,8 +43,6 @@ void USkillNodeWidget::Init(UParkData* InData, UParkComponent* InComp)
     ParkComp = InComp;
     SetPosition = ParkData->PositionGrid;
 
-
-
     //‰æ‘œÝ’è
     if (ParkData)
         Icon->SetBrushFromTexture(ParkData->NormalIcon);

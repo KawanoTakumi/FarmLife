@@ -21,6 +21,12 @@ public:
     UPROPERTY(meta = (BindWidget))
     class UButton* StartButton;
 
+    UPROPERTY(meta = (BindWidget))
+    class UButton* ExitButton;
+
     UFUNCTION()
     void OnStartClicked();
+
+    UFUNCTION()
+    void OnExitClicked();
 };

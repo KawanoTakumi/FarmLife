@@ -4,6 +4,7 @@
 #include "TitleWidget.h"
 #include "Components/Button.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 void UTitleWidget::NativeConstruct()
 {
@@ -18,5 +19,14 @@ void UTitleWidget::NativeConstruct()
 void UTitleWidget::OnStartClicked()
 {
     //ステージ選択へ
-    UGameplayStatics::OpenLevel(this, FName("Stage_1"));
+    UGameplayStatics::OpenLevel(this, FName("Stage_Select"));
+}
+
+void UTitleWidget::OnExitClicked()
+{
+    //APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0);
+
+    //ゲーム終了
+    //if(PC)
+    //UKismetSystemLibrary::QuitGame(this,PC, EQuitPreference::Quit, false);
 }
