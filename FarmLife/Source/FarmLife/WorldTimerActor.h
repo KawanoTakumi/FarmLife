@@ -34,6 +34,12 @@ public:
 
 	void OnCountToSecound();
 
+	UFUNCTION()
+	void PawsTimer();
+
+	UFUNCTION()
+	void UnPawsTimer();
+
 private:
 	FTimerHandle WorldTimerHandle;
 	FTimerHandle OnCountSecond;//一秒を計測する用のタイマー

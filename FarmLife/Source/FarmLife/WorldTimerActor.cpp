@@ -41,13 +41,14 @@ void AWorldTimerActor::Tick(float DeltaTime)
 
 void AWorldTimerActor::OnTimerFinished()
 {
+    //タイマー停止
+    GetWorld()->GetTimerManager().ClearTimer(WorldTimerHandle);
+    GetWorldTimerManager().ClearTimer(OnCountSecond);
+
     //ゲームオーバーをここで生成
     if (Player)
         Player->GoToResult(false);
 
-    //タイマー停止
-    GetWorld()->GetTimerManager().ClearTimer(WorldTimerHandle);
-    GetWorldTimerManager().ClearTimer(OnCountSecond);
 }
 
 //一秒毎のタイマー
@@ -61,4 +62,16 @@ void AWorldTimerActor::OnCountToSecound()
     {
         Player->UpdateWorldTimer(timer_remain);
     }
+}
+
+void AWorldTimerActor::PawsTimer()
+{
+    GetWorld()->GetTimerManager().PauseTimer(WorldTimerHandle);
+    GetWorldTimerManager().PauseTimer(OnCountSecond);
+}
+
+void AWorldTimerActor::UnPawsTimer()
+{
+    GetWorld()->GetTimerManager().UnPauseTimer(WorldTimerHandle);
+    GetWorldTimerManager().UnPauseTimer(OnCountSecond);
 }

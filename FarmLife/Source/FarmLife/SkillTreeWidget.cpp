@@ -3,6 +3,7 @@
 
 #include "SkillTreeWidget.h"
 #include "PlayerCharacter.h"
+#include "WorldTimerActor.h"
 
 void USkillTreeWidget::NativeConstruct()
 {
@@ -18,6 +19,7 @@ void USkillTreeWidget::CreateWidgetData()
 {
     //パークコンポーネントを探す
     APlayerCharacter* Chara = Cast<APlayerCharacter>(GetOwningPlayerPawn());
+
     if (Chara)
     {
         ParkComp = Chara->FindComponentByClass<UParkComponent>();
@@ -50,7 +52,9 @@ void USkillTreeWidget::Init(UParkComponent* InComp)
             //配置（X、Y）
             if (auto CanvasSlot = Cast<UCanvasPanelSlot>(Node->Slot))
             {
-                CanvasSlot->SetPosition(FVector2D(Node->SetPosition.X *PerkRange,Node->SetPosition.Y * PerkRange));
+                CanvasSlot->SetPosition(FVector2D(
+                    StartPerkPosX + Node->SetPosition.X *PerkRange, 
+                    StartPerkPosY+Node->SetPosition.Y * PerkRange));
             }
 
             Nodes.Add(Node);

@@ -3,6 +3,8 @@
 
 #include "GetParkObj.h"
 #include "PlayerCharacter.h"
+#include "WorldTimerActor.h"
+#include "Kismet/GameplayStatics.h"
 // Sets default values
 AGetParkObj::AGetParkObj()
 {
@@ -40,12 +42,15 @@ void AGetParkObj::OpenUIWidget(AActor* OtherActor)
 	if (OtherActor)
 	{
 		APlayerCharacter* PC = Cast<APlayerCharacter>(OtherActor);
+		
 		APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
+
 		if (PC && PlayerController)
 		{
 			//ここでWidgetを作成する
 			if (SkillTreeWidgetClass)
 				SkillTreeWidget = CreateWidget<USkillTreeWidget>(GetWorld(), SkillTreeWidgetClass);
+
 
 			if (SkillTreeWidget && !IsUI)
 			{
@@ -58,7 +63,6 @@ void AGetParkObj::OpenUIWidget(AActor* OtherActor)
 				SkillTreeWidget->OnClosed.AddDynamic(this, &AGetParkObj::OnWidgetClosed);
 				SkillTreeWidget->CreateWidgetData();
 				PlayerController->SetIgnoreMoveInput(true);
-				//InputMode.SetWidgetToFocus(SkillTreeWidget->TakeWidget());//エラーはいているので一時コメント
 			}
 
 		}
@@ -71,6 +75,13 @@ void AGetParkObj::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent,AActor
 	int32 OtherBodyIndex,bool bFromSweep,const FHitResult& SweepResult)
 {
 	IsPlayerInside = true;
+	AActor* FoundTimer = 
+	UGameplayStatics::GetActorOfClass(GetWorld(),AWorldTimerActor::StaticClass());
+	AWorldTimerActor* worldTimer = Cast<AWorldTimerActor>(FoundTimer);
+
+	if(worldTimer)
+	worldTimer->PawsTimer();
+
 	APlayerCharacter* PC = Cast<APlayerCharacter>(OtherActor);
 	PC->GetPerkObject = this;
 }
@@ -78,6 +89,14 @@ void AGetParkObj::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent,AActor
 void AGetParkObj::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
+
+	AActor* FoundTimer =
+		UGameplayStatics::GetActorOfClass(GetWorld(), AWorldTimerActor::StaticClass());
+	AWorldTimerActor* worldTimer = Cast<AWorldTimerActor>(FoundTimer);
+
+	if (worldTimer)
+		worldTimer->UnPawsTimer();
+
 	IsPlayerInside = false;
 	IsUI = false;
 }

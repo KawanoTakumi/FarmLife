@@ -13,6 +13,7 @@ void UTitleWidget::NativeConstruct()
     if (StartButton)
     {
         StartButton->OnClicked.AddDynamic(this, &UTitleWidget::OnStartClicked);
+        ExitButton->OnClicked.AddDynamic(this, &UTitleWidget::OnExitClicked);
     }
 }
 
@@ -24,9 +25,9 @@ void UTitleWidget::OnStartClicked()
 
 void UTitleWidget::OnExitClicked()
 {
-    //APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0);
+    APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0);
 
     //ÉQÅ[ÉÄèIóπ
-    //if(PC)
-    //UKismetSystemLibrary::QuitGame(this,PC, EQuitPreference::Quit, false);
+    if(PC)
+    UKismetSystemLibrary::QuitGame(this,nullptr, EQuitPreference::Quit, false);
 }

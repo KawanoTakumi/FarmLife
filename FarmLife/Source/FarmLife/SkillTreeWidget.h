@@ -64,6 +64,11 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SkillTree")
     float PerkRange = 0.0f;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SkillTree")
+    int StartPerkPosX = 0.0f;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SkillTree")
+    int StartPerkPosY = 0.0f;
+
     // コンポーネント
     UPROPERTY()
     UParkComponent* ParkComp;
