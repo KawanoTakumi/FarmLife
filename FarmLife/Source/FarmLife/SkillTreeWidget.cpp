@@ -55,6 +55,9 @@ void USkillTreeWidget::Init(UParkComponent* InComp)
                 CanvasSlot->SetPosition(FVector2D(
                     StartPerkPosX + Node->SetPosition.X *PerkRange, 
                     StartPerkPosY+Node->SetPosition.Y * PerkRange));
+
+                //要求ノードがある場合、その座標までラインを引く
+
             }
 
             Nodes.Add(Node);

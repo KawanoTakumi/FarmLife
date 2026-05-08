@@ -44,7 +44,6 @@ public:
 protected:
     virtual void NativeConstruct() override;
 
-
     //–ß‚éƒ{ƒ^ƒ“
     UPROPERTY(meta = (BindWidget))
     UButton* ExitButton;
