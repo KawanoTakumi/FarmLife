@@ -54,18 +54,20 @@ void USkillNodeWidget::UpdateState()
 {
     if (!ParkComp || !ParkData) return;
 
-    const bool bOwned = ParkComp->IsParkOwned(ParkData);
-    const bool bCan = ParkComp->CanAcquirePark(ParkData);
+    bOwned = ParkComp->IsParkOwned(ParkData);
+    bCan = ParkComp->CanAcquirePark(ParkData);
 
     if (bOwned)
     {
         NodeButton->SetIsEnabled(true);
+        ParkData->bOwned = bOwned;
         Icon->SetBrushFromTexture(ParkData->ClickedIcon);
         SetRenderOpacity(1.0f);
     }
     else if (bCan)
     {
         NodeButton->SetIsEnabled(true);
+        ParkData->bCan = bCan;
         SetRenderOpacity(1.0f);
     }
     else

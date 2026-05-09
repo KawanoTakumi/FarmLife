@@ -85,6 +85,12 @@ public:
 	//必要パーク
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value")
 	TArray<UParkData*> RequiredPerk;
+	
+	//適用済みか
+	UPROPERTY()
+	bool bOwned = false;
 
-
+	//利用可能か
+	UPROPERTY()
+	bool bCan = false;
 };

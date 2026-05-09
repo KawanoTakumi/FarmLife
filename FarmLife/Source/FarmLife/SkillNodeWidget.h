@@ -33,6 +33,12 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "position")
     FVector2D SetPosition;
 
+    UPROPERTY()
+    bool bOwned = false;
+    UPROPERTY()
+    bool bCan = false;
+
+
 protected:
     virtual void NativeConstruct() override;
 
@@ -62,4 +68,5 @@ protected:
     void OnClicked();
 
     class APlayerCharacter* Player;
+
 };
