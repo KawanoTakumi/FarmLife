@@ -101,7 +101,7 @@ public:
 	int32 GoalMoney;
 
 	UPROPERTY()
-	UGrobalGameInstance* G_GameInstace;
+	UGrobalGameInstance* G_GameInstance;
 private:
 	int32 money = 0;//Š‹à
 	int32 atk_power = 1;//UŒ‚—Í

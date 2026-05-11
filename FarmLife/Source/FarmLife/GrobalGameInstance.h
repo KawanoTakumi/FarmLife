@@ -22,5 +22,7 @@ public:
 	//Å‘åŠÔ
 	UPROPERTY(BlueprintReadWrite)
 	int32 g_max_timer;
-
+	//Ÿ”s
+	UPROPERTY(BlueprintReadWrite)
+	bool isWin = false;
 };

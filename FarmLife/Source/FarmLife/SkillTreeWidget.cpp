@@ -75,13 +75,12 @@ int32 USkillTreeWidget::NativePaint(const FPaintArgs& Args, const FGeometry& All
     int32 LayerId, const FWidgetStyle& InWidgetStyle, bool bParentEnabled) const
 {
     int32 MaxLayerID = Super::NativePaint(Args, AllottedGeometry, MyCullingRect, OutDrawElements, LayerId, InWidgetStyle, bParentEnabled);
-    UE_LOG(LogTemp, Warning, TEXT("max_layer_id %d"), MaxLayerID);
     //Ç±Ç±Ç≈Perkä‘ÇÃê¸Çï`âÊÇ∑ÇÈ
     if (AllParks.Num() != 0)
     {
         for (int count = 0; count < AllParks.Num(); count++)
         {
-            if (AllParks[count]->bCan == false)
+            if (AllParks[count]->bCan == false && AllParks[count]->bOwned == false)
             {
                 count++;
                 continue;
@@ -109,7 +108,7 @@ int32 USkillTreeWidget::NativePaint(const FPaintArgs& Args, const FGeometry& All
 
                 FSlateDrawElement::MakeLines(
                     OutDrawElements,
-                    MaxLayerID + 1,//ÉåÉCÉÑÅ[ÇÇ©Ç»ÇËå„ÇÎÇ…Ç∑ÇÈ
+                    MaxLayerID -60,
                     AllottedGeometry.ToPaintGeometry(),
                     draw_line_pos,
                     ESlateDrawEffect::None,

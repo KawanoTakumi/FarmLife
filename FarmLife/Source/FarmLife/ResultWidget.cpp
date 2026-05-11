@@ -22,8 +22,12 @@ void UResultWidget::NativeConstruct()
 		resuslt_timer = g_gameinstance->g_timer;
 		max_timer = g_gameinstance->g_max_timer;
 	}
+	//リザルトの時間更新
+	if (Result_Time_Text)
+		Result_Time_Text->SetText(FText::AsNumber(max_timer - resuslt_timer));
 
-	SetResultRank(resuslt_timer);
+
+	SetResultRank(resuslt_timer,g_gameinstance->isWin);
 }
 
 void UResultWidget::OnStartClicked()
@@ -32,9 +36,18 @@ void UResultWidget::OnStartClicked()
 	UGameplayStatics::OpenLevel(this, FName("Title"));
 }
 
-void UResultWidget::SetResultRank(int time)
+void UResultWidget::SetResultRank(int time ,bool isWin)
 {
 	int calc_time = max_timer - time;
+
+
+	if (!isWin)
+	{
+		if (Rank_Text)
+			Rank_Text->SetText(FText::FromString("C"));
+		return;
+	}
+
 	//仮のランク設定(制限時間を10分割して、その割合から計測)
 	if ((max_timer / 10) * 2 >= calc_time)
 	{

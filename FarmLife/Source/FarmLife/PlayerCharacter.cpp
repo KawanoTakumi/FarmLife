@@ -63,7 +63,7 @@ void APlayerCharacter::BeginPlay()
 		GameMainUserWidget->UpdateHoeCount(use_hoe_count, use_max_count + PerkComponent->max_hoe_count);
 
 	//ゲームインスタンス取得
-	G_GameInstace = GetWorld()->GetGameInstance<UGrobalGameInstance>();
+	G_GameInstance = GetWorld()->GetGameInstance<UGrobalGameInstance>();
 }
 
 // Called every frame
@@ -198,7 +198,7 @@ void APlayerCharacter::UpdateWorldTimer(int32 worldtimer)
 	if (GameMainUserWidget)
 	{
 		GameMainUserWidget->UpdateWorldTimer(worldtimer);
-		G_GameInstace->g_timer = worldtimer;
+		G_GameInstance->g_timer = worldtimer;
 	}
 }
 
@@ -236,11 +236,12 @@ void APlayerCharacter::GoToResult(bool Clear)
 	{
 		//ゲームクリア
 		UGameplayStatics::OpenLevel(this, FName("Result_Clear"));
-
+		G_GameInstance->isWin = true;
 	}
 	else
 	{
 		//ゲームオーバー
 		UGameplayStatics::OpenLevel(this, FName("Result_GameOver"));
+		G_GameInstance->isWin = false;
 	}
 }

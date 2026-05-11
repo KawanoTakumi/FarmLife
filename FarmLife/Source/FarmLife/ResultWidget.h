@@ -39,7 +39,7 @@ protected:
     virtual void NativeConstruct() override;
 
     //ランクを算出（time）
-    void SetResultRank(int time);
+    void SetResultRank(int time,bool isWin);
 
 private:
     int32 max_timer;
