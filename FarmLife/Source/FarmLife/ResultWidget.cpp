@@ -39,7 +39,7 @@ void UResultWidget::OnStartClicked()
 void UResultWidget::SetResultRank(int time ,bool isWin)
 {
 	int calc_time = max_timer - time;
-
+	UE_LOG(LogTemp, Warning, TEXT("Result_Timer %d"), calc_time);
 
 	if (!isWin)
 	{
@@ -49,17 +49,17 @@ void UResultWidget::SetResultRank(int time ,bool isWin)
 	}
 
 	//‰¼‚Ìƒ‰ƒ“ƒNÝ’è(§ŒÀŽžŠÔ‚ð10•ªŠ„‚µ‚ÄA‚»‚ÌŠ„‡‚©‚çŒv‘ª)
-	if ((max_timer / 10) * 2 >= calc_time)
+	if ((max_timer / 10) * 1 >= calc_time)
 	{
 		if (Rank_Text)
 			Rank_Text->SetText(FText::FromString("C"));
 	}
-	else if ((max_timer / 10) * 4 >= calc_time)
+	else if ((max_timer / 10) * 2 >= calc_time)
 	{
 		if (Rank_Text)
 			Rank_Text->SetText(FText::FromString("B"));
 	}
-	else if ((max_timer / 10) * 6 >= calc_time)
+	else if ((max_timer / 10) * 3 >= calc_time)
 	{
 		if (Rank_Text)
 			Rank_Text->SetText(FText::FromString("A"));
