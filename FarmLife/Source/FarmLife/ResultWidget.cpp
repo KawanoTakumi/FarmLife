@@ -47,26 +47,24 @@ void UResultWidget::SetResultRank(int time ,bool isWin)
 			Rank_Text->SetText(FText::FromString("C"));
 		return;
 	}
-
-	//‰¼‚Ìƒ‰ƒ“ƒNÝ’è(§ŒÀŽžŠÔ‚ð10•ªŠ„‚µ‚ÄA‚»‚ÌŠ„‡‚©‚çŒv‘ª)
-	if ((max_timer / 10) * 1 >= calc_time)
+	if (calc_time >= (max_timer / 10) * 6)
 	{
 		if (Rank_Text)
-			Rank_Text->SetText(FText::FromString("C"));
+			Rank_Text->SetText(FText::FromString("S"));
 	}
-	else if ((max_timer / 10) * 2 >= calc_time)
-	{
-		if (Rank_Text)
-			Rank_Text->SetText(FText::FromString("B"));
-	}
-	else if ((max_timer / 10) * 3 >= calc_time)
+	else if (calc_time >= (max_timer / 10) * 5)
 	{
 		if (Rank_Text)
 			Rank_Text->SetText(FText::FromString("A"));
 	}
+	else if (calc_time >= (max_timer / 10) * 3)
+	{
+		if (Rank_Text)
+			Rank_Text->SetText(FText::FromString("B"));
+	}
 	else
 	{
 		if (Rank_Text)
-			Rank_Text->SetText(FText::FromString("S"));
+			Rank_Text->SetText(FText::FromString("C"));
 	}
 }
