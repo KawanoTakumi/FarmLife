@@ -3,6 +3,7 @@
 
 #include "BaseCrop.h"
 #include "Kismet/GameplayStatics.h"
+#include "GameFramework/Character.h"
 #include "PlayerCharacter.h"
 
 // Sets default values
@@ -29,6 +30,9 @@ void ABaseCrop::BeginPlay()
 		{
 			mesh->SetStaticMesh(crop_data->mesh);
 		}
+		//爆発するか設定
+		if (crop_data->crop_type == CropType::Explosive)
+			isExplasive = true;
 	}
 }
 
@@ -68,5 +72,42 @@ void ABaseCrop::Harvest(bool OnEnemy)
 			}
 		}
 	}
+	//爆発する作物の場合
+	if (isExplasive)
+		Explosive();
 	Destroy();
+}
+
+void ABaseCrop::Explosive()
+{
+	FVector m_this_location = GetActorLocation();//爆発の中心座標
+
+	float explosive_area = 100.0f;//爆発範囲
+
+	TArray<FHitResult> hit_character;//当たったキャラクター
+
+	FCollisionShape Sphere = FCollisionShape::MakeSphere(explosive_area);
+
+	bool bHasHit = GetWorld()->SweepMultiByChannel(
+		hit_character, m_this_location, m_this_location, FQuat::Identity,
+		ECC_Pawn, Sphere);
+
+	if (bHasHit)
+	{
+		for (auto& Hit : hit_character)
+		{
+			// ヒットしたコンポーネントを取得
+			UPrimitiveComponent* RootComp = Cast<UPrimitiveComponent>(Hit.GetActor()->GetRootComponent());
+			if (RootComp)
+			{
+				RootComp->AddRadialImpulse(
+					m_this_location,
+					explosive_area,
+					250.0f,
+					ERadialImpulseFalloff::RIF_Linear,
+					true
+				);
+			}
+		}
+	}
 }

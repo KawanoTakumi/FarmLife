@@ -27,8 +27,10 @@ public:
 
 	virtual float TakeDamage(float DamageAmount,FDamageEvent const& DamageEvent,
 		AController* EventInstigator,AActor* DamageCauser) override;
-	
+	//ŽûŠn
 	void Harvest(bool OnEnemy);
+	//”š”­
+	void Explosive();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
 	UCropData* crop_data;
@@ -38,4 +40,5 @@ public:
 
 private:
 	int32 m_current_hp = 0;
+	bool isExplasive = false;
 };

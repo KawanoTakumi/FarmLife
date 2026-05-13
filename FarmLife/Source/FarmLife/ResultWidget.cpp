@@ -39,7 +39,6 @@ void UResultWidget::OnStartClicked()
 void UResultWidget::SetResultRank(int time ,bool isWin)
 {
 	int calc_time = max_timer - time;
-	UE_LOG(LogTemp, Warning, TEXT("Result_Timer %d"), calc_time);
 
 	if (!isWin)
 	{
