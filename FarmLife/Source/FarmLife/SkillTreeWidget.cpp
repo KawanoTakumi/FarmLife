@@ -37,13 +37,6 @@ void USkillTreeWidget::Init(UParkComponent* InComp)
     //フォーカス設定
     SetIsFocusable(true);
 
-    if (APlayerController* PC = GetOwningPlayer())
-    {
-        FInputModeUIOnly Mode;
-        Mode.SetWidgetToFocus(TakeWidget());
-        PC->SetInputMode(Mode);
-        PC->bShowMouseCursor = true;
-    }
 
 
     ParkComp = InComp;
@@ -87,7 +80,7 @@ int32 USkillTreeWidget::NativePaint(const FPaintArgs& Args, const FGeometry& All
     int32 LayerId, const FWidgetStyle& InWidgetStyle, bool bParentEnabled) const
 {
     int32 MaxLayerID = Super::NativePaint(Args, AllottedGeometry, MyCullingRect, OutDrawElements, LayerId, InWidgetStyle, bParentEnabled);
-    //ここでPerk間の線を描画する
+    ////ここでPerk間の線を描画する
     if (AllParks.Num() != 0)
     {
         for (int count = 0; count < AllParks.Num(); count++)
@@ -120,7 +113,7 @@ int32 USkillTreeWidget::NativePaint(const FPaintArgs& Args, const FGeometry& All
 
                 FSlateDrawElement::MakeLines(
                     OutDrawElements,
-                    MaxLayerID -60,
+                    MaxLayerID + 1,
                     AllottedGeometry.ToPaintGeometry(),
                     draw_line_pos,
                     ESlateDrawEffect::None,
@@ -131,38 +124,6 @@ int32 USkillTreeWidget::NativePaint(const FPaintArgs& Args, const FGeometry& All
     return MaxLayerID + 1;
 }
 
-FReply USkillTreeWidget::NativeOnKeyDown(const FGeometry& InGeometry,
-    const FKeyEvent& KeyEvent)
-{
-    FKey PressedKey = KeyEvent.GetKey();
-    FVector2D MovementDelta = FVector2D::ZeroVector;
-
-    if (PressedKey == EKeys::W)MovementDelta.Y -= 30.0f;
-    if (PressedKey == EKeys::S)MovementDelta.Y += 30.0f;
-    if (PressedKey == EKeys::A)MovementDelta.X -= 30.0f;
-    if (PressedKey == EKeys::D)MovementDelta.X += 30.0f;
-    
-    for (int i = 0; i < Nodes.Num(); i++)
-    {
-        if (!MovementDelta.IsZero())
-        {
-            UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(Nodes[i]->Slot);
-            if (CanvasSlot)
-            {
-                UE_LOG(LogTemp, Warning, TEXT("Moveing"));
-                FVector2D current_pos = CanvasSlot->GetPosition();
-                CanvasSlot->SetPosition(current_pos + MovementDelta);
-            }
-        }
-
-        if (i >= Nodes.Num())
-        {
-            UE_LOG(LogTemp, Warning, TEXT("Finish"));
-            return FReply::Handled();
-        }
-    }
-    return Super::NativeOnKeyDown(InGeometry, KeyEvent);
-}
 
 void USkillTreeWidget::RefreshAll()
 {
