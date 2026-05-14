@@ -44,6 +44,8 @@ public:
 protected:
     virtual void NativeConstruct() override;
 
+    virtual FReply NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& KeyEvent) override;
+
     virtual int32 NativePaint(const FPaintArgs& Args, const FGeometry& AllottedGeometry,
         const FSlateRect& MyCullingRect, FSlateWindowElementList& OutDrawElements, 
         int32 LayerId, const FWidgetStyle& InWidgetStyle, bool bParentEnabled
