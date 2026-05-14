@@ -21,7 +21,7 @@ void UTitleWidget::OnStartClicked()
 {
     //ステージ選択へ
     RemoveFromParent();
-    UGameplayStatics::OpenLevel(this, FName("Stage_1"));
+    UGameplayStatics::OpenLevel(this, FName("Stage_Select"));
 }
 
 void UTitleWidget::OnExitClicked()
