@@ -40,10 +40,12 @@ void UParkComponent::ApplyPark(UParkData* data)
 	if (!CanAcquirePark(data)) return;
 	if (data->ParkType == ParkType::AddCrop)
 	{
+		//作物追加
 		if (spawnfield)
 		{
 			spawnfield->AddCrop(data->CropClass);
 			spawnfield->AddCrop(data->CorruptedCropClass);
+			spawnfield->AddCrop(data->ExplosiveCropClass);
 		}
 	}
 	//取得したパークを取得済み配列に入れる

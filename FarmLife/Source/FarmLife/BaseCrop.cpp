@@ -81,32 +81,27 @@ void ABaseCrop::Harvest(bool OnEnemy)
 void ABaseCrop::Explosive()
 {
 	FVector m_this_location = GetActorLocation();//爆発の中心座標
-
-	float explosive_area = 100.0f;//爆発範囲
-
-	TArray<FHitResult> hit_character;//当たったキャラクター
-
-	FCollisionShape Sphere = FCollisionShape::MakeSphere(explosive_area);
+	m_this_location.Z -= 100.0f;
+	FCollisionShape Sphere = FCollisionShape::MakeSphere(m_explosive_area);
 
 	bool bHasHit = GetWorld()->SweepMultiByChannel(
-		hit_character, m_this_location, m_this_location, FQuat::Identity,
+		m_hit_character, m_this_location, m_this_location, FQuat::Identity,
 		ECC_Pawn, Sphere);
 
 	if (bHasHit)
 	{
-		for (auto& Hit : hit_character)
+		for (FHitResult& hit : m_hit_character)
 		{
-			// ヒットしたコンポーネントを取得
-			UPrimitiveComponent* RootComp = Cast<UPrimitiveComponent>(Hit.GetActor()->GetRootComponent());
-			if (RootComp)
+			if (hit.GetActor()->ActorHasTag("Player"))
 			{
-				RootComp->AddRadialImpulse(
-					m_this_location,
-					explosive_area,
-					250.0f,
-					ERadialImpulseFalloff::RIF_Linear,
-					true
-				);
+				UE_LOG(LogTemp, Warning, TEXT("ExplosivePlayer"));
+				
+				APlayerCharacter* player = Cast<APlayerCharacter>(hit.GetActor());
+				//距離と方向の計算
+				FVector dir = m_this_location - player->GetActorLocation();
+				dir.Normalize();
+				FVector FinalLaunchVelocity = -dir * m_explasive_power;
+				player->LaunchCharacter(FinalLaunchVelocity,true,true);
 			}
 		}
 	}
