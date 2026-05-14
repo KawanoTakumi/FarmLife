@@ -43,6 +43,7 @@ public:
 
 protected:
     virtual void NativeConstruct() override;
+    virtual void NativeDestruct() override;
 
     virtual int32 NativePaint(const FPaintArgs& Args, const FGeometry& AllottedGeometry,
         const FSlateRect& MyCullingRect, FSlateWindowElementList& OutDrawElements, 
@@ -90,6 +91,7 @@ protected:
     UFUNCTION()
     void ExitUI();
 
+    void Cleanup();
 public:
     //UIçÏê¨
     UFUNCTION()

@@ -34,10 +34,6 @@ void USkillTreeWidget::CreateWidgetData()
 
 void USkillTreeWidget::Init(UParkComponent* InComp)
 {
-    //フォーカス設定
-    SetIsFocusable(true);
-
-
 
     ParkComp = InComp;
     if (!RootCanvas || !NodeClass) return;
@@ -140,9 +136,23 @@ void USkillTreeWidget::ExitUI()
 {
     APlayerController* PC = GetWorld()->GetFirstPlayerController();
     if (!PC) return;
-
+    if (ParkComp)
+    {
+        ParkComp->OnParkUpdated.RemoveDynamic(this, &USkillTreeWidget::RefreshAll);
+    }
+    for (auto Node : Nodes)
+    {
+        if (Node)
+        {
+            Node->RemoveFromParent();
+        }
+    }
+    Nodes.Empty();
     // UI削除
+    Cleanup();
     RemoveFromParent();
+
+    ParkComp = nullptr;
     // 入力をゲームに戻す
     PC->bShowMouseCursor = false;
 
@@ -151,4 +161,45 @@ void USkillTreeWidget::ExitUI()
     PC->SetIgnoreMoveInput(false);
     OnClosed.Broadcast();
 
+}
+
+void USkillTreeWidget::NativeDestruct()
+{
+    if (ParkComp)
+    {
+        ParkComp->OnParkUpdated.RemoveDynamic(this, &USkillTreeWidget::RefreshAll);
+    }
+
+    for (auto Node : Nodes)
+    {
+        if (Node)
+        {
+            Node->RemoveFromParent();
+        }
+    }
+
+    Nodes.Empty();
+    ParkComp = nullptr;
+
+    Super::NativeDestruct();
+}
+
+void USkillTreeWidget::Cleanup()
+{
+    if (ParkComp)
+    {
+        ParkComp->OnParkUpdated.RemoveDynamic(this, &USkillTreeWidget::RefreshAll);
+    }
+
+    for (auto Node : Nodes)
+    {
+        if (Node)
+        {
+            Node->RemoveFromParent();
+            Node->ConditionalBeginDestroy(); // ←重要
+        }
+    }
+
+    Nodes.Empty();
+    ParkComp = nullptr;
 }

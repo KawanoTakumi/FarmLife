@@ -61,7 +61,8 @@ public:
 	UFUNCTION()
 	void Init();
 
+	void CleanUp();
 protected:
     virtual void NativeConstruct() override;
-
+	virtual void NativeDestruct() override;
 };

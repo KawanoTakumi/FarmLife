@@ -20,7 +20,8 @@ void UTitleWidget::NativeConstruct()
 void UTitleWidget::OnStartClicked()
 {
     //ステージ選択へ
-    UGameplayStatics::OpenLevel(this, FName("Stage_Select"));
+    RemoveFromParent();
+    UGameplayStatics::OpenLevel(this, FName("Stage_1"));
 }
 
 void UTitleWidget::OnExitClicked()

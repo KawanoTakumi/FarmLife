@@ -7,35 +7,60 @@
 void UStageSelect_Widget::NativeConstruct()
 {
 	Super::NativeConstruct();
-	if (Button_back)
-		Button_back->OnClicked.AddDynamic(this, &UStageSelect_Widget::OnClicked_Back);
+	//if (Button_back)
+	//	Button_back->OnClicked.AddDynamic(this, &UStageSelect_Widget::OnClicked_Back);
 
-	Init();
+	//Init();
 }
 
 void UStageSelect_Widget::Init()
 {
 	if (Stage_Levels.Num() <= 0)return;
 
-	for (int16 i = 0; i < Stage_Levels.Num(); i++)
-	{
-		auto Node = CreateWidget<UStageNodeWidget>(GetWorld(), NodeClass);
-		Node->Init(Stage_Levels[i]->GetFName(),Stage_Images[i],Stage_Names[i]);
-		RootCanvas->AddChild(Node);
+	//for (int16 i = 0; i < Stage_Levels.Num(); i++)
+	//{
+	//	auto Node = CreateWidget<UStageNodeWidget>(GetWorld(), NodeClass);
+	//	Node->Init(Stage_Levels[i]->GetFName(),Stage_Images[i],Stage_Names[i]);
+	//	RootCanvas->AddChild(Node);
 
-		//配置（X、Y）
-		if (auto CanvasSlot = Cast<UCanvasPanelSlot>(Node->Slot))
-		{
-			CanvasSlot->SetPosition(FVector2D(
-				StartPos.X + i * Range,
-				StartPos.Y));
-		}
+	//	//配置（X、Y）
+	//	if (auto CanvasSlot = Cast<UCanvasPanelSlot>(Node->Slot))
+	//	{
+	//		CanvasSlot->SetPosition(FVector2D(
+	//			StartPos.X + i * Range,
+	//			StartPos.Y));
+	//	}
 
-		Nodes.Add(Node);
-	}
+	//	Nodes.Add(Node);
+	//}
 }
 
 void UStageSelect_Widget::OnClicked_Back()
 {
-	UGameplayStatics::OpenLevel(this, FName("Title"));
+	CleanUp();
+	RemoveFromParent();
+	//UGameplayStatics::OpenLevel(this, FName("Title"));
+}
+
+void UStageSelect_Widget::CleanUp()
+{
+	//if (Button_back)
+	//{
+	//	Button_back->OnClicked.RemoveDynamic(this, &UStageSelect_Widget::OnClicked_Back);
+	//}
+
+	//for (auto Node : Nodes)
+	//{
+	//	if (Node)
+	//	{
+	//		Node->RemoveFromParent();
+	//	}
+	//}
+
+	//Nodes.Empty();
+}
+void UStageSelect_Widget::NativeDestruct()
+{
+	//CleanUp();
+	Super::NativeDestruct();
 }

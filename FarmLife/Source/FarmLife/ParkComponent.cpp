@@ -123,3 +123,9 @@ bool UParkComponent::CanAcquirePark(UParkData* Data) const
 
 	return true;
 }
+void UParkComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	OnParkUpdated.Clear();
+
+	Super::EndPlay(EndPlayReason);
+}

@@ -33,7 +33,6 @@ protected:
 	UTextBlock* MaxHoeText;
 
 	virtual void NativeConstruct() override;
-
 public:
 	//‚¨‹àXVŠÖ”
 	UFUNCTION(BlueprintCallable)

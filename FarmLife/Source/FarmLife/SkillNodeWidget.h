@@ -44,6 +44,7 @@ protected:
 
     virtual void NativeOnMouseEnter(const FGeometry& MyGeometry, const FPointerEvent& MyEvent) override;
 
+    virtual void NativeDestruct();
 
     // ƒ{ƒ^ƒ“
     UPROPERTY(meta = (BindWidget))

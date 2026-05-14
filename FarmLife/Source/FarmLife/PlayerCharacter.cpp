@@ -235,13 +235,13 @@ void APlayerCharacter::GoToResult(bool Clear)
 	if (Clear)
 	{
 		//ゲームクリア
-		UGameplayStatics::OpenLevel(this, FName("Result_Clear"));
 		G_GameInstance->isWin = true;
+		UGameplayStatics::OpenLevel(this, FName("Result_Clear"));
 	}
 	else
 	{
 		//ゲームオーバー
-		UGameplayStatics::OpenLevel(this, FName("Result_GameOver"));
 		G_GameInstance->isWin = false;
+		UGameplayStatics::OpenLevel(this, FName("Result_GameOver"));
 	}
 }

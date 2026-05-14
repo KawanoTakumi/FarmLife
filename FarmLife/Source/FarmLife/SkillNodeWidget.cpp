@@ -91,8 +91,10 @@ void USkillNodeWidget::OnClicked()
             //お金減算
             Player->AddMoney(-ParkData->Cost);
             //表示更新
-            SkillTree->NowMoney->SetText(FText::AsNumber(Player->ReturnMoney()));
-            //パーク適用
+            if (SkillTree && SkillTree->NowMoney)
+            {
+                SkillTree->NowMoney->SetText(FText::AsNumber(Player->ReturnMoney()));
+            }            //パーク適用
             ParkComp->ApplyPark(ParkData);
         }
         else
@@ -100,4 +102,15 @@ void USkillNodeWidget::OnClicked()
             SkillTree->PerkDesc->SetText(FText::FromString(TEXT(" Not To Money Cost")));        
         }
     }
+}
+void USkillNodeWidget::NativeDestruct()
+{
+    UE_LOG(LogTemp, Warning, TEXT("Des"));
+    NodeButton->OnClicked.Clear(); // RemoveDynamicじゃなくClear
+
+    SkillTree = nullptr;
+    ParkComp = nullptr;
+    Player = nullptr;
+
+    Super::NativeDestruct();
 }
