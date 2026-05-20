@@ -75,7 +75,7 @@ public:
 
 	//インタラクトIA
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
-	UInputAction* IntractAction;
+	UInputAction* InteractAction;
 
 	//カメラ
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "camera")
@@ -102,6 +102,8 @@ public:
 
 	UPROPERTY()
 	UGrobalGameInstance* G_GameInstance;
+
+
 private:
 	int32 money = 0;//所持金
 	int32 atk_power = 1;//攻撃力

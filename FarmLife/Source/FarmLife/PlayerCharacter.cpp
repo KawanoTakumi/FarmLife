@@ -83,7 +83,7 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		enhanced_input->BindAction(MoveAction,    ETriggerEvent::Triggered, this, &APlayerCharacter::Move);
 		enhanced_input->BindAction(LookAction,    ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
 		enhanced_input->BindAction(AttackAction,  ETriggerEvent::Started,   this, &APlayerCharacter::Attack);
-		enhanced_input->BindAction(IntractAction, ETriggerEvent::Started,   this, &APlayerCharacter::Interact);
+		enhanced_input->BindAction(InteractAction, ETriggerEvent::Started,   this, &APlayerCharacter::Interact);
 	}
 }
 

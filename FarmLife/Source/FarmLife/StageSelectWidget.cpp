@@ -45,6 +45,6 @@ void UStageSelectWidget::Stage3()
 {
     RemoveFromParent();
 
-    UGameplayStatics::OpenLevel(this, FName("Stage_1"));
+    UGameplayStatics::OpenLevel(this, FName("Stage_3"));
 
 }
