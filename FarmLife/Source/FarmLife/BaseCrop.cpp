@@ -32,7 +32,7 @@ void ABaseCrop::BeginPlay()
 		}
 		//”š”­‚·‚é‚©Ý’è
 		if (crop_data->crop_type == CropType::Explosive)
-			isExplasive = true;
+			isExplosive = true;
 	}
 }
 
@@ -47,9 +47,13 @@ float ABaseCrop::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent,
 	AController* EventInstigator, AActor* DamageCauser)
 {
 	m_current_hp -= DamageAmount;
+	if(Damage_Effect)
+		UNiagaraComponent* NiagaraComp = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), Damage_Effect, GetActorLocation(), GetActorRotation());
 	if (m_current_hp <= 0)
 	{
 		Harvest(false);
+		if(Kill_Effect)
+			UNiagaraComponent* NiagaraComp = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),Kill_Effect,GetActorLocation(),GetActorRotation());
 	}
 	return DamageAmount;
 }
@@ -73,7 +77,7 @@ void ABaseCrop::Harvest(bool OnEnemy)
 		}
 	}
 	//”š”­‚·‚éì•¨‚Ìê‡
-	if (isExplasive)
+	if (isExplosive)
 		Explosive();
 	Destroy();
 }
@@ -100,7 +104,7 @@ void ABaseCrop::Explosive()
 				//‹——£‚Æ•ûŒü‚ÌŒvŽZ
 				FVector dir = m_this_location - player->GetActorLocation();
 				dir.Normalize();
-				FVector FinalLaunchVelocity = -dir * m_explasive_power;
+				FVector FinalLaunchVelocity = -dir * m_explosive_power;
 				player->LaunchCharacter(FinalLaunchVelocity,true,true);
 			}
 		}

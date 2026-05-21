@@ -32,11 +32,17 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* MaxHoeText;
 
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* QuestMoneyText;
+
 	virtual void NativeConstruct() override;
 public:
 	//お金更新関数
 	UFUNCTION(BlueprintCallable)
-	void UpdateMeoney(int32 money);
+	void UpdateMoney(int32 money);
+
+	UFUNCTION(BlueprintCallable)
+	void SetQuestMoney(int32 quest_money);
 
 	//残り時間更新関数
 	UFUNCTION(BlueprintCallable)
@@ -48,5 +54,4 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void UpdateHoeCount(int32 hoe_count, int32 max_hoe_count);
-
 };

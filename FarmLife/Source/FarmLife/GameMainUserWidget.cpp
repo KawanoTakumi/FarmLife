@@ -7,10 +7,19 @@
 void UGameMainUserWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
+
+}
+
+void UGameMainUserWidget::SetQuestMoney(int32 money)
+{
+	if (QuestMoneyText)
+	{
+		QuestMoneyText->SetText(FText::AsNumber(money));
+	}
 }
 
 //お金表示更新
-void UGameMainUserWidget::UpdateMeoney(int32 money)
+void UGameMainUserWidget::UpdateMoney(int32 money)
 {
 	if (MoneyText)
 	{
@@ -28,11 +37,11 @@ void UGameMainUserWidget::UpdateTimer(int32 timer)
 }
 
 //世界の時間表示更新
-void UGameMainUserWidget::UpdateWorldTimer(int32 worldtimer)
+void UGameMainUserWidget::UpdateWorldTimer(int32 worldTimer)
 {
 	if (WorldTimerText)
 	{
-		WorldTimerText->SetText(FText::AsNumber(worldtimer));
+		WorldTimerText->SetText(FText::AsNumber(worldTimer));
 	}
 }
 

@@ -58,10 +58,13 @@ void APlayerCharacter::BeginPlay()
 		}
 	}
 
-	//ウィジェット内鍬使用回数更新
+	//ウィジェット更新
 	if (GameMainUserWidget)
+	{
 		GameMainUserWidget->UpdateHoeCount(use_hoe_count, use_max_count + PerkComponent->max_hoe_count);
-
+		GameMainUserWidget->SetQuestMoney(GoalMoney);
+	}
+		
 	//ゲームインスタンス取得
 	G_GameInstance = GetWorld()->GetGameInstance<UGrobalGameInstance>();
 }
@@ -176,7 +179,7 @@ void APlayerCharacter::AddMoney(int32 amount)
 	//UI更新
 	if (GameMainUserWidget)
 	{
-		GameMainUserWidget->UpdateMeoney(money);
+		GameMainUserWidget->UpdateMoney(money);
 	}
 }
 

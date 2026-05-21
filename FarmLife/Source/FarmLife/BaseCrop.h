@@ -6,6 +6,9 @@
 #include "GameFramework/Actor.h"
 #include "CropData.h"
 #include "Components/MeshComponent.h"
+#include "NiagaraComponent.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraSystem.h"
 #include "BaseCrop.generated.h"
 
 UCLASS()
@@ -38,11 +41,17 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* mesh;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effect")
+	UNiagaraSystem* Damage_Effect;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effect")
+	UNiagaraSystem* Kill_Effect;
+
 private:
 	int32 m_current_hp = 0;
-	bool isExplasive = false;
+	bool isExplosive = false;
 	float m_explosive_area = 500.0f;//爆発範囲
-	float m_explasive_power = 1000.0f;//爆発の大きさ
+	float m_explosive_power = 1000.0f;//爆発の大きさ
 	TArray<FHitResult> m_hit_character;//当たったキャラクター
 
 
