@@ -34,15 +34,24 @@ void UGameMainUserWidget::UpdateTimer(int32 timer)
 	{
 		TimerText->SetText(FText::AsNumber(timer));
 	}
+
 }
 
 //世界の時間表示更新
 void UGameMainUserWidget::UpdateWorldTimer(int32 worldTimer)
 {
-	if (WorldTimerText)
+	int min = worldTimer / 60;
+	int second = worldTimer - (min * 60);
+
+	if (WorldTimerText_Min)
 	{
-		WorldTimerText->SetText(FText::AsNumber(worldTimer));
+		WorldTimerText_Min->SetText(FText::AsNumber(min));
 	}
+	if (WorldTimerText_Second)
+	{
+		WorldTimerText_Second->SetText(FText::AsNumber(second));
+	}
+
 }
 
 //鍬の使用・最大使用回数更新

@@ -19,15 +19,20 @@ void UResultWidget::NativeConstruct()
 	UGrobalGameInstance* g_gameinstance = GetWorld()->GetGameInstance<UGrobalGameInstance>();
 	if (g_gameinstance)
 	{
-		resuslt_timer = g_gameinstance->g_timer;
+		result_timer = g_gameinstance->g_timer;
 		max_timer = g_gameinstance->g_max_timer;
+		int calc_timer = max_timer - result_timer;
+		calc_min = calc_timer / 60;
+		calc_sec = calc_timer - (calc_min * 60);
 	}
 	//リザルトの時間更新
-	if (Result_Time_Text)
-		Result_Time_Text->SetText(FText::AsNumber(max_timer - resuslt_timer));
+	if (Result_Time_Text_Min)
+		Result_Time_Text_Min->SetText(FText::AsNumber(calc_min));
+	if (Result_Time_Text_Second)
+		Result_Time_Text_Second->SetText(FText::AsNumber(calc_sec));
 
 
-	SetResultRank(resuslt_timer,g_gameinstance->isWin);
+	SetResultRank(result_timer,g_gameinstance->isWin);
 }
 
 void UResultWidget::OnStartClicked()

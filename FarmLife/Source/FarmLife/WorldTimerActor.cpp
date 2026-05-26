@@ -19,7 +19,7 @@ void AWorldTimerActor::BeginPlay()
     //レベル開始でタイマー作動
     GetWorld()->GetTimerManager().SetTimer(WorldTimerHandle,this,&AWorldTimerActor::OnTimerFinished,max_timer,false);
     //一秒毎のタイマー
-    GetWorldTimerManager().SetTimer(OnCountSecond, this, &AWorldTimerActor::OnCountToSecound, 1.0f, true);
+    GetWorldTimerManager().SetTimer(OnCountSecond, this, &AWorldTimerActor::OnCountToSecond, 1.0f, true);
     //タイマーの最大値を設定
     timer_remain = max_timer;
 
@@ -52,7 +52,7 @@ void AWorldTimerActor::OnTimerFinished()
 }
 
 //一秒毎のタイマー
-void AWorldTimerActor::OnCountToSecound()
+void AWorldTimerActor::OnCountToSecond()
 {
     if (timer_remain > 0)
         timer_remain -= 1.0f;//一秒減らす

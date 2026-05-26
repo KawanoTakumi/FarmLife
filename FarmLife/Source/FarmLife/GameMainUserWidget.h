@@ -24,7 +24,10 @@ protected:
 	UTextBlock* TimerText;
 
 	UPROPERTY(meta = (BindWidget))
-	UTextBlock* WorldTimerText;
+	UTextBlock* WorldTimerText_Second;
+
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* WorldTimerText_Min;
 
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* UseHoeText;

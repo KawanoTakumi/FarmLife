@@ -29,10 +29,6 @@ class FARMLIFE_API UParkData : public UPrimaryDataAsset
 	
 public:
 
-	//パークのID
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value")
-	FName ParkID;
-
 	//パークの位置
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value")
 	FVector2D PositionGrid;

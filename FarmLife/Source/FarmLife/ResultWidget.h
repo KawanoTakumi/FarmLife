@@ -21,7 +21,10 @@ public:
 
     //スコア::時間
     UPROPERTY(meta = (BindWidget))
-    class UTextBlock* Result_Time_Text;
+    class UTextBlock* Result_Time_Text_Min;
+
+    UPROPERTY(meta = (BindWidget))
+    class UTextBlock* Result_Time_Text_Second;
 
     //スコア::採取回数
     UPROPERTY(meta = (BindWidget))
@@ -43,5 +46,7 @@ protected:
 
 private:
     int32 max_timer;
-    int32 resuslt_timer;
+    int32 result_timer;
+    int32 calc_min;
+    int32 calc_sec;
 };

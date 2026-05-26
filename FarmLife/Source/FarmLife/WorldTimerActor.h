@@ -32,7 +32,7 @@ public:
 	UFUNCTION()
 	void OnTimerFinished();//タイマー終了時、ゲームオーバー画面にする
 
-	void OnCountToSecound();
+	void OnCountToSecond();
 
 	UFUNCTION()
 	void PawsTimer();
