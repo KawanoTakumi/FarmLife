@@ -160,7 +160,6 @@ void APlayerCharacter::Interact()
 
 	if (GetPerkObject && GetPerkObject->IsPlayerInside)
 	{
-		
 		GetPerkObject->OpenUIWidget(this);
 	}
 }
@@ -217,7 +216,6 @@ void APlayerCharacter::CountHoeUse()
 		}
 		else
 		{
-			//gameover
 			GoToResult(false);
 		}
 	}

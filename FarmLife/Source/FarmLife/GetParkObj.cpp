@@ -74,6 +74,7 @@ void AGetParkObj::OpenUIWidget(AActor* OtherActor)
 void AGetParkObj::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent,AActor* OtherActor,UPrimitiveComponent* OtherComp,
 	int32 OtherBodyIndex,bool bFromSweep,const FHitResult& SweepResult)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Player On Overlap"));
 	IsPlayerInside = true;
 	AActor* FoundTimer = 
 	UGameplayStatics::GetActorOfClass(GetWorld(),AWorldTimerActor::StaticClass());
@@ -89,6 +90,7 @@ void AGetParkObj::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent,AActor
 void AGetParkObj::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Player On Overlap End"));
 
 	AActor* FoundTimer =
 		UGameplayStatics::GetActorOfClass(GetWorld(), AWorldTimerActor::StaticClass());
