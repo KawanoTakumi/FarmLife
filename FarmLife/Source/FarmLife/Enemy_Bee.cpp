@@ -68,8 +68,6 @@ void AEnemy_Bee::MoveToCrop(float Delta)
 {
 	if (!TargetCrop)return;
 	FVector Direction = (TargetCrop->GetActorLocation() - GetActorLocation());//ˆÚ“®ƒxƒNƒgƒ‹ì¬
-	//Direction.Normalize();
-	Direction.Z = 0;//ã‰º‚ÉˆÚ“®‚³‚¹‚È‚¢
 	AddActorWorldOffset(Direction * Move_Speed * Delta);
 	SetActorRotation(Direction.Rotation());
 }
