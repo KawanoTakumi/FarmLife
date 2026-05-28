@@ -39,5 +39,5 @@ void UTitleWidget::OnGuideClicked()
 {
     //ÉKÉCÉhâÊñ Ç÷
     RemoveFromParent();
-    UGameplayStatics::OpenLevel(this, FName("Stage_Select"));
+    UGameplayStatics::OpenLevel(this, FName("Guide"));
 }
