@@ -30,11 +30,11 @@ void AEnemy_Bee::Tick(float DeltaTime)
 	}
 	else
 	{
-		float Distance = FVector::Dist(GetActorLocation(), TargetCrop->GetActorLocation());
+			
+		m_Distance = FVector::Dist(GetActorLocation(), TargetCrop->GetActorLocation());
 
-		if (Distance <= Attack_Range)
+		if (m_Distance <= Attack_Range)
 		{
-
 			Attack();
 		}
 		else
@@ -74,6 +74,7 @@ void AEnemy_Bee::MoveToCrop(float Delta)
 void AEnemy_Bee::Attack()
 {
 	//UŒ‚‚³‚ê‚½‚ç‚»‚Ìì•¨‚Í‘¦À‚Éíœ‚³‚ê‚é
+	if (!TargetCrop)return;
 	TargetCrop->Harvest(true);
 	TargetCrop = nullptr;
 }

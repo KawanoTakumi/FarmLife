@@ -11,10 +11,12 @@ void UTitleWidget::NativeConstruct()
     Super::NativeConstruct();
 
     if (StartButton)
-    {
         StartButton->OnClicked.AddDynamic(this, &UTitleWidget::OnStartClicked);
+    if (ExitButton)
         ExitButton->OnClicked.AddDynamic(this, &UTitleWidget::OnExitClicked);
-    }
+    if (GuideButton)
+        GuideButton->OnClicked.AddDynamic(this, &UTitleWidget::OnGuideClicked);
+
 }
 
 void UTitleWidget::OnStartClicked()
@@ -31,4 +33,11 @@ void UTitleWidget::OnExitClicked()
     //ゲーム終了
     if(PC)
     UKismetSystemLibrary::QuitGame(this,nullptr, EQuitPreference::Quit, false);
+}
+
+void UTitleWidget::OnGuideClicked()
+{
+    //ガイド画面へ
+    RemoveFromParent();
+    UGameplayStatics::OpenLevel(this, FName("Stage_Select"));
 }

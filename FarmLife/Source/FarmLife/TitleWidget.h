@@ -24,9 +24,15 @@ public:
     UPROPERTY(meta = (BindWidget))
     class UButton* ExitButton;
 
+    UPROPERTY(meta = (BindWidget))
+    class UButton* GuideButton;
+
     UFUNCTION()
     void OnStartClicked();
 
     UFUNCTION()
     void OnExitClicked();
+
+    UFUNCTION()
+    void OnGuideClicked();
 };

@@ -42,4 +42,6 @@ public:
 	//ˆÚ“®‘¬“x
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "combat")
 	float Move_Speed = 50.0f;
+
+	float m_Distance = 0.0f;
 };
