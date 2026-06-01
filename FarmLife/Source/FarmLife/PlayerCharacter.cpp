@@ -122,7 +122,6 @@ void APlayerCharacter::Attack()
 	
 	FVector start = FirstPersonCamera->GetComponentLocation();
 	//ŠJŽnˆÊ’u‚ð­‚µ‚¸‚ç‚·
-	start.X += 60.0f;
 	FVector forward = FirstPersonCamera->GetForwardVector();
 	FVector end     = start + (forward * 200.0f);
 
