@@ -63,6 +63,7 @@ public:
 
 private:
 	int8 now_page = 0;//現在のページ
+	int8 max_page = 0;//最後のページ
 
 	void SetData();
 

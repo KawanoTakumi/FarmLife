@@ -18,10 +18,10 @@ class FARMLIFE_API UGuideDataAsset : public UDataAsset
 
 public:
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data", meta = (MultiLine = true))
 	FText GuideText;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
-	UTexture2D* GideTexture;
+	UTexture2D* GuideTexture;
 
 };

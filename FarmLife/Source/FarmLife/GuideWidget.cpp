@@ -14,6 +14,18 @@ void UGuideWidget::NativeConstruct()
 	if(ExitButton)
 		ExitButton->OnClicked.AddDynamic(this, &UGuideWidget::OnClickedExit);
 
+	if (NextPageButton)
+		NextPageButton->OnClicked.AddDynamic(this, &UGuideWidget::OnNextPageOpen);
+
+	if (BackPageButton)
+		BackPageButton->OnClicked.AddDynamic(this, &UGuideWidget::OnBackPageOpen);
+
+	//最大ページを表示
+	max_page = Data.Num()-1;
+
+	if (Max_Page_Text)
+		Max_Page_Text->SetText(FText::AsNumber(max_page));
+
 	//最初のページを表示
 	now_page = 0;
 	if (Data.Num() > 0)
@@ -29,7 +41,7 @@ void UGuideWidget::OnClickedExit()
 
 void UGuideWidget::OnNextPageOpen()
 {
-	if (now_page < Data.Num())
+	if (now_page < max_page)
 	{
 		now_page++;
 		SetData();
@@ -47,6 +59,7 @@ void UGuideWidget::OnBackPageOpen()
 
 void UGuideWidget::SetData()
 {
-	GuideImages->SetBrushFromTexture(Data[now_page]->GideTexture, true);
+	GuideImages->SetBrushFromTexture(Data[now_page]->GuideTexture, true);
 	GuideText->SetText(Data[now_page]->GuideText);
+	Page_Text->SetText(FText::AsNumber(now_page));
 }
