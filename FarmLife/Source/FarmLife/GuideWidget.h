@@ -45,6 +45,10 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	class UImage* GuideImages;
 
+	//説明見出し
+	UPROPERTY(meta = (BindWidget))
+	class UTextBlock* GuideTitle;
+
 	//説明テキスト
 	UPROPERTY(meta = (BindWidget))
 	class UTextBlock* GuideText;

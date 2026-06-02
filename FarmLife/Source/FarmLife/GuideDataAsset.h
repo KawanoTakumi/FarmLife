@@ -18,9 +18,14 @@ class FARMLIFE_API UGuideDataAsset : public UDataAsset
 
 public:
 
+	//見出し
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
+	FText GuideTitle;
+
+	//説明テキスト
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data", meta = (MultiLine = true))
 	FText GuideText;
-
+	//説明用画像
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
 	UTexture2D* GuideTexture;
 

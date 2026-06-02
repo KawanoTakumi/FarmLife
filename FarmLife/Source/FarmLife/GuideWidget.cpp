@@ -60,6 +60,7 @@ void UGuideWidget::OnBackPageOpen()
 void UGuideWidget::SetData()
 {
 	GuideImages->SetBrushFromTexture(Data[now_page]->GuideTexture, true);
+	GuideTitle->SetText(Data[now_page]->GuideTitle);
 	GuideText->SetText(Data[now_page]->GuideText);
 	Page_Text->SetText(FText::AsNumber(now_page));
 }
