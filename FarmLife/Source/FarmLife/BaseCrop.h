@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/WidgetComponent.h"
+#include "CropHealthWidget.h"
 #include "CropData.h"
 #include "Components/MeshComponent.h"
 #include "NiagaraComponent.h"
@@ -47,12 +49,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effect")
 	UNiagaraSystem* Kill_Effect;
 
+
 private:
 	int32 m_current_hp = 0;
 	bool isExplosive = false;
 	float m_explosive_area = 500.0f;//爆発範囲
 	float m_explosive_power = 1000.0f;//爆発の大きさ
 	TArray<FHitResult> m_hit_character;//当たったキャラクター
-
 
 };

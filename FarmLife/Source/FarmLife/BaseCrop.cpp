@@ -14,6 +14,8 @@ ABaseCrop::ABaseCrop()
 
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("mesh"));
 	RootComponent = mesh;
+
+	
 }
 
 // Called when the game starts or when spawned
@@ -34,6 +36,7 @@ void ABaseCrop::BeginPlay()
 		if (crop_data->crop_type == CropType::Explosive)
 			isExplosive = true;
 	}
+
 }
 
 // Called every frame
@@ -47,6 +50,7 @@ float ABaseCrop::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent,
 	AController* EventInstigator, AActor* DamageCauser)
 {
 	m_current_hp -= DamageAmount;
+		
 	if(Damage_Effect)
 		UNiagaraComponent* NiagaraComp = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), Damage_Effect, GetActorLocation(), GetActorRotation());
 	if (m_current_hp <= 0)
