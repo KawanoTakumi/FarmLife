@@ -25,4 +25,7 @@ public:
 	//Ÿ”s
 	UPROPERTY(BlueprintReadWrite)
 	bool isWin = false;
+	//Ìæ‰ñ”
+	UPROPERTY(BlueprintReadWrite)
+	int32 g_use_count;
 };

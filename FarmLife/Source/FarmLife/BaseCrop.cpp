@@ -37,6 +37,10 @@ void ABaseCrop::BeginPlay()
 			isExplosive = true;
 	}
 
+	//ゲームインスタンス
+	G_GameInstance = GetWorld()->GetGameInstance<UGrobalGameInstance>();
+
+
 }
 
 // Called every frame
@@ -66,6 +70,12 @@ void ABaseCrop::Harvest(bool OnEnemy)
 {
 	if (!OnEnemy)
 	{
+		if (G_GameInstance)
+		{
+			G_GameInstance->g_use_count++;
+			UE_LOG(LogTemp, Warning, TEXT("add_count : %d"), G_GameInstance->g_use_count);
+		}
+			
 		if (crop_data)
 		{
 			//ここでお金を取得し、プレイヤーに渡す

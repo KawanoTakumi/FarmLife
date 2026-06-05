@@ -49,4 +49,5 @@ private:
     int32 result_timer;
     int32 calc_min;
     int32 calc_sec;
+    int32 use_count;
 };

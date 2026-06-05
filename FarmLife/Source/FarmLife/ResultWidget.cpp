@@ -16,11 +16,12 @@ void UResultWidget::NativeConstruct()
 	}
 
 	//gameInstanceから経過時間を取得
-	UGrobalGameInstance* g_gameinstance = GetWorld()->GetGameInstance<UGrobalGameInstance>();
-	if (g_gameinstance)
+	UGrobalGameInstance* g_gameInstance = GetWorld()->GetGameInstance<UGrobalGameInstance>();
+	if (g_gameInstance)
 	{
-		result_timer = g_gameinstance->g_timer;
-		max_timer = g_gameinstance->g_max_timer;
+		result_timer = g_gameInstance->g_timer;
+		max_timer = g_gameInstance->g_max_timer;
+		use_count = g_gameInstance->g_use_count;
 		int calc_timer = max_timer - result_timer;
 		calc_min = calc_timer / 60;
 		calc_sec = calc_timer - (calc_min * 60);
@@ -31,8 +32,11 @@ void UResultWidget::NativeConstruct()
 	if (Result_Time_Text_Second)
 		Result_Time_Text_Second->SetText(FText::AsNumber(calc_sec));
 
+	//リザルトの採取回数を更新
+	if (Result_UseCount_Text)
+		Result_UseCount_Text->SetText(FText::AsNumber(use_count));
 
-	SetResultRank(result_timer,g_gameinstance->isWin);
+	SetResultRank(result_timer,g_gameInstance->isWin);
 }
 
 void UResultWidget::OnStartClicked()

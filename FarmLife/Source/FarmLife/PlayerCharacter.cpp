@@ -67,6 +67,7 @@ void APlayerCharacter::BeginPlay()
 		
 	//ゲームインスタンス取得
 	G_GameInstance = GetWorld()->GetGameInstance<UGrobalGameInstance>();
+	G_GameInstance->g_use_count = 0;
 }
 
 // Called every frame

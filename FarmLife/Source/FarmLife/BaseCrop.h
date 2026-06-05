@@ -11,6 +11,7 @@
 #include "NiagaraComponent.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraSystem.h"
+#include "GrobalGameInstance.h"
 #include "BaseCrop.generated.h"
 
 UCLASS()
@@ -48,6 +49,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effect")
 	UNiagaraSystem* Kill_Effect;
+
+	UPROPERTY()
+	UGrobalGameInstance* G_GameInstance;
 
 
 private:
