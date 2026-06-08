@@ -11,8 +11,6 @@ void UStageButtonWidget::NativeConstruct()
 	//ƒoƒCƒ“ƒh
 	if(Stage_Button)
 		Stage_Button->OnClicked.AddDynamic(this, &UStageButtonWidget::OnClicked);
-
-
 }
 
 void UStageButtonWidget::Init(UStage_DataAsset* _data)

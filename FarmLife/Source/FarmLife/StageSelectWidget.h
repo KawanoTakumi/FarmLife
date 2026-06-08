@@ -25,13 +25,6 @@ private:
 public:
 	UPROPERTY(meta = (BindWidget))
 	UButton* BackButton;
-	//UPROPERTY(meta = (BindWidget))
-	//UButton* St1Button;
-	//UPROPERTY(meta = (BindWidget))
-	//UButton* St2Button;
-	//UPROPERTY(meta = (BindWidget))
-	//UButton* St3Button;
-
 	
 	UPROPERTY(meta = (BindWidget))
 	UCanvasPanel* RootCanvas;
@@ -54,17 +47,5 @@ public:
 
 	//UIçÏê¨
 	UFUNCTION()
-	void CreateWidgetUI();
-
-	UFUNCTION()
 	void Init();
-
-	UFUNCTION()
-	void Stage1();
-
-	UFUNCTION()
-	void Stage2(); 
-
-	UFUNCTION()
-	void Stage3();
 };

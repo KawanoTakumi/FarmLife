@@ -14,21 +14,9 @@ void UStageSelectWidget::NativeConstruct()
 {
     Super::NativeConstruct();
 
-    //仮のステージ移行スクリプト
-    //後に動的生成に切り替える
-
     BackButton->OnClicked.AddDynamic(this, &UStageSelectWidget::Back);
-    //St1Button->OnClicked.AddDynamic(this, &UStageSelectWidget::Stage1);
-    //St2Button->OnClicked.AddDynamic(this, &UStageSelectWidget::Stage2);
-    //St3Button->OnClicked.AddDynamic(this, &UStageSelectWidget::Stage3);
 
     Init();
-}
-
-//ノード作成
-void UStageSelectWidget::CreateWidgetUI()
-{
-    //Init();
 }
 
 void UStageSelectWidget::Init()
@@ -78,26 +66,5 @@ void UStageSelectWidget::Back()
     RemoveFromParent();
 
     UGameplayStatics::OpenLevel(this, FName("Title"));
-
-}
-void UStageSelectWidget::Stage1()
-{
-    RemoveFromParent();
-
-    UGameplayStatics::OpenLevel(this, FName("Stage_1"));
-
-}
-void UStageSelectWidget::Stage2()
-{
-    RemoveFromParent();
-
-    UGameplayStatics::OpenLevel(this, FName("Stage_2"));
-
-}
-void UStageSelectWidget::Stage3()
-{
-    RemoveFromParent();
-
-    UGameplayStatics::OpenLevel(this, FName("Stage_3"));
 
 }
