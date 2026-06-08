@@ -94,7 +94,8 @@ void USkillNodeWidget::OnClicked()
             if (SkillTree && SkillTree->NowMoney)
             {
                 SkillTree->NowMoney->SetText(FText::AsNumber(Player->ReturnMoney()));
-            }            //パーク適用
+            }            
+            //パーク適用
             ParkComp->ApplyPark(ParkData);
         }
         else
@@ -105,7 +106,6 @@ void USkillNodeWidget::OnClicked()
 }
 void USkillNodeWidget::NativeDestruct()
 {
-    UE_LOG(LogTemp, Warning, TEXT("Des"));
     NodeButton->OnClicked.Clear(); // RemoveDynamicじゃなくClear
 
     SkillTree = nullptr;
