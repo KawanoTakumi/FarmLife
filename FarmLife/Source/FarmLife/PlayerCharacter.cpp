@@ -95,6 +95,7 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void APlayerCharacter::Move(const FInputActionValue& Value)
 {
 	FVector2D input_vector = Value.Get<FVector2D>();
+	input_vector *= move_speed;
 
 	if (Controller != nullptr)
 	{
@@ -248,4 +249,17 @@ void APlayerCharacter::GoToResult(bool Clear)
 		G_GameInstance->isWin = false;
 		UGameplayStatics::OpenLevel(this, FName("Result_GameOver"));
 	}
+}
+
+void APlayerCharacter::ColdToPlayer()
+{
+	move_speed = 0.3f;
+	GetWorld()->GetTimerManager().SetTimer(cold_timer,this,&APlayerCharacter::FinishedColdToPlayer,5.0f);
+	UE_LOG(LogTemp,Warning, TEXT("Cold"));
+
+}
+
+void APlayerCharacter::FinishedColdToPlayer()
+{
+	move_speed = 1.0f;
 }

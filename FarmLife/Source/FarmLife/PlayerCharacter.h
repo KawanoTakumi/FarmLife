@@ -30,7 +30,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -56,6 +56,10 @@ public:
 	void CountHoeUse();//鍬の使用回数計算
 
 	void GoToResult(bool clear);//リザルト画面移行
+
+	void ColdToPlayer();//凍結
+
+	void FinishedColdToPlayer();//凍結終了
 
 	//インプットマッピングコンテキスト
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
@@ -92,7 +96,7 @@ public:
 	//パーク用インタラクトオブジェクト
 	UPROPERTY()
 	AGetParkObj* GetPerkObject;
-	
+
 	//パークコンポーネント
 	UPROPERTY()
 	UParkComponent* PerkComponent;
@@ -108,6 +112,9 @@ private:
 	int32 money = 0;//所持金
 	int32 atk_power = 1;//攻撃力
 	int32 atk_radius = 90;//攻撃範囲
-	int32 use_hoe_count = 30;//一つの鍬毎の採取可能回数
-	int32 use_max_count = 30;
+	int32 use_hoe_count = 30;//採取可能回数
+	int32 use_max_count = 30;//最大採取可能回数
+	float move_speed = 1.0f;
+	FTimerHandle cold_timer;
+
 };

@@ -29,12 +29,15 @@ void ABaseCrop::BeginPlay()
 
 		//メッシュ設定
 		if (crop_data->mesh)
-		{
 			mesh->SetStaticMesh(crop_data->mesh);
-		}
+
 		//爆発するか設定
 		if (crop_data->crop_type == CropType::Explosive)
 			isExplosive = true;
+		//凍結するか設定
+		if (crop_data->crop_type == CropType::Cold)
+			isCold = true;
+
 	}
 
 	//ゲームインスタンス
@@ -93,6 +96,9 @@ void ABaseCrop::Harvest(bool OnEnemy)
 	//爆発する作物の場合
 	if (isExplosive)
 		Explosive();
+	if (isCold)
+		Cold();
+
 	Destroy();
 }
 
@@ -121,6 +127,20 @@ void ABaseCrop::Explosive()
 				FVector FinalLaunchVelocity = -dir * m_explosive_power;
 				player->LaunchCharacter(FinalLaunchVelocity,true,true);
 			}
+		}
+	}
+}
+
+void ABaseCrop::Cold()
+{
+	if (ACharacter* character = UGameplayStatics::GetPlayerCharacter(this, 0))
+	{
+		APlayerCharacter* player_character = Cast<APlayerCharacter>(character);
+		
+		if (player_character)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("ColdPlayer"));
+			player_character->ColdToPlayer();
 		}
 	}
 }
