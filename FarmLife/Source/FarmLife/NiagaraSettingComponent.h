@@ -26,21 +26,19 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	//VFX描画用
+	//VFX描画管理関数
 	UFUNCTION(BlueprintCallable, Category = "VFX Control")
 	void SetVFXVisible(bool bVisible);
 
-	//VFX入れ替え用
+	//VFX入れ替え関数
 	UFUNCTION(BlueprintCallable, Category = "VFX Control")
 	void ChangeVFXAsset(UNiagaraSystem* nEffect);
 
 	UPROPERTY()
-	UNiagaraComponent* CacheNiagaraComp;//同じActorをキャッシュする
+	UNiagaraComponent* CacheNiagaraComp;//同じコンポーネントをキャッシュする用
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VFX")
 	TArray<UNiagaraSystem*> NewEffects;//変更用エフェクト
 
 	void FindAndCacheNiagara();//キャッシュ関数
-
-
 };

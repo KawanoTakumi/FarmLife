@@ -65,9 +65,9 @@ void UNiagaraSettingComponent::ChangeVFXAsset(UNiagaraSystem* nEffect)
 {
 	if (!CacheNiagaraComp) FindAndCacheNiagara();
 
-	if (CacheNiagaraComp && NewEffect)
+	if (CacheNiagaraComp && nEffect)
 	{
-		CacheNiagaraComp->SetAsset(NewEffect);
+		CacheNiagaraComp->SetAsset(nEffect);
 		CacheNiagaraComp->Activate(true);
 	}
 }

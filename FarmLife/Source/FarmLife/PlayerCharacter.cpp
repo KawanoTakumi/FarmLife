@@ -172,6 +172,10 @@ void APlayerCharacter::Interact()
 	{
 		GetPerkObject->OpenUIWidget(this);
 	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Not,"));
+	}
 }
 
 void APlayerCharacter::AddMoney(int32 amount)
