@@ -18,25 +18,25 @@ class FARMLIFE_API UGameMainUserWidget : public UUserWidget
 
 protected:
 	UPROPERTY(meta = (BindWidget))
-	UTextBlock* MoneyText;
+	UTextBlock* MoneyText;//お金表示
 
 	UPROPERTY(meta = (BindWidget))
-	UTextBlock* TimerText;
+	UTextBlock* TimerText;//時間表示
 
 	UPROPERTY(meta = (BindWidget))
-	UTextBlock* WorldTimerText_Second;
+	UTextBlock* WorldTimerText_Second;//制限時間表示（秒）
 
 	UPROPERTY(meta = (BindWidget))
-	UTextBlock* WorldTimerText_Min;
+	UTextBlock* WorldTimerText_Min;//制限時間表示（分）
 
 	UPROPERTY(meta = (BindWidget))
-	UTextBlock* UseHoeText;
+	UTextBlock* UseHoeText;//鍬の耐久値
 
 	UPROPERTY(meta = (BindWidget))
-	UTextBlock* MaxHoeText;
+	UTextBlock* MaxHoeText;//鍬の最大耐久値
 
 	UPROPERTY(meta = (BindWidget))
-	UTextBlock* QuestMoneyText;
+	UTextBlock* QuestMoneyText;//クリアに必要な金額
 
 	virtual void NativeConstruct() override;
 public:

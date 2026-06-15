@@ -15,6 +15,7 @@
 #include "ParkComponent.h"
 #include "WorldGoalMoney.h"
 #include "GrobalGameInstance.h"
+#include "NiagaraSettingComponent.h"
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -116,5 +117,5 @@ private:
 	int32 use_max_count = 30;//最大採取可能回数
 	float move_speed = 1.0f;
 	FTimerHandle cold_timer;
-
+	UNiagaraSettingComponent* effect_component;//エフェクトコンポーネント
 };

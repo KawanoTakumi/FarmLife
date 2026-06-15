@@ -46,9 +46,15 @@ void APlayerCharacter::BeginPlay()
 			}
 		}
 	}
-	//パークコンポーネントを探す
+	//コンポーネントを探す
 	PerkComponent = FindComponentByClass<UParkComponent>();
-	//UI生成
+	effect_component = FindComponentByClass<UNiagaraSettingComponent>();
+	if (effect_component)
+	{
+		effect_component->SetVFXVisible(false);
+		effect_component->ChangeVFXAsset(effect_component->NewEffects[0]);
+	}
+			//UI生成
 	if (GameMainUserWidgetClass)
 	{
 		GameMainUserWidget = CreateWidget<UGameMainUserWidget>(GetWorld(), GameMainUserWidgetClass);
@@ -255,11 +261,16 @@ void APlayerCharacter::ColdToPlayer()
 {
 	move_speed = 0.3f;
 	GetWorld()->GetTimerManager().SetTimer(cold_timer,this,&APlayerCharacter::FinishedColdToPlayer,5.0f);
-	UE_LOG(LogTemp,Warning, TEXT("Cold"));
+	//エフェクトを描画
+	if (effect_component)
+		effect_component->SetVFXVisible(true);
 
 }
 
 void APlayerCharacter::FinishedColdToPlayer()
 {
 	move_speed = 1.0f;
+	//エフェクトを解除
+	if (effect_component)
+		effect_component->SetVFXVisible(false);
 }
