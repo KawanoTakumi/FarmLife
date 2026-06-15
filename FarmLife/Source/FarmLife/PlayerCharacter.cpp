@@ -269,6 +269,15 @@ void APlayerCharacter::ColdToPlayer()
 	if (effect_component)
 		effect_component->SetVFXVisible(true);
 
+	if (GameMainUserWidget)
+	{
+		FVector color;
+		color.X = 0.0f;
+		color.Y = 0.7f;
+		color.Z = 0.9f;
+		GameMainUserWidget->ChangeFilterEffect(color, 0.7f);
+	}
+		
 }
 
 void APlayerCharacter::FinishedColdToPlayer()
@@ -277,4 +286,7 @@ void APlayerCharacter::FinishedColdToPlayer()
 	//エフェクトを解除
 	if (effect_component)
 		effect_component->SetVFXVisible(false);
+
+	if (GameMainUserWidget)
+		GameMainUserWidget->ChangeFilterEffect(FVector::Zero(), 0.0f);
 }

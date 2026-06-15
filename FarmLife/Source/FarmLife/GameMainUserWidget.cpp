@@ -62,3 +62,21 @@ void UGameMainUserWidget::UpdateHoeCount(int32 hoe_count, int32 max_hoe_count)
 	if (MaxHoeText)
 		MaxHoeText->SetText(FText::AsNumber(max_hoe_count));
 }
+
+//画面のフィルター色を設定
+void UGameMainUserWidget::ChangeFilterEffect(FVector Color,float Alpha)
+{
+	if (FilterEffect)
+	{
+		//VectorをFLinearColorに変換
+		FLinearColor NewColor;
+		NewColor.R = Color.X;
+		NewColor.G = Color.Y;
+		NewColor.B = Color.Z;
+		NewColor.A = Alpha;
+
+		//色を設定
+		FilterEffect->SetColorAndOpacity(NewColor);
+
+	}
+}

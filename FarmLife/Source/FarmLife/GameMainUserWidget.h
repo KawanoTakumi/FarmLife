@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/TextBlock.h"
+#include "Components/Image.h"
 #include "SpawnField.h"
 #include "GameMainUserWidget.generated.h"
 
@@ -38,6 +39,9 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* QuestMoneyText;//クリアに必要な金額
 
+	UPROPERTY(meta = (BindWidget))
+	UImage* FilterEffect;//画面フィルターエフェクト
+
 	virtual void NativeConstruct() override;
 public:
 	//お金更新関数
@@ -55,6 +59,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void UpdateWorldTimer(int32 worldtimer);
 
+	//鍬の耐久値更新
 	UFUNCTION(BlueprintCallable)
 	void UpdateHoeCount(int32 hoe_count, int32 max_hoe_count);
+
+	//画面フィルターカラー設定
+	UFUNCTION(BlueprintCallable)
+	void ChangeFilterEffect(FVector Color,float Alpha);
+
 };
