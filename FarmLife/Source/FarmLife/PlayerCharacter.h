@@ -62,6 +62,10 @@ public:
 
 	void FinishedColdToPlayer();//凍結終了
 
+	void DustToPlayer();//視界不良
+
+	void FinishedDustToPlayer();//視界不良終了
+
 	//インプットマッピングコンテキスト
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
 	UInputMappingContext* InputMapingContext;
@@ -117,5 +121,6 @@ private:
 	int32 use_max_count = 30;//最大採取可能回数
 	float move_speed = 1.0f;
 	FTimerHandle cold_timer;
+	FTimerHandle dust_timer;
 	UNiagaraSettingComponent* effect_component;//エフェクトコンポーネント
 };

@@ -37,7 +37,9 @@ void ABaseCrop::BeginPlay()
 		//凍結するか設定
 		if (crop_data->crop_type == CropType::Cold)
 			isCold = true;
-
+		//視界不良を起こすか設定
+		if (crop_data->crop_type == CropType::Dust)
+			isDust = true;
 	}
 
 	//ゲームインスタンス
@@ -93,11 +95,13 @@ void ABaseCrop::Harvest(bool OnEnemy)
 			}
 		}
 	}
-	//爆発する作物の場合
+	//エフェクトを発生させるか
 	if (isExplosive)
 		Explosive();
 	if (isCold)
 		Cold();
+	if (isDust)
+		Dust();
 
 	Destroy();
 }
@@ -139,8 +143,21 @@ void ABaseCrop::Cold()
 		
 		if (player_character)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("ColdPlayer"));
 			player_character->ColdToPlayer();
 		}
 	}
+}
+
+void ABaseCrop::Dust()
+{
+	if (ACharacter* character = UGameplayStatics::GetPlayerCharacter(this, 0))
+	{
+		APlayerCharacter* player_character = Cast<APlayerCharacter>(character);
+
+		if (player_character)
+		{
+			player_character->DustToPlayer();
+		}
+	}
+
 }
