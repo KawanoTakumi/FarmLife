@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
+#include "Components/Image.h"
 #include "Stage_DataAsset.generated.h"
 
 /**
@@ -30,4 +31,8 @@ public:
 	//ステージの番号
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "value")
 	FText Stage_Number;
+
+	//ステージ用アイコン
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "image")
+	UTexture2D* Stage_Icon;
 };

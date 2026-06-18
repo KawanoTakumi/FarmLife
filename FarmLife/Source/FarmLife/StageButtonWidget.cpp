@@ -21,7 +21,8 @@ void UStageButtonWidget::Init(UStage_DataAsset* _data)
 		Stage_Number->SetText(Stage_Data->Stage_Number);
 	if (Stage_Name)
 		Stage_Name->SetText(Stage_Data->Stage_Display_Name);
-
+	if (Stage_Texture)
+		Stage_Texture->SetBrushFromTexture(Stage_Data->Stage_Icon,0);
 }
 
 void UStageButtonWidget::OnClicked()

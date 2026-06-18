@@ -301,9 +301,9 @@ void APlayerCharacter::DustToPlayer()
 	{
 		FVector color;
 		color.X = 0.7f;
-		color.Y = 0.4f;
+		color.Y = 0.5f;
 		color.Z = 0.2f;
-		GameMainUserWidget->ChangeFilterEffect(color, 0.3f);
+		GameMainUserWidget->ChangeFilterEffect(color, 0.5f);
 	}
 
 }

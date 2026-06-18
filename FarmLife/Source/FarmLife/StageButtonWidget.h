@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
+#include "Components/Image.h"
 #include "Stage_DataAsset.h"
 #include "StageSelectWidget.h"
 #include "StageButtonWidget.generated.h"
@@ -45,6 +46,10 @@ public:
 	//ステージの番号
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* Stage_Number;
+
+	//ステージアイコン
+	UPROPERTY(meta = (BindWidget))
+	UImage* Stage_Texture;
 
 	//ステージデータ
 	UPROPERTY()
