@@ -35,6 +35,8 @@ void UGuideWidget::NativeConstruct()
 void UGuideWidget::OnClickedExit()
 {
 	//ƒ^ƒCƒgƒ‹‚É–ß‚é
+	if (click_se)
+		UGameplayStatics::PlaySound2D(GetWorld(), click_se);
 	RemoveFromParent();
 	UGameplayStatics::OpenLevel(this, FName("Title"));
 }
@@ -43,6 +45,8 @@ void UGuideWidget::OnNextPageOpen()
 {
 	if (now_page < max_page)
 	{
+		if (click_se)
+			UGameplayStatics::PlaySound2D(GetWorld(), click_se);
 		now_page++;
 		SetData();
 	}
@@ -52,6 +56,8 @@ void UGuideWidget::OnBackPageOpen()
 {
 	if (now_page > 0)
 	{
+		if (click_se)
+			UGameplayStatics::PlaySound2D(GetWorld(), click_se);
 		now_page--;
 		SetData();
 	}

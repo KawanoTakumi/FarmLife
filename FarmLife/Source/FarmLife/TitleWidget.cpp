@@ -22,6 +22,8 @@ void UTitleWidget::NativeConstruct()
 void UTitleWidget::OnStartClicked()
 {
     //ステージ選択へ
+    if (click_se)
+        UGameplayStatics::PlaySound2D(GetWorld(), click_se);
     RemoveFromParent();
     UGameplayStatics::OpenLevel(this, FName("Stage_Select"));
 }
@@ -29,7 +31,8 @@ void UTitleWidget::OnStartClicked()
 void UTitleWidget::OnExitClicked()
 {
     APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0);
-
+    if (click_se)
+        UGameplayStatics::PlaySound2D(GetWorld(), click_se);
     //ゲーム終了
     if(PC)
     UKismetSystemLibrary::QuitGame(this,nullptr, EQuitPreference::Quit, false);
@@ -38,6 +41,8 @@ void UTitleWidget::OnExitClicked()
 void UTitleWidget::OnGuideClicked()
 {
     //ガイド画面へ
+    if (click_se)
+        UGameplayStatics::PlaySound2D(GetWorld(), click_se);
     RemoveFromParent();
     UGameplayStatics::OpenLevel(this, FName("Guide"));
 }

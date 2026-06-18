@@ -35,6 +35,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Position")
 	FVector2D SetPosition;
 
+	//クリック時のSE
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SE")
+	USoundBase* click_se;
+
 	//ボタン
 	UPROPERTY(meta = (BindWidget))
 	UButton* Stage_Button;
@@ -58,6 +62,4 @@ public:
 	
 	UFUNCTION()
 	void OnClicked();
-
-
 };

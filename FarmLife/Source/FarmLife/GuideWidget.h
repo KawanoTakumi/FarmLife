@@ -53,6 +53,9 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	class UTextBlock* GuideText;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SE")
+	USoundBase* click_se;
+
 	UFUNCTION()
 	void OnClickedExit();
 

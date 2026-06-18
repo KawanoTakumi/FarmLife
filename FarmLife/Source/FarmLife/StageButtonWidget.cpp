@@ -11,6 +11,7 @@ void UStageButtonWidget::NativeConstruct()
 	//ƒoƒCƒ“ƒh
 	if(Stage_Button)
 		Stage_Button->OnClicked.AddDynamic(this, &UStageButtonWidget::OnClicked);
+
 }
 
 void UStageButtonWidget::Init(UStage_DataAsset* _data)
@@ -29,6 +30,9 @@ void UStageButtonWidget::OnClicked()
 {
 	if (!Stage_Data)return;
 	UGameplayStatics::OpenLevel(this,Stage_Data->Stage_Name);
+
+	if (click_se)
+		UGameplayStatics::PlaySound2D(GetWorld(), click_se);
 }
 
 void UStageButtonWidget::NativeDestruct()

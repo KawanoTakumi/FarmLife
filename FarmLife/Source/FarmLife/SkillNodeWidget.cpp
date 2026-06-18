@@ -81,6 +81,11 @@ void USkillNodeWidget::OnClicked()
 {
     if (!ParkComp || !ParkData || !Player) return;
 
+    //‰¹‚ğ–Â‚ç‚·
+    if (click_se)
+        UGameplayStatics::PlaySound2D(GetWorld(), click_se);
+
+
     if (ParkComp->CanAcquirePark(ParkData))
     {
         //Š‹à‚ªƒRƒXƒg‚æ‚è‘å‚«‚¢ê‡

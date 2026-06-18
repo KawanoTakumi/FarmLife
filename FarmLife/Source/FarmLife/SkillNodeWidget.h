@@ -46,6 +46,10 @@ protected:
 
     virtual void NativeDestruct();
 
+    //クリックSE
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SE")
+    USoundBase* click_se;
+
     // ボタン
     UPROPERTY(meta = (BindWidget))
     UButton* NodeButton;

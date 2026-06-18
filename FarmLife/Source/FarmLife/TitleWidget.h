@@ -27,6 +27,9 @@ public:
     UPROPERTY(meta = (BindWidget))
     class UButton* GuideButton;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SE")
+    USoundBase* click_se;
+
     UFUNCTION()
     void OnStartClicked();
 
