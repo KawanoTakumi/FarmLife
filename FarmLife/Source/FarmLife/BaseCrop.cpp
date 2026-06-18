@@ -13,9 +13,7 @@ ABaseCrop::ABaseCrop()
 	PrimaryActorTick.bCanEverTick = true;
 
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("mesh"));
-	RootComponent = mesh;
-
-	
+	RootComponent = mesh;	
 }
 
 // Called when the game starts or when spawned
@@ -42,6 +40,8 @@ void ABaseCrop::BeginPlay()
 			isDust = true;
 	}
 
+	set_se = GetComponentByClass<USetSEComponent>();
+
 	//ゲームインスタンス
 	G_GameInstance = GetWorld()->GetGameInstance<UGrobalGameInstance>();
 
@@ -62,11 +62,15 @@ float ABaseCrop::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent,
 		
 	if(Damage_Effect)
 		UNiagaraComponent* NiagaraComp = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), Damage_Effect, GetActorLocation(), GetActorRotation());
+	if (set_se && Damage_SE)
+		set_se->PlaySound(Damage_SE);
 	if (m_current_hp <= 0)
 	{
 		Harvest(false);
 		if(Kill_Effect)
 			UNiagaraComponent* NiagaraComp = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),Kill_Effect,GetActorLocation(),GetActorRotation());
+		if (set_se && Kill_SE)
+			set_se->PlaySound(Kill_SE);
 	}
 	return DamageAmount;
 }

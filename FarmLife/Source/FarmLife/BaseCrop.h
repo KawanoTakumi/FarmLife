@@ -12,6 +12,7 @@
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraSystem.h"
 #include "GrobalGameInstance.h"
+#include "SetSEComponent.h"
 #include "BaseCrop.generated.h"
 
 UCLASS()
@@ -54,6 +55,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effect")
 	UNiagaraSystem* Kill_Effect;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SE")
+	USoundBase* Damage_SE;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SE")
+	USoundBase* Kill_SE;
+
 	UPROPERTY()
 	UGrobalGameInstance* G_GameInstance;
 
@@ -66,5 +73,5 @@ private:
 	float m_explosive_area = 500.0f;//爆発範囲
 	float m_explosive_power = 1000.0f;//爆発の大きさ
 	TArray<FHitResult> m_hit_character;//当たったキャラクター
-
+	USetSEComponent* set_se;//SE用コンポーネント
 };
