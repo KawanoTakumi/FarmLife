@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Components/CanvasPanel.h"
+#include "Sound/SoundBase.h"
 #include "SkillNodeWidget.h"
 #include "ParkComponent.h"
 #include "ParkData.h"
@@ -73,6 +74,11 @@ protected:
     int StartPerkPosX = 0.0f;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SkillTree")
     int StartPerkPosY = 0.0f;
+
+    //ボタンを押したときのSE
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SE")
+    USoundBase* push_se;
+
 
     // コンポーネント
     UPROPERTY()

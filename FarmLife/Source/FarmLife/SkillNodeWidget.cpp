@@ -81,9 +81,6 @@ void USkillNodeWidget::OnClicked()
 {
     if (!ParkComp || !ParkData || !Player) return;
 
-    //音を鳴らす
-    if (click_se)
-        UGameplayStatics::PlaySound2D(GetWorld(), click_se);
 
 
     if (ParkComp->CanAcquirePark(ParkData))
@@ -91,6 +88,10 @@ void USkillNodeWidget::OnClicked()
         //所持金がコストより大きい場合
         if (Player->ReturnMoney() >= ParkData->Cost)
         {
+            //音を鳴らす
+            if (buy_se)
+                UGameplayStatics::PlaySound2D(GetWorld(), buy_se);
+
             //画像を変更
             Icon->SetBrushFromTexture(ParkData->ClickedIcon);
             //お金減算
@@ -105,7 +106,10 @@ void USkillNodeWidget::OnClicked()
         }
         else
         {
-            SkillTree->PerkDesc->SetText(FText::FromString(TEXT(" Not To Money Cost")));        
+            SkillTree->PerkDesc->SetText(FText::FromString(TEXT(" Not To Money Cost")));
+            if (dont_buy_se)
+                UGameplayStatics::PlaySound2D(GetWorld(), dont_buy_se);
+
         }
     }
 }

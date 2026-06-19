@@ -48,7 +48,11 @@ protected:
 
     //クリックSE
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SE")
-    USoundBase* click_se;
+    USoundBase* buy_se;
+
+    //クリック（購入不可）SE
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SE")
+    USoundBase* dont_buy_se;
 
     // ボタン
     UPROPERTY(meta = (BindWidget))

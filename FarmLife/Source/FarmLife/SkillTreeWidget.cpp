@@ -134,6 +134,9 @@ void USkillTreeWidget::RefreshAll()
 
 void USkillTreeWidget::ExitUI()
 {
+    if (push_se)
+        UGameplayStatics::PlaySound2D(GetWorld(), push_se);
+
     APlayerController* PC = GetWorld()->GetFirstPlayerController();
     if (!PC) return;
     if (ParkComp)

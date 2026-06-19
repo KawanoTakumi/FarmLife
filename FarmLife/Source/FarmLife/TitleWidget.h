@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "TimerManager.h"
 #include "TitleWidget.generated.h"
 
 /**
@@ -38,4 +39,10 @@ public:
 
     UFUNCTION()
     void OnGuideClicked();
+
+    void ExecuteTransition();//レベル遷移
+private:
+    FTimerHandle transition_timer;//タイマーハンドル
+    float delay_timer = 0.0f;//タイマー
+    FName level_name;
 };

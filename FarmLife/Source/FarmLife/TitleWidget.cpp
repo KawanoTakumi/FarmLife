@@ -23,16 +23,19 @@ void UTitleWidget::OnStartClicked()
 {
     //ステージ選択へ
     if (click_se)
+    {
         UGameplayStatics::PlaySound2D(GetWorld(), click_se);
-    RemoveFromParent();
-    UGameplayStatics::OpenLevel(this, FName("Stage_Select"));
+        delay_timer = click_se->GetDuration();
+        UE_LOG(LogTemp, Warning, TEXT("Sound2D"));
+        level_name = "Stage_Select";
+        GetWorld()->GetTimerManager().SetTimer(transition_timer, this, &UTitleWidget::ExecuteTransition, delay_timer, false);;
+
+    }
 }
 
 void UTitleWidget::OnExitClicked()
 {
     APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0);
-    if (click_se)
-        UGameplayStatics::PlaySound2D(GetWorld(), click_se);
     //ゲーム終了
     if(PC)
     UKismetSystemLibrary::QuitGame(this,nullptr, EQuitPreference::Quit, false);
@@ -41,8 +44,18 @@ void UTitleWidget::OnExitClicked()
 void UTitleWidget::OnGuideClicked()
 {
     //ガイド画面へ
+
     if (click_se)
+    {
         UGameplayStatics::PlaySound2D(GetWorld(), click_se);
+        delay_timer = click_se->GetDuration();
+        level_name = "Guide";
+        GetWorld()->GetTimerManager().SetTimer(transition_timer, this, &UTitleWidget::ExecuteTransition, delay_timer, false);;
+    }
+}
+void UTitleWidget::ExecuteTransition()
+{
     RemoveFromParent();
-    UGameplayStatics::OpenLevel(this, FName("Guide"));
+    UGameplayStatics::OpenLevel(this, level_name);
+
 }

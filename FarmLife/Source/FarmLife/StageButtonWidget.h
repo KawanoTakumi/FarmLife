@@ -7,6 +7,7 @@
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "Components/Image.h"
+#include "TimerManager.h"
 #include "Stage_DataAsset.h"
 #include "StageSelectWidget.h"
 #include "StageButtonWidget.generated.h"
@@ -59,7 +60,13 @@ public:
 	UPROPERTY()
 	UStage_DataAsset* Stage_Data;
 
-	
+
 	UFUNCTION()
 	void OnClicked();
+
+	void ExecuteTransition();
+
+private:
+	FTimerHandle timer_handle;//タイマーハンドル
+	float delay_timer;//遅延時間タイマー
 };
