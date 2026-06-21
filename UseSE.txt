@@ -2,9 +2,43 @@ SE
 
 効果音ラボ
 
+https://soundeffect-lab.info/sound/button/
 決定ボタンを押す１.mp3
 決定ボタンを押す16.mp3
+メニューを開く1.mp3
 レジスターで精算.mp3
+
+https://soundeffect-lab.info/sound/battle/
 爆発3.mp3
 毒魔法.mp3
-メニューを開く1.mp3
+氷魔法で凍結.mp3
+風魔法2.mp3
+
+
+
+BGM
+
+DOVA-SYNDROME
+
+ぼさぼさぼさのば
+Make a field Music
+https://dova-s.jp/bgm/detail/23244
+
+Sunny Smiles
+風人
+https://dova-s.jp/bgm/detail/21208
+
+かぼちゃの大軍
+Make a field Music
+https://dova-s.jp/bgm/detail/15376
+
+Jamadhar
+Sparrow Tune
+https://dova-s.jp/bgm/detail/9476
+
+Winter Envy
+shimtone
+https://dova-s.jp/bgm/detail/22851
+
+
+
