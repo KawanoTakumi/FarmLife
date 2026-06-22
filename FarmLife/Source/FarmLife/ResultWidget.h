@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/Image.h"
 #include "ResultWidget.generated.h"
 
 /**
@@ -12,8 +13,8 @@
 UCLASS()
 class FARMLIFE_API UResultWidget : public UUserWidget
 {
-	GENERATED_BODY()
-	
+    GENERATED_BODY()
+
 public:
     //タイトルに戻るボタン
     UPROPERTY(meta = (BindWidget))
@@ -32,7 +33,7 @@ public:
 
     //スコア::ランク
     UPROPERTY(meta = (BindWidget))
-    class UTextBlock* Rank_Text;
+    class UImage* Rank_Image;
 
     //タイトル移動
     UFUNCTION()
@@ -42,7 +43,13 @@ protected:
     virtual void NativeConstruct() override;
 
     //ランクを算出（time）
-    void SetResultRank(int time,bool isWin);
+    void SetResultRank(int time, bool isWin);
+    //ランクをグローバル変数に入れ、保存する
+    void SetResultStageValue(int value);
+    //ランク用テクスチャ
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Image")
+    TArray<UTexture2D*> Rank_Images;
+
 
 private:
     int32 max_timer;
@@ -50,4 +57,6 @@ private:
     int32 calc_min;
     int32 calc_sec;
     int32 use_count;
+    class UGrobalGameInstance* g_gameInstance;
+
 };

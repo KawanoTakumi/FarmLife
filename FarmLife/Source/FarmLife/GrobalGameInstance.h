@@ -28,4 +28,10 @@ public:
 	//採取回数
 	UPROPERTY(BlueprintReadWrite)
 	int32 g_use_count;
+	//ステージ名保存
+	UPROPERTY(BlueprintReadWrite)
+	int32 g_stage_id;
+	//ステージのクリア結果保存
+	UPROPERTY(BlueprintReadWrite)
+	TArray<int32> g_result_rank;
 };

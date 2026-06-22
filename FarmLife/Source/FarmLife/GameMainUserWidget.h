@@ -43,6 +43,8 @@ protected:
 	UImage* FilterEffect;//画面フィルターエフェクト
 
 	virtual void NativeConstruct() override;
+
+	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 public:
 	//お金更新関数
 	UFUNCTION(BlueprintCallable)
@@ -67,4 +69,19 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ChangeFilterEffect(FVector Color,float Alpha);
 
+	//初期色変数
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Color")
+	FLinearColor StartColor;
+
+	//終端色変数
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Color")
+	FLinearColor EndColor;
+
+	//色の変化させる時間
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Color")
+	float LeapTimer;
+
+private:
+	FLinearColor now_color;//現在の色
+	bool isColorChange = false;//色変更用変数
 };

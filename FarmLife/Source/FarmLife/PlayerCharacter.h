@@ -16,6 +16,7 @@
 #include "WorldGoalMoney.h"
 #include "GrobalGameInstance.h"
 #include "NiagaraSettingComponent.h"
+#include "SetSEComponent.h"
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -68,7 +69,7 @@ public:
 
 	//インプットマッピングコンテキスト
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
-	UInputMappingContext* InputMapingContext;
+	UInputMappingContext* InputMappingContext;
 
 	//移動IA
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
@@ -94,6 +95,14 @@ public:
 	UPROPERTY(EditAnywhere, Category = "UI")
 	TSubclassOf<UGameMainUserWidget> GameMainUserWidgetClass;
 
+	//視界不良SE
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SE")
+	USoundBase* Blind_Sound;
+
+	//凍結SE
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SE")
+	USoundBase* Cold_Sound;
+
 	//ゲームのメインUI
 	UPROPERTY()
 	UGameMainUserWidget* GameMainUserWidget;
@@ -104,7 +113,7 @@ public:
 
 	//パークコンポーネント
 	UPROPERTY()
-	UParkComponent* PerkComponent;
+	UParkComponent* perk_component;
 
 	UPROPERTY()
 	int32 GoalMoney;
@@ -123,4 +132,5 @@ private:
 	FTimerHandle cold_timer;
 	FTimerHandle dust_timer;
 	UNiagaraSettingComponent* effect_component;//エフェクトコンポーネント
+	USetSEComponent* set_sound_comp;
 };

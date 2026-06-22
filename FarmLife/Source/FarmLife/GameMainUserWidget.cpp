@@ -10,6 +10,28 @@ void UGameMainUserWidget::NativeConstruct()
 
 }
 
+//Tick関数
+void UGameMainUserWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
+{
+	Super::NativeTick(MyGeometry,InDeltaTime);
+
+	//時間を取得し、そこから値を取る
+	float Time = GetWorld()->GetTimeSeconds();
+	float Alpha = (FMath::Sin(Time * LeapTimer) + 1.0f) * 0.5f;
+
+	//設定された初期色と終端色をLeap補完でなめらかに変化させる
+	if (isColorChange)
+	{
+		now_color = FLinearColor::LerpUsingHSV(StartColor, EndColor, Alpha);
+		UE_LOG(LogTemp, Warning, TEXT("Color Change"));
+	}
+		
+	else
+		now_color = FLinearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	//作成した色を適用
+	UseHoeText->SetColorAndOpacity(now_color);
+}
+
 void UGameMainUserWidget::SetQuestMoney(int32 money)
 {
 	if (QuestMoneyText)
@@ -57,6 +79,12 @@ void UGameMainUserWidget::UpdateWorldTimer(int32 worldTimer)
 //鍬の使用・最大使用回数更新
 void UGameMainUserWidget::UpdateHoeCount(int32 hoe_count, int32 max_hoe_count)
 {
+	//使用回数が最大回数の1/4になったら色を変える
+	if (hoe_count < (max_hoe_count / 4))
+		isColorChange = true;
+	else
+		isColorChange = false;
+
 	if (UseHoeText)
 		UseHoeText->SetText(FText::AsNumber(hoe_count));
 	if (MaxHoeText)

@@ -3,6 +3,7 @@
 
 #include "PlayerCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "SetSEComponent.h"
 #include "Kismet/GameplayStatics.h"
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -10,7 +11,7 @@ APlayerCharacter::APlayerCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
-	//カメラ
+	//カメラ設定
 	FirstPersonCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FPSCamera"));
 	FirstPersonCamera-> SetupAttachment(RootComponent);
 	FirstPersonCamera-> SetRelativeLocation(FVector(0,0,50));
@@ -20,6 +21,7 @@ APlayerCharacter::APlayerCharacter()
 	bUseControllerRotationPitch  = true;
 	bUseControllerRotationRoll   = false;
 
+	//移動設定
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 }
 
@@ -32,22 +34,20 @@ void APlayerCharacter::BeginPlay()
 	if (APlayerController* player_controller = Cast<APlayerController>(GetController()))
 	{
 		player_controller->bShowMouseCursor = false;
-
 		FInputModeGameOnly InputMode;
 		player_controller->SetInputMode(InputMode);
-
 
 		if (ULocalPlayer*  local_player = player_controller->GetLocalPlayer())
 		{
 			if (UEnhancedInputLocalPlayerSubsystem* subsystem =
 				local_player->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>())
 			{
-				subsystem->AddMappingContext(InputMapingContext,0);
+				subsystem->AddMappingContext(InputMappingContext,0);
 			}
 		}
 	}
-	//コンポーネントを探す
-	PerkComponent = FindComponentByClass<UParkComponent>();
+	//各コンポーネントを探す
+	perk_component = FindComponentByClass<UParkComponent>();
 	effect_component = FindComponentByClass<UNiagaraSettingComponent>();
 	if (effect_component)
 	{
@@ -67,7 +67,7 @@ void APlayerCharacter::BeginPlay()
 	//ウィジェット更新
 	if (GameMainUserWidget)
 	{
-		GameMainUserWidget->UpdateHoeCount(use_hoe_count, use_max_count + PerkComponent->max_hoe_count);
+		GameMainUserWidget->UpdateHoeCount(use_hoe_count, use_max_count + perk_component->max_hoe_count);
 		GameMainUserWidget->SetQuestMoney(GoalMoney);
 	}
 		
@@ -88,21 +88,24 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	//各入力を設定
 	if (UEnhancedInputComponent* enhanced_input = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
-		enhanced_input->BindAction(MoveAction,    ETriggerEvent::Triggered, this, &APlayerCharacter::Move);
-		enhanced_input->BindAction(LookAction,    ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
-		enhanced_input->BindAction(AttackAction,  ETriggerEvent::Started,   this, &APlayerCharacter::Attack);
-		enhanced_input->BindAction(InteractAction, ETriggerEvent::Started,   this, &APlayerCharacter::Interact);
+		enhanced_input->BindAction(MoveAction,    ETriggerEvent::Triggered, this, &APlayerCharacter::Move);//移動
+		enhanced_input->BindAction(LookAction,    ETriggerEvent::Triggered, this, &APlayerCharacter::Look);//視点移動
+		enhanced_input->BindAction(AttackAction,  ETriggerEvent::Started,   this, &APlayerCharacter::Attack);//攻撃
+		enhanced_input->BindAction(InteractAction, ETriggerEvent::Started,   this, &APlayerCharacter::Interact);//インタラクト
 	}
 }
 
 //移動関数
 void APlayerCharacter::Move(const FInputActionValue& Value)
 {
+	//移動ベクトルを取得し、移動速度を掛ける
 	FVector2D input_vector = Value.Get<FVector2D>();
 	input_vector *= move_speed;
 
+	//コントローラを取得できた時だけ移動させる
 	if (Controller != nullptr)
 	{
 		const FRotator rotation  = Controller->GetControlRotation();
@@ -127,14 +130,14 @@ void APlayerCharacter::Look(const FInputActionValue& Value)
 //攻撃関数
 void APlayerCharacter::Attack()
 {
-	
+	//カメラの位置から向いている方向に200f掛けた値まで攻撃の判定を出す
 	FVector start = FirstPersonCamera->GetComponentLocation();
 	//開始位置を少しずらす
 	FVector forward = FirstPersonCamera->GetForwardVector();
 	FVector end     = start + (forward * 200.0f);
 
 	float radius    = atk_radius;//攻撃の範囲
-	int   m_calc_attack = atk_power + PerkComponent->attack_bonus;
+	int   m_calc_attack = atk_power + perk_component->attack_bonus;
 	FHitResult hit;
 	FCollisionQueryParams params;
 	params.AddIgnoredActor(this);
@@ -169,31 +172,21 @@ void APlayerCharacter::Interact()
 {
 
 	if (GetPerkObject && GetPerkObject->IsPlayerInside)
-	{
 		GetPerkObject->OpenUIWidget(this);
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Not,"));
-	}
 }
 
 void APlayerCharacter::AddMoney(int32 amount)
 {
-	money += amount * PerkComponent->multi_bonus;
+	money += amount * perk_component->multi_bonus;
 	if (money < 0)money = 0;
 
 	//お金が目標金額になったらクリアさせる
 	if (money >= GoalMoney)
-	{
 		GoToResult(true);
-	}
 
 	//UI更新
 	if (GameMainUserWidget)
-	{
 		GameMainUserWidget->UpdateMoney(money);
-	}
 }
 
 int32 APlayerCharacter::ReturnMoney()
@@ -204,28 +197,26 @@ int32 APlayerCharacter::ReturnMoney()
 void APlayerCharacter::UpdateTimer(int32 timer)
 {
 	if (GameMainUserWidget)
-	{
 		GameMainUserWidget->UpdateTimer(timer);
-	}
 }
 
-void APlayerCharacter::UpdateWorldTimer(int32 worldtimer)
+void APlayerCharacter::UpdateWorldTimer(int32 world_timer)
 {
 	if (GameMainUserWidget)
 	{
-		GameMainUserWidget->UpdateWorldTimer(worldtimer);
-		G_GameInstance->g_timer = worldtimer;
+		GameMainUserWidget->UpdateWorldTimer(world_timer);
+		G_GameInstance->g_timer = world_timer;
 	}
 }
 
 void APlayerCharacter::CountHoeUse()
 {
 	//使用回数が0以下の場合お金を減らす
-	if (use_hoe_count < 1)
+	if (use_hoe_count < 2)
 	{
 		if (money > 4)
 		{
-			use_hoe_count = use_max_count + PerkComponent->max_hoe_count;
+			use_hoe_count = use_max_count + perk_component->max_hoe_count;
 			money -= 4;
 		}
 		else
@@ -240,7 +231,7 @@ void APlayerCharacter::CountHoeUse()
 
 	//表示更新
 	if (GameMainUserWidget)
-		GameMainUserWidget->UpdateHoeCount(use_hoe_count, use_max_count + PerkComponent->max_hoe_count);
+		GameMainUserWidget->UpdateHoeCount(use_hoe_count, use_max_count + perk_component->max_hoe_count);
 
 }
 
@@ -268,6 +259,11 @@ void APlayerCharacter::ColdToPlayer()
 	//エフェクトを描画
 	if (effect_component)
 		effect_component->SetVFXVisible(true);
+
+	if (Cold_Sound)
+	{
+		set_sound_comp->PlaySound(Cold_Sound);
+	}
 
 	if (GameMainUserWidget)
 	{
@@ -297,6 +293,12 @@ void APlayerCharacter::DustToPlayer()
 	GetWorld()->GetTimerManager().SetTimer(dust_timer, this, &APlayerCharacter::FinishedDustToPlayer, 8.0f);
 	if (effect_component)
 		effect_component->SetVFXVisible(true);
+
+	if (Blind_Sound)
+	{
+		set_sound_comp->PlaySound(Blind_Sound);
+	}
+
 	if (GameMainUserWidget)
 	{
 		FVector color;

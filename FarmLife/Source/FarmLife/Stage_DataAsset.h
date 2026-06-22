@@ -35,4 +35,8 @@ public:
 	//ステージ用アイコン
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "image")
 	UTexture2D* Stage_Icon;
+
+	//ステージのID番号
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "image")
+	int Stage_ID;
 };

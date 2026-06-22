@@ -40,6 +40,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SE")
 	USoundBase* click_se;
 
+	//ステージのランク表示
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Image")
+	TArray<UTexture2D*> RankImage;
+
 	//ボタン
 	UPROPERTY(meta = (BindWidget))
 	UButton* Stage_Button;
@@ -56,6 +60,9 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	UImage* Stage_Texture;
 
+	//ステージのクリアランク
+	UPROPERTY(meta = (BindWidget))
+	UImage* Stage_Rank_Image;
 	//ステージデータ
 	UPROPERTY()
 	UStage_DataAsset* Stage_Data;
@@ -68,5 +75,6 @@ public:
 
 private:
 	FTimerHandle timer_handle;//タイマーハンドル
+	class UGrobalGameInstance* game_instance;
 	float delay_timer;//遅延時間タイマー
 };

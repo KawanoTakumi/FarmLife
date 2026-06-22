@@ -3,6 +3,7 @@
 
 #include "StageButtonWidget.h"
 #include "Kismet/GameplayStatics.h"
+#include "GrobalGameInstance.h"
 
 void UStageButtonWidget::NativeConstruct()
 {
@@ -11,7 +12,7 @@ void UStageButtonWidget::NativeConstruct()
 	//バインド
 	if(Stage_Button)
 		Stage_Button->OnClicked.AddDynamic(this, &UStageButtonWidget::OnClicked);
-
+	game_instance = GetWorld()->GetGameInstance<UGrobalGameInstance>();
 }
 
 void UStageButtonWidget::Init(UStage_DataAsset* _data)
@@ -30,6 +31,25 @@ void UStageButtonWidget::Init(UStage_DataAsset* _data)
 	//ステージのアイコンを設定
 	if (Stage_Texture)
 		Stage_Texture->SetBrushFromTexture(Stage_Data->Stage_Icon,0);
+
+	//ステージのランク表示
+	if (Stage_Rank_Image && game_instance)
+	{
+		switch (game_instance->g_result_rank[Stage_Data->Stage_ID])
+		{
+		default:
+			Stage_Rank_Image->SetBrushFromTexture(RankImage[3]); break;
+		case 0:
+			Stage_Rank_Image->SetBrushFromTexture(RankImage[0]); break;
+		case 1:
+			Stage_Rank_Image->SetBrushFromTexture(RankImage[1]); break;
+		case 2:
+			Stage_Rank_Image->SetBrushFromTexture(RankImage[2]); break;
+		case 3:
+			Stage_Rank_Image->SetBrushFromTexture(RankImage[3]); break;
+		}
+	}
+
 }
 
 void UStageButtonWidget::OnClicked()
@@ -43,6 +63,8 @@ void UStageButtonWidget::OnClicked()
 	}
 	//ステージ遷移のタイマーを設定
 	GetWorld()->GetTimerManager().SetTimer(timer_handle, this, &UStageButtonWidget::ExecuteTransition, delay_timer, false);
+	if(game_instance)
+	game_instance->g_stage_id = Stage_Data->Stage_ID;
 }
 
 void UStageButtonWidget::NativeDestruct()
