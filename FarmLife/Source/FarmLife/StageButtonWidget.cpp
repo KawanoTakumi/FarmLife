@@ -12,7 +12,6 @@ void UStageButtonWidget::NativeConstruct()
 	//バインド
 	if(Stage_Button)
 		Stage_Button->OnClicked.AddDynamic(this, &UStageButtonWidget::OnClicked);
-	game_instance = GetWorld()->GetGameInstance<UGrobalGameInstance>();
 }
 
 void UStageButtonWidget::Init(UStage_DataAsset* _data)
@@ -31,9 +30,9 @@ void UStageButtonWidget::Init(UStage_DataAsset* _data)
 	//ステージのアイコンを設定
 	if (Stage_Texture)
 		Stage_Texture->SetBrushFromTexture(Stage_Data->Stage_Icon,0);
-
+	game_instance = GetWorld()->GetGameInstance<UGrobalGameInstance>();
 	//ステージのランク表示
-	if (Stage_Rank_Image && game_instance)
+	if (Stage_Rank_Image)
 	{
 		switch (game_instance->g_result_rank[Stage_Data->Stage_ID])
 		{

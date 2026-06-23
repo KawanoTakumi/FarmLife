@@ -49,6 +49,7 @@ void APlayerCharacter::BeginPlay()
 	//各コンポーネントを探す
 	perk_component = FindComponentByClass<UParkComponent>();
 	effect_component = FindComponentByClass<UNiagaraSettingComponent>();
+	set_sound_comp = FindComponentByClass<USetSEComponent>();
 	if (effect_component)
 	{
 		effect_component->SetVFXVisible(false);
@@ -298,6 +299,7 @@ void APlayerCharacter::DustToPlayer()
 	{
 		set_sound_comp->PlaySound(Blind_Sound);
 	}
+	UE_LOG(LogTemp, Warning, TEXT("Move To Dust"));
 
 	if (GameMainUserWidget)
 	{

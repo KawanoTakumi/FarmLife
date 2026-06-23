@@ -9,6 +9,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "StageButtonWidget.h"
 #include "Stage_DataAsset.h"
+#include "GrobalGameInstance.h"
 
 void UStageSelectWidget::NativeConstruct()
 {
@@ -16,6 +17,15 @@ void UStageSelectWidget::NativeConstruct()
 
     BackButton->OnClicked.AddDynamic(this, &UStageSelectWidget::Back);
 
+    UGrobalGameInstance* game_instance = GetWorld()->GetGameInstance<UGrobalGameInstance>();
+    
+    if (game_instance->g_result_rank.Num() < 1)
+    {
+        for (int i = 0; i < 4; i++)
+            game_instance->g_result_rank.Add(0);
+    }
+
+    UE_LOG(LogTemp, Warning, TEXT("result rank : %d"), game_instance->g_result_rank.Num());
     Init();
 }
 

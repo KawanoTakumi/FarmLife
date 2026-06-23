@@ -41,7 +41,6 @@ void ABaseCrop::BeginPlay()
 	}
 
 	set_se = GetComponentByClass<USetSEComponent>();
-
 	//ゲームインスタンス
 	G_GameInstance = GetWorld()->GetGameInstance<UGrobalGameInstance>();
 
@@ -80,11 +79,7 @@ void ABaseCrop::Harvest(bool OnEnemy)
 	if (!OnEnemy)
 	{
 		if (G_GameInstance)
-		{
 			G_GameInstance->g_use_count++;
-			UE_LOG(LogTemp, Warning, TEXT("add_count : %d"), G_GameInstance->g_use_count);
-		}
-			
 		if (crop_data)
 		{
 			//ここでお金を取得し、プレイヤーに渡す
@@ -93,9 +88,7 @@ void ABaseCrop::Harvest(bool OnEnemy)
 				APlayerCharacter* player_character = Cast<APlayerCharacter>(character);
 
 				if (player_character)
-				{
 					player_character->AddMoney(crop_data->drop_money);
-				}
 			}
 		}
 	}
@@ -112,8 +105,11 @@ void ABaseCrop::Harvest(bool OnEnemy)
 
 void ABaseCrop::Explosive()
 {
-	FVector m_this_location = GetActorLocation();//爆発の中心座標
+	//爆発の中心座標
+	FVector m_this_location = GetActorLocation();
+	//少し座標を下にして打ち上げれるように設定
 	m_this_location.Z -= 100.0f;
+	//球体コリジョンを作成
 	FCollisionShape Sphere = FCollisionShape::MakeSphere(m_explosive_area);
 
 	bool bHasHit = GetWorld()->SweepMultiByChannel(
@@ -125,13 +121,12 @@ void ABaseCrop::Explosive()
 		for (FHitResult& hit : m_hit_character)
 		{
 			if (hit.GetActor()->ActorHasTag("Player"))
-			{
-				UE_LOG(LogTemp, Warning, TEXT("ExplosivePlayer"));
-				
+			{				
 				APlayerCharacter* player = Cast<APlayerCharacter>(hit.GetActor());
 				//距離と方向の計算
 				FVector dir = m_this_location - player->GetActorLocation();
 				dir.Normalize();
+				//最終的な発射方向を設定
 				FVector FinalLaunchVelocity = -dir * m_explosive_power;
 				player->LaunchCharacter(FinalLaunchVelocity,true,true);
 			}
@@ -146,9 +141,7 @@ void ABaseCrop::Cold()
 		APlayerCharacter* player_character = Cast<APlayerCharacter>(character);
 		
 		if (player_character)
-		{
 			player_character->ColdToPlayer();
-		}
 	}
 }
 
@@ -159,9 +152,6 @@ void ABaseCrop::Dust()
 		APlayerCharacter* player_character = Cast<APlayerCharacter>(character);
 
 		if (player_character)
-		{
 			player_character->DustToPlayer();
-		}
 	}
-
 }

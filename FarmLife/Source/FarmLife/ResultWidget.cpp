@@ -83,5 +83,6 @@ void UResultWidget::SetResultRank(int time ,bool isWin)
 
 void UResultWidget::SetResultStageValue(int value)
 {
-	g_gameInstance->g_result_rank[g_gameInstance->g_stage_id] = value;
+	if(g_gameInstance->g_result_rank[g_gameInstance->g_stage_id] <value)
+		g_gameInstance->g_result_rank[g_gameInstance->g_stage_id] = value;
 }
