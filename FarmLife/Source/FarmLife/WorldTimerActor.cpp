@@ -69,5 +69,9 @@ void AWorldTimerActor::PauseTimer()
 
 void AWorldTimerActor::UnPauseTimer()
 {
+    //‚±‚±‚ÅUI‚Ì‰æ‘œ‚ðXV‚³‚¹‚é
+    if (Player)
+        Player->UnPauseImageChange();
+
     UGameplayStatics::SetGamePaused(GetWorld(), false);
 }

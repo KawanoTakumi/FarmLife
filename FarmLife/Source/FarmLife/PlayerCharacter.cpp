@@ -184,6 +184,9 @@ void APlayerCharacter::Pause()
 	//ˆêŽž’âŽ~UI‚ð‚±‚±‚Å•\Ž¦‚·‚é
 	APlayerController* PC = GetWorld()->GetFirstPlayerController();
 
+	if (GameMainUserWidget && PauseImage)
+		GameMainUserWidget->ChangeUIImage(PauseImage);
+
 
 	if (PauseWidgetClass)
 		PauseWidget = CreateWidget<UPauseWidget>(GetWorld(),PauseWidgetClass);
@@ -205,6 +208,12 @@ void APlayerCharacter::Pause()
 		PC->SetInputMode(InputMode);
 		PC->SetIgnoreMoveInput(true);
 	}
+}
+
+void APlayerCharacter::UnPauseImageChange()
+{
+	if (GameMainUserWidget && UnPauseImage)
+		GameMainUserWidget->ChangeUIImage(UnPauseImage);
 }
 
 void APlayerCharacter::AddMoney(int32 amount)

@@ -72,6 +72,8 @@ public:
 
 	void OnWidgetClosed() { PauseWidget = nullptr; };//UIを削除する
 
+	void UnPauseImageChange();
+
 
 	//インプットマッピングコンテキスト
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
@@ -116,6 +118,14 @@ public:
 	//凍結SE
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SE")
 	USoundBase* Cold_Sound;
+
+	//一時停止用画像
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Image")
+	UTexture2D* PauseImage;
+
+	//一時停止解除画像
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Image")
+	UTexture2D* UnPauseImage;
 
 	//ゲームのメインUI
 	UPROPERTY()

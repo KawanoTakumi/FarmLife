@@ -108,3 +108,8 @@ void UGameMainUserWidget::ChangeFilterEffect(FVector Color,float Alpha)
 
 	}
 }
+
+void UGameMainUserWidget::ChangeUIImage(UTexture2D* texture)
+{
+	PauseImage->SetBrushFromTexture(texture,true);
+}

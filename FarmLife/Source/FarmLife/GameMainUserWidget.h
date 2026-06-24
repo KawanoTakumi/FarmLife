@@ -40,6 +40,10 @@ protected:
 	UTextBlock* QuestMoneyText;//クリアに必要な金額
 
 	UPROPERTY(meta = (BindWidget))
+	UImage* PauseImage;//一時停止用画像
+
+
+	UPROPERTY(meta = (BindWidget))
 	UImage* FilterEffect;//画面フィルターエフェクト
 
 	virtual void NativeConstruct() override;
@@ -68,6 +72,9 @@ public:
 	//画面フィルターカラー設定
 	UFUNCTION(BlueprintCallable)
 	void ChangeFilterEffect(FVector Color,float Alpha);
+
+	UFUNCTION(BlueprintCallable)
+	void ChangeUIImage(UTexture2D* texture);
 
 	//初期色変数
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Color")
