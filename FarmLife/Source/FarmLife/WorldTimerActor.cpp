@@ -59,19 +59,15 @@ void AWorldTimerActor::OnCountToSecond()
 
     //widgetXV
     if (Player)
-    {
         Player->UpdateWorldTimer(timer_remain);
-    }
 }
 
-void AWorldTimerActor::PawsTimer()
+void AWorldTimerActor::PauseTimer()
 {
-    GetWorld()->GetTimerManager().PauseTimer(WorldTimerHandle);
-    GetWorldTimerManager().PauseTimer(OnCountSecond);
+    UGameplayStatics::SetGamePaused(GetWorld(),true);
 }
 
-void AWorldTimerActor::UnPawsTimer()
+void AWorldTimerActor::UnPauseTimer()
 {
-    GetWorld()->GetTimerManager().UnPauseTimer(WorldTimerHandle);
-    GetWorldTimerManager().UnPauseTimer(OnCountSecond);
+    UGameplayStatics::SetGamePaused(GetWorld(), false);
 }

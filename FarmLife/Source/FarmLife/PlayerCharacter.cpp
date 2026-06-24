@@ -5,6 +5,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "SetSEComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "WorldTimerActor.h"
 // Sets default values
 APlayerCharacter::APlayerCharacter()
 {
@@ -92,10 +93,11 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	//各入力を設定
 	if (UEnhancedInputComponent* enhanced_input = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
-		enhanced_input->BindAction(MoveAction,    ETriggerEvent::Triggered, this, &APlayerCharacter::Move);//移動
-		enhanced_input->BindAction(LookAction,    ETriggerEvent::Triggered, this, &APlayerCharacter::Look);//視点移動
-		enhanced_input->BindAction(AttackAction,  ETriggerEvent::Started,   this, &APlayerCharacter::Attack);//攻撃
+		enhanced_input->BindAction(MoveAction,     ETriggerEvent::Triggered, this, &APlayerCharacter::Move);//移動
+		enhanced_input->BindAction(LookAction,     ETriggerEvent::Triggered, this, &APlayerCharacter::Look);//視点移動
+		enhanced_input->BindAction(AttackAction,   ETriggerEvent::Started,   this, &APlayerCharacter::Attack);//攻撃
 		enhanced_input->BindAction(InteractAction, ETriggerEvent::Started,   this, &APlayerCharacter::Interact);//インタラクト
+		enhanced_input->BindAction(PauseAction,    ETriggerEvent::Started,   this, &APlayerCharacter::Pause);//一時停止
 	}
 }
 
@@ -174,6 +176,35 @@ void APlayerCharacter::Interact()
 
 	if (GetPerkObject && GetPerkObject->IsPlayerInside)
 		GetPerkObject->OpenUIWidget(this);
+}
+
+//一時停止関数
+void APlayerCharacter::Pause()
+{
+	//一時停止UIをここで表示する
+	APlayerController* PC = GetWorld()->GetFirstPlayerController();
+
+
+	if (PauseWidgetClass)
+		PauseWidget = CreateWidget<UPauseWidget>(GetWorld(),PauseWidgetClass);
+
+	//UI用に設定を変更する
+	if (PauseWidget)
+	{
+		//タイマーを一時停止させる
+		AActor* FoundTimer =
+			UGameplayStatics::GetActorOfClass(GetWorld(), AWorldTimerActor::StaticClass());
+		AWorldTimerActor* worldTimer = Cast<AWorldTimerActor>(FoundTimer);
+
+		if (worldTimer)
+			worldTimer->PauseTimer();
+
+		PauseWidget->AddToViewport();
+		PC->bShowMouseCursor = true;
+		FInputModeUIOnly InputMode;
+		PC->SetInputMode(InputMode);
+		PC->SetIgnoreMoveInput(true);
+	}
 }
 
 void APlayerCharacter::AddMoney(int32 amount)

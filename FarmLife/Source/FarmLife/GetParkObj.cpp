@@ -61,8 +61,18 @@ void AGetParkObj::OpenUIWidget(AActor* OtherActor)
 				FInputModeUIOnly InputMode;
 				PlayerController->SetInputMode(InputMode);
 				SkillTreeWidget->OnClosed.AddDynamic(this, &AGetParkObj::OnWidgetClosed);
+
+				//UI‚É•\Ž¦‚·‚éƒ{ƒ^ƒ“‚ðì¬‚·‚é
 				SkillTreeWidget->CreateWidgetData();
 				PlayerController->SetIgnoreMoveInput(true);
+
+				//ŽÀŒ±
+				AActor* FoundTimer =
+					UGameplayStatics::GetActorOfClass(GetWorld(), AWorldTimerActor::StaticClass());
+				AWorldTimerActor* worldTimer = Cast<AWorldTimerActor>(FoundTimer);
+
+				if (worldTimer)
+					worldTimer->PauseTimer();
 			}
 
 		}
@@ -75,12 +85,6 @@ void AGetParkObj::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent,AActor
 	int32 OtherBodyIndex,bool bFromSweep,const FHitResult& SweepResult)
 {
 	IsPlayerInside = true;
-	AActor* FoundTimer = 
-	UGameplayStatics::GetActorOfClass(GetWorld(),AWorldTimerActor::StaticClass());
-	AWorldTimerActor* worldTimer = Cast<AWorldTimerActor>(FoundTimer);
-
-	if(worldTimer)
-	worldTimer->PawsTimer();
 
 	APlayerCharacter* PC = Cast<APlayerCharacter>(OtherActor);
 	PC->GetPerkObject = this;
@@ -89,13 +93,6 @@ void AGetParkObj::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent,AActor
 void AGetParkObj::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-
-	AActor* FoundTimer =
-		UGameplayStatics::GetActorOfClass(GetWorld(), AWorldTimerActor::StaticClass());
-	AWorldTimerActor* worldTimer = Cast<AWorldTimerActor>(FoundTimer);
-
-	if (worldTimer)
-		worldTimer->UnPawsTimer();
 
 	IsPlayerInside = false;
 	IsUI = false;

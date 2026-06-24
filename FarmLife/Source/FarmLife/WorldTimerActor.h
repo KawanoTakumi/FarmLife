@@ -35,10 +35,10 @@ public:
 	void OnCountToSecond();
 
 	UFUNCTION()
-	void PawsTimer();
+	void PauseTimer();
 
 	UFUNCTION()
-	void UnPawsTimer();
+	void UnPauseTimer();
 
 private:
 	FTimerHandle WorldTimerHandle;

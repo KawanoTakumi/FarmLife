@@ -12,6 +12,7 @@
 #include "GameMainUserWidget.h"
 #include "SpawnField.h"
 #include "GetParkObj.h"
+#include "PauseWidget.h"
 #include "ParkComponent.h"
 #include "WorldGoalMoney.h"
 #include "GrobalGameInstance.h"
@@ -47,6 +48,8 @@ public:
 
 	void Interact();//接触関数
 
+	void Pause();//一時停止
+
 	void AddMoney(int32 amount);//お金追加
 
 	int32 ReturnMoney();//お金の値を返す
@@ -66,6 +69,9 @@ public:
 	void DustToPlayer();//視界不良
 
 	void FinishedDustToPlayer();//視界不良終了
+
+	void OnWidgetClosed() { PauseWidget = nullptr; };//UIを削除する
+
 
 	//インプットマッピングコンテキスト
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
@@ -87,6 +93,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
 	UInputAction* InteractAction;
 
+	//一時停止IA
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "input")
+	UInputAction* PauseAction;
+
 	//カメラ
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "camera")
 	UCameraComponent* FirstPersonCamera;
@@ -94,6 +104,10 @@ public:
 	//ゲームのメインUIウィジェットクラス
 	UPROPERTY(EditAnywhere, Category = "UI")
 	TSubclassOf<UGameMainUserWidget> GameMainUserWidgetClass;
+
+	//一時停止のUIウィジェットクラス
+	UPROPERTY(EditAnywhere, Category = "UI")
+	TSubclassOf<UPauseWidget> PauseWidgetClass;
 
 	//視界不良SE
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SE")
@@ -107,6 +121,10 @@ public:
 	UPROPERTY()
 	UGameMainUserWidget* GameMainUserWidget;
 
+	//一時停止用UI
+	UPROPERTY()
+	UPauseWidget* PauseWidget;
+
 	//パーク用インタラクトオブジェクト
 	UPROPERTY()
 	AGetParkObj* GetPerkObject;
@@ -115,9 +133,11 @@ public:
 	UPROPERTY()
 	UParkComponent* perk_component;
 
+	//ゲームクリアの必要な金額
 	UPROPERTY()
 	int32 GoalMoney;
 
+	//グローバルゲームインスタンス
 	UPROPERTY()
 	UGrobalGameInstance* G_GameInstance;
 

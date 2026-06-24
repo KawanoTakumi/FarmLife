@@ -164,21 +164,26 @@ void USkillTreeWidget::ExitUI()
     PC->SetIgnoreMoveInput(false);
     OnClosed.Broadcast();
 
+    AActor* FoundTimer =
+        UGameplayStatics::GetActorOfClass(GetWorld(), AWorldTimerActor::StaticClass());
+    AWorldTimerActor* worldTimer = Cast<AWorldTimerActor>(FoundTimer);
+
+    if (worldTimer)
+        worldTimer->UnPauseTimer();
+
+
 }
 
 void USkillTreeWidget::NativeDestruct()
 {
     if (ParkComp)
-    {
         ParkComp->OnParkUpdated.RemoveDynamic(this, &USkillTreeWidget::RefreshAll);
-    }
+
 
     for (auto Node : Nodes)
     {
         if (Node)
-        {
             Node->RemoveFromParent();
-        }
     }
 
     Nodes.Empty();
