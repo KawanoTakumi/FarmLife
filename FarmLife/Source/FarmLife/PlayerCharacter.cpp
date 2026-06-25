@@ -187,7 +187,7 @@ void APlayerCharacter::Pause()
 	if (GameMainUserWidget && PauseImage)
 		GameMainUserWidget->ChangeUIImage(PauseImage);
 
-
+	//ウィジェットクラスを設定
 	if (PauseWidgetClass)
 		PauseWidget = CreateWidget<UPauseWidget>(GetWorld(),PauseWidgetClass);
 
@@ -198,7 +198,6 @@ void APlayerCharacter::Pause()
 		AActor* FoundTimer =
 			UGameplayStatics::GetActorOfClass(GetWorld(), AWorldTimerActor::StaticClass());
 		AWorldTimerActor* worldTimer = Cast<AWorldTimerActor>(FoundTimer);
-
 		if (worldTimer)
 			worldTimer->PauseTimer();
 
@@ -210,10 +209,12 @@ void APlayerCharacter::Pause()
 	}
 }
 
+//一時停止画像を変更
 void APlayerCharacter::UnPauseImageChange()
 {
 	if (GameMainUserWidget && UnPauseImage)
 		GameMainUserWidget->ChangeUIImage(UnPauseImage);
+
 }
 
 void APlayerCharacter::AddMoney(int32 amount)
@@ -339,7 +340,6 @@ void APlayerCharacter::DustToPlayer()
 	{
 		set_sound_comp->PlaySound(Blind_Sound);
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Move To Dust"));
 
 	if (GameMainUserWidget)
 	{

@@ -23,7 +23,6 @@ void UGameMainUserWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
 	if (isColorChange)
 	{
 		now_color = FLinearColor::LerpUsingHSV(StartColor, EndColor, Alpha);
-		UE_LOG(LogTemp, Warning, TEXT("Color Change"));
 	}
 		
 	else
