@@ -3,6 +3,8 @@
 
 #include "TitleWidget.h"
 #include "Components/Button.h"
+#include "Components/TextBlock.h"
+#include "Components/Image.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 
@@ -16,7 +18,12 @@ void UTitleWidget::NativeConstruct()
         ExitButton->OnClicked.AddDynamic(this, &UTitleWidget::OnExitClicked);
     if (GuideButton)
         GuideButton->OnClicked.AddDynamic(this, &UTitleWidget::OnGuideClicked);
+    if (AssetDataButton)
+        AssetDataButton->OnClicked.AddDynamic(this,&UTitleWidget::OnAssetViewClicked);
 
+    AssetBlockText->SetVisibility(ESlateVisibility::Hidden);
+    AssetBlockTextImage->SetVisibility(ESlateVisibility::Hidden);
+    isView = false;
 }
 
 void UTitleWidget::OnStartClicked()
@@ -53,6 +60,28 @@ void UTitleWidget::OnGuideClicked()
         GetWorld()->GetTimerManager().SetTimer(transition_timer, this, &UTitleWidget::ExecuteTransition, delay_timer, false);;
     }
 }
+
+void UTitleWidget::OnAssetViewClicked()
+{
+    //現在表示している場合はアセット名を消す
+    if (isView)
+    {
+        isView = false;
+        AssetButtonText->SetText(set_view_text);
+        AssetBlockText->SetVisibility(ESlateVisibility::Hidden);
+        AssetBlockTextImage->SetVisibility(ESlateVisibility::Hidden);
+
+    }
+    else
+    {
+        isView = true;
+        AssetButtonText->SetText(set_close_text);
+        AssetBlockText->SetVisibility(ESlateVisibility::Visible);
+        AssetBlockTextImage->SetVisibility(ESlateVisibility::Visible);
+
+    }
+}
+
 void UTitleWidget::ExecuteTransition()
 {
     RemoveFromParent();
