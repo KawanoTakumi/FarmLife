@@ -137,7 +137,7 @@ void APlayerCharacter::Attack()
 	FVector start = FirstPersonCamera->GetComponentLocation();
 	//ŠJŽnˆÊ’u‚ð­‚µ‚¸‚ç‚·
 	FVector forward = FirstPersonCamera->GetForwardVector();
-	FVector end     = start + (forward * 200.0f);
+	FVector end     = start + (forward * 400.0f);
 
 	float radius    = atk_radius;//UŒ‚‚Ì”ÍˆÍ
 	int   m_calc_attack = atk_power + perk_component->attack_bonus;
