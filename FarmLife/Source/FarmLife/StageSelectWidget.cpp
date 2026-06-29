@@ -24,8 +24,6 @@ void UStageSelectWidget::NativeConstruct()
         for (int i = 0; i < 4; i++)
             game_instance->g_result_rank.Add(0);
     }
-
-    UE_LOG(LogTemp, Warning, TEXT("result rank : %d"), game_instance->g_result_rank.Num());
     Init();
 }
 

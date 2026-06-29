@@ -37,7 +37,7 @@ void UStageButtonWidget::Init(UStage_DataAsset* _data)
 		switch (game_instance->g_result_rank[Stage_Data->Stage_ID])
 		{
 		default:
-			Stage_Rank_Image->SetBrushFromTexture(RankImage[3]); break;
+			Stage_Rank_Image->SetBrushFromTexture(RankImage[0]); break;
 		case 0:
 			Stage_Rank_Image->SetBrushFromTexture(RankImage[0]); break;
 		case 1:
@@ -46,6 +46,8 @@ void UStageButtonWidget::Init(UStage_DataAsset* _data)
 			Stage_Rank_Image->SetBrushFromTexture(RankImage[2]); break;
 		case 3:
 			Stage_Rank_Image->SetBrushFromTexture(RankImage[3]); break;
+		case 4:
+			Stage_Rank_Image->SetBrushFromTexture(RankImage[4]); break;
 		}
 	}
 

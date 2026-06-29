@@ -310,9 +310,9 @@ void APlayerCharacter::ColdToPlayer()
 	if (GameMainUserWidget)
 	{
 		FVector color;
-		color.X = 0.3f;
-		color.Y = 0.8f;
-		color.Z = 0.9f;
+		color.X = 0.3f;//Ô
+		color.Y = 0.8f;//—Î
+		color.Z = 0.9f;//Â
 		GameMainUserWidget->ChangeFilterEffect(color, 0.3f);
 	}
 		
@@ -331,7 +331,7 @@ void APlayerCharacter::FinishedColdToPlayer()
 
 void APlayerCharacter::DustToPlayer()
 {
-	move_speed = 0.6f;
+	move_speed = 0.5f;
 	GetWorld()->GetTimerManager().SetTimer(dust_timer, this, &APlayerCharacter::FinishedDustToPlayer, 8.0f);
 	if (effect_component)
 		effect_component->SetVFXVisible(true);
@@ -347,7 +347,7 @@ void APlayerCharacter::DustToPlayer()
 		color.X = 0.7f;
 		color.Y = 0.5f;
 		color.Z = 0.2f;
-		GameMainUserWidget->ChangeFilterEffect(color, 0.5f);
+		GameMainUserWidget->ChangeFilterEffect(color, 0.6f);
 	}
 
 }

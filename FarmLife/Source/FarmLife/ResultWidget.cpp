@@ -55,34 +55,35 @@ void UResultWidget::SetResultRank(int time ,bool isWin)
 	if (!isWin)
 	{
 		//‹­§“I‚Éƒ‰ƒ“ƒN‚ğC‚Éİ’è‚·‚é
-		Rank_Image->SetBrushFromTexture(Rank_Images[0],true);
+		Rank_Image->SetBrushFromTexture(Rank_Images[1],true);
+		SetResultStageValue(1);
 		return;
 	}
 	//Ÿ‚¿‚Ì
 	if (calc_time <= (max_timer / 10) * 3)
 	{
+		Rank_Image->SetBrushFromTexture(Rank_Images[4], true);
+		SetResultStageValue(4);
+	}
+	else if (calc_time <= (max_timer / 10) * 6)
+	{
 		Rank_Image->SetBrushFromTexture(Rank_Images[3], true);
 		SetResultStageValue(3);
 	}
-	else if (calc_time <= (max_timer / 10) * 6)
+	else if (calc_time <= (max_timer / 10) * 8)
 	{
 		Rank_Image->SetBrushFromTexture(Rank_Images[2], true);
 		SetResultStageValue(2);
 	}
-	else if (calc_time <= (max_timer / 10) * 8)
+	else
 	{
 		Rank_Image->SetBrushFromTexture(Rank_Images[1], true);
 		SetResultStageValue(1);
-	}
-	else
-	{
-		Rank_Image->SetBrushFromTexture(Rank_Images[0], true);
-		SetResultStageValue(0);
 	}
 }
 
 void UResultWidget::SetResultStageValue(int value)
 {
-	if(g_gameInstance->g_result_rank[g_gameInstance->g_stage_id] <value)
+	if(g_gameInstance->g_result_rank[g_gameInstance->g_stage_id] < value)
 		g_gameInstance->g_result_rank[g_gameInstance->g_stage_id] = value;
 }
