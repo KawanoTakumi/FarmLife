@@ -2,6 +2,7 @@
 
 
 #include "TitleWidget.h"
+#include "Engine/Engine.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "Components/Image.h"
@@ -12,6 +13,11 @@ void UTitleWidget::NativeConstruct()
 {
     Super::NativeConstruct();
 
+    //FPS設定
+    if (GEngine)
+        GEngine->SetMaxFPS(max_fps);
+
+    //ボタン設定
     if (StartButton)
         StartButton->OnClicked.AddDynamic(this, &UTitleWidget::OnStartClicked);
     if (ExitButton)
@@ -21,6 +27,7 @@ void UTitleWidget::NativeConstruct()
     if (AssetDataButton)
         AssetDataButton->OnClicked.AddDynamic(this,&UTitleWidget::OnAssetViewClicked);
 
+    //アセット一覧非表示
     AssetBlockText->SetVisibility(ESlateVisibility::Hidden);
     AssetBlockTextImage->SetVisibility(ESlateVisibility::Hidden);
     isView = false;
@@ -33,7 +40,6 @@ void UTitleWidget::OnStartClicked()
     {
         UGameplayStatics::PlaySound2D(GetWorld(), click_se);
         delay_timer = click_se->GetDuration();
-        UE_LOG(LogTemp, Warning, TEXT("Sound2D"));
         level_name = "Stage_Select";
         GetWorld()->GetTimerManager().SetTimer(transition_timer, this, &UTitleWidget::ExecuteTransition, delay_timer, false);;
 
@@ -84,7 +90,7 @@ void UTitleWidget::OnAssetViewClicked()
 
 void UTitleWidget::ExecuteTransition()
 {
-    RemoveFromParent();
+    RemoveFromParent();//ペアレント解除
     UGameplayStatics::OpenLevel(this, level_name);
 
 }

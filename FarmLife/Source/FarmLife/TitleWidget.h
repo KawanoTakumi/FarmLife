@@ -57,6 +57,10 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Text")
     FText set_close_text;
 
+    //FPSの値
+    UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "FPS")
+    int max_fps;
+
 
     //開始ボタンが押された時の関数
     UFUNCTION()
