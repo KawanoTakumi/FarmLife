@@ -3,6 +3,7 @@
 
 #include "PauseWidget.h"
 #include "Kismet/GameplayStatics.h"
+#include "PlayerCharacter.h"
 #include "WorldTimerActor.h"
 
 void UPauseWidget::NativeConstruct()
@@ -21,14 +22,20 @@ void UPauseWidget::OnClickedBack()
 {
 	//プレイヤーコントローラを取得
 	APlayerController* PC = GetWorld()->GetFirstPlayerController();
+	APlayerCharacter* player = Cast<APlayerCharacter>(GetOwningPlayerPawn());
 
 	//タイマーを取得し、タイマーを再稼働させる
 	AActor* FoundTimer =
 		UGameplayStatics::GetActorOfClass(GetWorld(), AWorldTimerActor::StaticClass());
 	AWorldTimerActor* worldTimer = Cast<AWorldTimerActor>(FoundTimer);
 
+	//タイマーを再始動させる
 	if (worldTimer)
 		worldTimer->UnPauseTimer();
+
+	//ポーズ中のフラグを解除する
+	if (player)
+		player->isPause = false;
 
 	if (!PC) return;
 	//接続解除

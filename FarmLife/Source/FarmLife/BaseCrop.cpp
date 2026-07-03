@@ -29,15 +29,24 @@ void ABaseCrop::BeginPlay()
 		if (crop_data->mesh)
 			mesh->SetStaticMesh(crop_data->mesh);
 
-		//爆発するか設定
-		if (crop_data->crop_type == CropType::Explosive)
-			isExplosive = true;
-		//凍結するか設定
-		if (crop_data->crop_type == CropType::Cold)
-			isCold = true;
-		//視界不良を起こすか設定
-		if (crop_data->crop_type == CropType::Dust)
-			isDust = true;
+		//作物の種類に応じてエフェクトを発生させるか決める
+		switch (crop_data->crop_type)
+		{
+		default:
+			break;
+		case CropType::Normal:
+		case CropType::Corrupted:
+			break;
+		case CropType::Explosive:isExplosive = true;
+			break;
+		case CropType::Cold:isCold = true;
+			break;
+		case CropType::Dust:isDust = true;
+			break;
+		case CropType::Spark:isSpark = true;
+			break;
+
+		}
 	}
 
 	set_se = GetComponentByClass<USetSEComponent>();
@@ -96,9 +105,11 @@ void ABaseCrop::Harvest(bool OnEnemy)
 	if (isExplosive)
 		Explosive();
 	if (isCold)
-		Cold();
+		Effects(0);
 	if (isDust)
-		Dust();
+		Effects(1);
+	if (isSpark)
+		Effects(2);
 
 	Destroy();
 }
@@ -134,24 +145,26 @@ void ABaseCrop::Explosive()
 	}
 }
 
-void ABaseCrop::Cold()
-{
-	if (ACharacter* character = UGameplayStatics::GetPlayerCharacter(this, 0))
-	{
-		APlayerCharacter* player_character = Cast<APlayerCharacter>(character);
-		
-		if (player_character)
-			player_character->ColdToPlayer();
-	}
-}
-
-void ABaseCrop::Dust()
+void ABaseCrop::Effects(int _effect_number)
 {
 	if (ACharacter* character = UGameplayStatics::GetPlayerCharacter(this, 0))
 	{
 		APlayerCharacter* player_character = Cast<APlayerCharacter>(character);
 
 		if (player_character)
-			player_character->DustToPlayer();
+		{
+			switch (_effect_number)
+			{
+			default:
+				break;
+			case 0:	player_character->ColdToPlayer();
+				break;
+			case 1:	player_character->DustToPlayer();
+				break;
+			case 2: player_character->SparkToPlayer();
+				break;
+
+			}
+		}
 	}
 }

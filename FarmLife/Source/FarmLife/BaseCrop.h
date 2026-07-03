@@ -38,10 +38,8 @@ public:
 	void Harvest(bool OnEnemy);
 	//爆発
 	void Explosive();
-	//凍結
-	void Cold();
-	//視界不良
-	void Dust();
+	//エフェクト群
+	void Effects(int effect_number);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
 	UCropData* crop_data;
@@ -70,6 +68,7 @@ private:
 	bool isExplosive = false;//爆発するかどうか
 	bool isCold = false;//凍結するかどうか
 	bool isDust = false;//視界不良を発生させるか
+	bool isSpark = false;
 	float m_explosive_area = 500.0f;//爆発範囲
 	float m_explosive_power = 1000.0f;//爆発の大きさ
 	TArray<FHitResult> m_hit_character;//当たったキャラクター

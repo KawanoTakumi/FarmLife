@@ -175,7 +175,14 @@ void APlayerCharacter::Interact()
 {
 
 	if (GetPerkObject && GetPerkObject->IsPlayerInside)
+	{
 		GetPerkObject->OpenUIWidget(this);
+	}
+	if (isPause)
+	{
+		PauseWidget->RemoveFromParent();
+		isPause = false;
+	}
 }
 
 //ˆê’â~ŠÖ”
@@ -200,7 +207,7 @@ void APlayerCharacter::Pause()
 		AWorldTimerActor* worldTimer = Cast<AWorldTimerActor>(FoundTimer);
 		if (worldTimer)
 			worldTimer->PauseTimer();
-
+		isPause = true;
 		PauseWidget->AddToViewport();
 		PC->bShowMouseCursor = true;
 		FInputModeUIOnly InputMode;
@@ -339,8 +346,7 @@ void APlayerCharacter::SparkToPlayer()
 	color.X = 0.6;//Ô
 	color.Y = 0.1;//—Î
 	color.Z = 0.7;//Â
-	EffectToPlayer(Effects[2], Effect_SE[2], color, 0.3);
-
+	EffectToPlayer(Effects[2], Effect_SE[2], color, 0.0);
 }
 
 

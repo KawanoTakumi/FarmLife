@@ -153,6 +153,9 @@ public:
 	UPROPERTY()
 	UGrobalGameInstance* G_GameInstance;
 
+	UPROPERTY()
+	bool isPause = false;
+
 
 private:
 	int32 money = 0;//Š‹à
