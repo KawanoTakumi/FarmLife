@@ -37,8 +37,5 @@ public:
 	UPROPERTY()
 	UNiagaraComponent* CacheNiagaraComp;//同じコンポーネントをキャッシュする用
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VFX")
-	TArray<UNiagaraSystem*> NewEffects;//変更用エフェクト
-
 	void FindAndCacheNiagara();//キャッシュ関数
 };

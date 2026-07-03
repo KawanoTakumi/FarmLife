@@ -54,7 +54,7 @@ void APlayerCharacter::BeginPlay()
 	if (effect_component)
 	{
 		effect_component->SetVFXVisible(false);
-		effect_component->ChangeVFXAsset(effect_component->NewEffects[0]);
+		effect_component->ChangeVFXAsset(Effects[0]);
 	}
 			//UI生成
 	if (GameMainUserWidgetClass)
@@ -294,65 +294,57 @@ void APlayerCharacter::GoToResult(bool Clear)
 	}
 }
 
-void APlayerCharacter::ColdToPlayer()
+void APlayerCharacter::EffectToPlayer(UNiagaraSystem* _effect, USoundBase* _sound, FVector _color,float _move_speed)
 {
-	move_speed = 0.3f;
-	GetWorld()->GetTimerManager().SetTimer(cold_timer,this,&APlayerCharacter::FinishedColdToPlayer,5.0f);
+	move_speed = _move_speed;
+	GetWorld()->GetTimerManager().SetTimer(effect_timer, this, &APlayerCharacter::FinishedEffectToPlayer, 5.0f);
 	//エフェクトを描画
 	if (effect_component)
-		effect_component->SetVFXVisible(true);
-
-	if (Cold_Sound)
 	{
-		set_sound_comp->PlaySound(Cold_Sound);
+		effect_component->ChangeVFXAsset(_effect);
+		effect_component->SetVFXVisible(true);
 	}
-
+	//音を鳴らす
+	if (Effect_SE.Num() > 0)
+	{
+		set_sound_comp->PlaySound(_sound);
+	}
+	//背景色変更
 	if (GameMainUserWidget)
 	{
-		FVector color;
-		color.X = 0.3f;//赤
-		color.Y = 0.8f;//緑
-		color.Z = 0.9f;//青
-		GameMainUserWidget->ChangeFilterEffect(color, 0.3f);
+		GameMainUserWidget->ChangeFilterEffect(_color, 0.4f);
 	}
-		
 }
 
-void APlayerCharacter::FinishedColdToPlayer()
+void APlayerCharacter::ColdToPlayer()
 {
-	move_speed = 1.0f;
-	//エフェクトを解除
-	if (effect_component)
-		effect_component->SetVFXVisible(false);
-
-	if (GameMainUserWidget)
-		GameMainUserWidget->ChangeFilterEffect(FVector::Zero(), 0.0f);
+	FVector color;
+	color.X = 0.1;//赤
+	color.Y = 0.4;//緑
+	color.Z = 0.7;//青
+	EffectToPlayer(Effects[0],Effect_SE[0],color,0.3);
 }
 
 void APlayerCharacter::DustToPlayer()
 {
-	move_speed = 0.5f;
-	GetWorld()->GetTimerManager().SetTimer(dust_timer, this, &APlayerCharacter::FinishedDustToPlayer, 8.0f);
-	if (effect_component)
-		effect_component->SetVFXVisible(true);
-
-	if (Blind_Sound)
-	{
-		set_sound_comp->PlaySound(Blind_Sound);
-	}
-
-	if (GameMainUserWidget)
-	{
-		FVector color;
-		color.X = 0.7f;
-		color.Y = 0.5f;
-		color.Z = 0.2f;
-		GameMainUserWidget->ChangeFilterEffect(color, 0.6f);
-	}
+	FVector color;
+	color.X = 0.6;//赤
+	color.Y = 0.4;//緑
+	color.Z = 0.0;//青
+	EffectToPlayer(Effects[1], Effect_SE[1], color, 0.5);
+}
+void APlayerCharacter::SparkToPlayer()
+{
+	FVector color;
+	color.X = 0.6;//赤
+	color.Y = 0.1;//緑
+	color.Z = 0.7;//青
+	EffectToPlayer(Effects[2], Effect_SE[2], color, 0.3);
 
 }
 
-void APlayerCharacter::FinishedDustToPlayer()
+
+void APlayerCharacter::FinishedEffectToPlayer()
 {
 	move_speed = 1.0f;
 	//エフェクトを解除
@@ -361,5 +353,4 @@ void APlayerCharacter::FinishedDustToPlayer()
 
 	if (GameMainUserWidget)
 		GameMainUserWidget->ChangeFilterEffect(FVector::Zero(), 0.0f);
-
 }

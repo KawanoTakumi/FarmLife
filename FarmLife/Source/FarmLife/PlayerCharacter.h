@@ -62,13 +62,15 @@ public:
 
 	void GoToResult(bool clear);//リザルト画面移行
 
+	void EffectToPlayer(UNiagaraSystem* _effect,USoundBase* _sound,FVector color,float _move_speed);
+
 	void ColdToPlayer();//凍結
 
-	void FinishedColdToPlayer();//凍結終了
+	void FinishedEffectToPlayer();//凍結終了
 
 	void DustToPlayer();//視界不良
 
-	void FinishedDustToPlayer();//視界不良終了
+	void SparkToPlayer();//感電
 
 	void OnWidgetClosed() { PauseWidget = nullptr; };//UIを削除する
 
@@ -111,13 +113,13 @@ public:
 	UPROPERTY(EditAnywhere, Category = "UI")
 	TSubclassOf<UPauseWidget> PauseWidgetClass;
 
-	//視界不良SE
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SE")
-	USoundBase* Blind_Sound;
+	//エフェクト配列
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VFX")
+	TArray<UNiagaraSystem*> Effects;
 
-	//凍結SE
+	//エフェクトSE
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SE")
-	USoundBase* Cold_Sound;
+	TArray<USoundBase*> Effect_SE;
 
 	//一時停止用画像
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Image")
@@ -159,8 +161,7 @@ private:
 	int32 use_hoe_count = 30;//採取可能回数
 	int32 use_max_count = 30;//最大採取可能回数
 	float move_speed = 1.0f;
-	FTimerHandle cold_timer;
-	FTimerHandle dust_timer;
+	FTimerHandle effect_timer;
 	UNiagaraSettingComponent* effect_component;//エフェクトコンポーネント
 	USetSEComponent* set_sound_comp;
 };
