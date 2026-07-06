@@ -21,7 +21,7 @@ void UStageSelectWidget::NativeConstruct()
     
     if (game_instance->g_result_rank.Num() < 1)
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < AllStages.Num(); i++)
             game_instance->g_result_rank.Add(0);
     }
     Init();

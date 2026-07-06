@@ -224,18 +224,27 @@ void APlayerCharacter::UnPauseImageChange()
 
 }
 
-void APlayerCharacter::AddMoney(int32 amount)
+void APlayerCharacter::AddMoney(int32 amount,bool isBuy)
 {
-	money += amount * perk_component->multi_bonus;
+	//購入の場合は金額倍化を適用しない
+	if (isBuy)
+	{
+		money -= amount;
+	}
+	else
+	{
+		money += amount * perk_component->multi_bonus;
+	}
+	//お金が-にならないように設定
 	if (money < 0)money = 0;
-
-	//お金が目標金額になったらクリアさせる
-	if (money >= GoalMoney)
-		GoToResult(true);
 
 	//UI更新
 	if (GameMainUserWidget)
 		GameMainUserWidget->UpdateMoney(money);
+
+	//お金が目標金額になったらクリアさせる
+	if (money >= GoalMoney)
+		GoToResult(true);
 }
 
 int32 APlayerCharacter::ReturnMoney()

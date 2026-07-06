@@ -97,7 +97,7 @@ void ABaseCrop::Harvest(bool OnEnemy)
 				APlayerCharacter* player_character = Cast<APlayerCharacter>(character);
 
 				if (player_character)
-					player_character->AddMoney(crop_data->drop_money);
+					player_character->AddMoney(crop_data->drop_money,false);
 			}
 		}
 	}
@@ -163,7 +163,6 @@ void ABaseCrop::Effects(int _effect_number)
 				break;
 			case 2: player_character->SparkToPlayer();
 				break;
-
 			}
 		}
 	}

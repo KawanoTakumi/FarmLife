@@ -50,7 +50,7 @@ public:
 
 	void Pause();//一時停止
 
-	void AddMoney(int32 amount);//お金追加
+	void AddMoney(int32 amount,bool isBuy);//お金追加
 
 	int32 ReturnMoney();//お金の値を返す
 
@@ -154,17 +154,19 @@ public:
 	UGrobalGameInstance* G_GameInstance;
 
 	UPROPERTY()
-	bool isPause = false;
+	bool isPause = false;//ポーズ中かどうか
+	
+	UPROPERTY()
+	int32 money = 0;//所持金
 
 
 private:
-	int32 money = 0;//所持金
 	int32 atk_power = 1;//攻撃力
 	int32 atk_radius = 90;//攻撃範囲
 	int32 use_hoe_count = 30;//採取可能回数
 	int32 use_max_count = 30;//最大採取可能回数
-	float move_speed = 1.0f;
-	FTimerHandle effect_timer;
+	float move_speed = 1.0f;//移動速度
+	FTimerHandle effect_timer;//エフェクトタイマー
 	UNiagaraSettingComponent* effect_component;//エフェクトコンポーネント
-	USetSEComponent* set_sound_comp;
+	USetSEComponent* set_sound_comp;//サウンドコンポーネント
 };

@@ -95,7 +95,7 @@ void USkillNodeWidget::OnClicked()
             //画像を変更
             Icon->SetBrushFromTexture(ParkData->ClickedIcon);
             //お金減算
-            Player->AddMoney(-ParkData->Cost);
+            Player->AddMoney(ParkData->Cost,true);
             //表示更新
             if (SkillTree && SkillTree->NowMoney)
             {
