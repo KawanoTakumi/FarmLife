@@ -139,7 +139,8 @@ void APlayerCharacter::Attack()
 	FVector forward = FirstPersonCamera->GetForwardVector();
 	FVector end     = start + (forward * 400.0f);
 
-	float radius    = atk_radius;//攻撃の範囲
+	//float radius    = atk_radius;//攻撃の範囲
+	float radius    = 0.1;//攻撃の範囲
 	int   m_calc_attack = atk_power + perk_component->attack_bonus;
 	FHitResult hit;
 	FCollisionQueryParams params;
@@ -159,6 +160,10 @@ void APlayerCharacter::Attack()
 	{
 		if (hit.GetActor()->ActorHasTag("Crop"))
 		{
+			//爆発耐性を取得可能な場合ここで適用させる
+			if (!isExplosiveResist && perk_component->isExpResist)
+				isExplosiveResist = true;
+
 			CountHoeUse();
 			UGameplayStatics::ApplyDamage(
 				hit.GetActor(),
@@ -233,6 +238,11 @@ void APlayerCharacter::AddMoney(int32 amount,bool isBuy)
 	}
 	else
 	{
+		//もし、VenomResistを取得していた場合、-を消す
+		if (perk_component->isVenomResist && amount < 0)
+			amount = amount * -1;
+
+		//Multi_bonusを加味した値を入手する
 		money += amount * perk_component->multi_bonus;
 	}
 	//お金が-にならないように設定
@@ -334,6 +344,9 @@ void APlayerCharacter::EffectToPlayer(UNiagaraSystem* _effect, USoundBase* _soun
 
 void APlayerCharacter::ColdToPlayer()
 {
+	if (perk_component->isColdResist)
+		return;
+
 	FVector color;
 	color.X = 0.1;//赤
 	color.Y = 0.4;//緑
@@ -343,6 +356,9 @@ void APlayerCharacter::ColdToPlayer()
 
 void APlayerCharacter::DustToPlayer()
 {
+	if (perk_component->isDustResist)
+		return;
+
 	FVector color;
 	color.X = 0.6;//赤
 	color.Y = 0.4;//緑
@@ -351,6 +367,9 @@ void APlayerCharacter::DustToPlayer()
 }
 void APlayerCharacter::SparkToPlayer()
 {
+	if (perk_component->isSparkResist)
+		return;
+
 	FVector color;
 	color.X = 0.6;//赤
 	color.Y = 0.1;//緑

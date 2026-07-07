@@ -81,8 +81,6 @@ void USkillNodeWidget::OnClicked()
 {
     if (!ParkComp || !ParkData || !Player) return;
 
-
-
     if (ParkComp->CanAcquirePark(ParkData))
     {
         //Š‹à‚ªƒRƒXƒg‚æ‚è‘å‚«‚¢ê‡

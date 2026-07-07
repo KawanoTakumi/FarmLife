@@ -16,7 +16,12 @@ enum class ParkType : uint8
 	AddCrop,
 	AddAttck,
 	AddMaxSize,
-	AddHoeCount
+	AddHoeCount,
+	ExplosiveResist,
+	DustResist,
+	ColdResist,
+	SparkResist,
+	VenomResist,
 };
 
 /**

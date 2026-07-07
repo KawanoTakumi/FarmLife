@@ -39,7 +39,30 @@ void UResultWidget::NativeConstruct()
 	if (Result_UseCount_Text)
 		Result_UseCount_Text->SetText(FText::AsNumber(use_count));
 
+	//ランク付けのタイマー一覧を表示
+	rank_s_timer = (max_timer / 10) * 3;
+	if (Rank_S_Timer_Text_Min && Rank_S_Timer_Text_Second)
+		Calc_Timer(Rank_S_Timer_Text_Min, Rank_S_Timer_Text_Second, rank_s_timer);
+	rank_a_timer = (max_timer / 10) * 6;
+	if (Rank_A_Timer_Text_Min && Rank_A_Timer_Text_Second)
+		Calc_Timer(Rank_A_Timer_Text_Min, Rank_A_Timer_Text_Second, rank_a_timer);
+	rank_b_timer = (max_timer / 10) * 8;
+	if (Rank_B_Timer_Text_Min && Rank_B_Timer_Text_Second)
+		Calc_Timer(Rank_B_Timer_Text_Min, Rank_B_Timer_Text_Second, rank_b_timer);
+	rank_c_timer = max_timer;
+	if (Rank_B_Timer_Text_Min && Rank_B_Timer_Text_Second)
+		Calc_Timer(Rank_C_Timer_Text_Min,Rank_C_Timer_Text_Second,rank_c_timer);
+
 	SetResultRank(result_timer,g_gameInstance->isWin);
+}
+
+void UResultWidget::Calc_Timer(UTextBlock* MinText, UTextBlock* SecText, int timer)
+{
+	calc_min = timer / 60;//分を算出
+	calc_sec = timer - (calc_min * 60);//秒を算出
+	//入力
+	MinText->SetText(FText::AsNumber(calc_min));
+	SecText->SetText(FText::AsNumber(calc_sec));
 }
 
 //スタートを押された時

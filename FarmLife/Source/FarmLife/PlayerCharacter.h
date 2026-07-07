@@ -157,6 +157,9 @@ public:
 	bool isPause = false;//ƒ|[ƒY’†‚©‚Ç‚¤‚©
 	
 	UPROPERTY()
+	bool isExplosiveResist = false;//”š”­‘Ï«
+
+	UPROPERTY()
 	int32 money = 0;//Š‹à
 
 

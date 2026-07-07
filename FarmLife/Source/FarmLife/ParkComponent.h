@@ -39,6 +39,13 @@ public:
 	int   max_size_bonus = 0;//最大出現数ボーナス
 	int   max_hoe_count = 0; //鍬の使用可能回数
 
+	//状態異常を無効かするか
+	bool isExpResist = false;
+	bool isDustResist = false;
+	bool isColdResist = false;
+	bool isSparkResist = false;
+	bool isVenomResist = false;
+
 	void ApplyPark(UParkData* park);
 
 	void Recalcurate();

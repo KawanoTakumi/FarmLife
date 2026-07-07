@@ -116,6 +116,8 @@ void ABaseCrop::Harvest(bool OnEnemy)
 
 void ABaseCrop::Explosive()
 {
+
+
 	//爆発の中心座標
 	FVector m_this_location = GetActorLocation();
 	//少し座標を下にして打ち上げれるように設定
@@ -134,6 +136,11 @@ void ABaseCrop::Explosive()
 			if (hit.GetActor()->ActorHasTag("Player"))
 			{				
 				APlayerCharacter* player = Cast<APlayerCharacter>(hit.GetActor());
+				
+				//爆発耐性を持っていた場合、ここで終了する
+				if (player->isExplosiveResist)
+					return;
+
 				//距離と方向の計算
 				FVector dir = m_this_location - player->GetActorLocation();
 				dir.Normalize();

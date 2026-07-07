@@ -67,6 +67,12 @@ void UParkComponent::Recalcurate()
 	max_size_bonus = 0.0f;
 	max_hoe_count = 0;
 
+	isExpResist = false;
+	isDustResist = false;
+	isColdResist = false;
+	isSparkResist = false;
+
+
 	for (auto parks : OwnedParks)
 	{
 		switch (parks->ParkType)
@@ -95,6 +101,30 @@ void UParkComponent::Recalcurate()
 		{
 			max_hoe_count += parks->Value;
 			break;
+		}
+		case ParkType::ExplosiveResist:
+		{
+			isExpResist = true;
+			break;
+		}
+		case ParkType::DustResist:
+		{
+			isDustResist = true;
+			break;
+		}
+		case ParkType::ColdResist:
+		{
+			isColdResist = true;
+			break;
+		}
+		case ParkType::SparkResist:
+		{
+			isSparkResist = true;
+			break;
+		}
+		case ParkType::VenomResist:
+		{
+			isVenomResist = true;
 		}
 		}
 	}
