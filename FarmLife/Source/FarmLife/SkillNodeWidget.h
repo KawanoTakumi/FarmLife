@@ -33,6 +33,14 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "position")
     FVector2D SetPosition;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Text")
+    FText not_buy_text;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Color")
+    FSlateColor draw_color;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Color")
+    FSlateColor normal_color;
+
     UPROPERTY()
     bool bOwned = false;
     UPROPERTY()

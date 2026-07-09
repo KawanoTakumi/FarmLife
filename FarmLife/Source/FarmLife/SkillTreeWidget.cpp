@@ -71,56 +71,6 @@ void USkillTreeWidget::Init(UParkComponent* InComp)
     }
 }
 
-int32 USkillTreeWidget::NativePaint(const FPaintArgs& Args, const FGeometry& AllottedGeometry,
-    const FSlateRect& MyCullingRect, FSlateWindowElementList& OutDrawElements,
-    int32 LayerId, const FWidgetStyle& InWidgetStyle, bool bParentEnabled) const
-{
-    int32 MaxLayerID = Super::NativePaint(Args, AllottedGeometry, MyCullingRect, OutDrawElements, LayerId, InWidgetStyle, bParentEnabled);
-    ////ここでPerk間の線を描画する
-    //if (AllParks.Num() != 0)
-    //{
-    //    for (int count = 0; count < AllParks.Num(); count++)
-    //    {
-    //        if (AllParks[count]->bCan == false && AllParks[count]->bOwned == false)
-    //        {
-    //            count++;
-    //            continue;
-    //        }
-    //        //現在のポイント取得
-    //        FVector2D start_vec = { 
-    //            StartPerkPosX + 50 + AllParks[count]->PositionGrid.X * PerkRange,
-    //            StartPerkPosY + 50 + AllParks[count]->PositionGrid.Y * PerkRange
-    //        };
-
-    //        //要求パーク毎の終点を求める
-    //        for (int req_perk = 0; req_perk < AllParks[count]->RequiredPerk.Num(); req_perk++)
-    //        {
-    //            FVector2D end_vec = {
-    //            StartPerkPosX + 50 + AllParks[count]->RequiredPerk[req_perk]->PositionGrid.X * PerkRange,
-    //            StartPerkPosY + 50 + AllParks[count]->RequiredPerk[req_perk]->PositionGrid.Y * PerkRange
-    //            };
-    //            FLinearColor linear_color;
-    //            if (AllParks[count]->bOwned)
-    //                linear_color = FLinearColor::Yellow;
-    //            else if (AllParks[count]->bCan)
-    //                linear_color = FLinearColor::Green;
-    //            //線を描画する為の線の座標を設定
-    //            TArray<FVector2D> draw_line_pos = { start_vec,end_vec };
-
-    //            FSlateDrawElement::MakeLines(
-    //                OutDrawElements,
-    //                MaxLayerID + 1,
-    //                AllottedGeometry.ToPaintGeometry(),
-    //                draw_line_pos,
-    //                ESlateDrawEffect::None,
-    //                linear_color);
-    //        }
-    //    }
-    //}
-    return MaxLayerID + 1;
-}
-
-
 void USkillTreeWidget::RefreshAll()
 {
     for (auto Node : Nodes)

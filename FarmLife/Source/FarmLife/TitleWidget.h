@@ -79,6 +79,8 @@ public:
     void OnAssetViewClicked();
 
     void ExecuteTransition();//レベル遷移
+
+
 private:
     FTimerHandle transition_timer;//タイマーハンドル
     float delay_timer = 0.0f;//タイマー

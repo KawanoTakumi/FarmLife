@@ -32,6 +32,7 @@ void USkillNodeWidget::NativeOnMouseEnter(const FGeometry& MyGeometry, const FPo
         if (!ParkData)return;
 
         SkillTree->PerkDesc->SetText(ParkData->Description);
+        SkillTree->PerkDesc->SetColorAndOpacity(normal_color);
         SkillTree->PerkName->SetText(ParkData->DisplayName);
         SkillTree->PerkCost->SetText(FText::AsNumber(ParkData->Cost));
     }
@@ -104,7 +105,10 @@ void USkillNodeWidget::OnClicked()
         }
         else
         {
-            SkillTree->PerkDesc->SetText(FText::FromString(TEXT(" Not To Money Cost")));
+            //説明テキスト更新
+            SkillTree->PerkDesc->SetText(not_buy_text);
+            //テキストの色を変更する
+            SkillTree->PerkDesc->SetColorAndOpacity(draw_color);
             if (dont_buy_se)
                 UGameplayStatics::PlaySound2D(GetWorld(), dont_buy_se);
 
