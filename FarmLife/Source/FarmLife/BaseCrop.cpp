@@ -104,11 +104,11 @@ void ABaseCrop::Harvest(bool OnEnemy)
 	//エフェクトを発生させるか
 	if (isExplosive)
 		Explosive();
-	if (isCold)
+	else if (isCold)
 		Effects(0);
-	if (isDust)
+	else if (isDust)
 		Effects(1);
-	if (isSpark)
+	else if (isSpark)
 		Effects(2);
 
 	Destroy();

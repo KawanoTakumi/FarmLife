@@ -342,6 +342,7 @@ void APlayerCharacter::EffectToPlayer(UNiagaraSystem* _effect, USoundBase* _soun
 	}
 }
 
+
 void APlayerCharacter::ColdToPlayer()
 {
 	if (perk_component->isColdResist)

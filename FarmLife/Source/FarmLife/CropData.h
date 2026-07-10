@@ -14,7 +14,7 @@ enum class CropType : uint8
 	Explosive,
 	Cold,
 	Dust,
-	Spark
+	Spark,
 };
 
 /**
